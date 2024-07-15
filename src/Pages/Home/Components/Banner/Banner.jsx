@@ -1,5 +1,5 @@
 import bannerPhoto from "../../../../../public/images/banner iphone.png"
-import Button from "../../../../SharedComponents/ShopNowButton/Button";
+import Button from "../../../../SharedComponents/ShopNowButton/ShopNowButton";
 
 const Banner = () => {
     return (
