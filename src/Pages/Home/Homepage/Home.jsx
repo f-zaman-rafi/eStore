@@ -1,9 +1,11 @@
-import iphone from '../../../../public/iphone.svg'
+import Banner from "../Components/Banner/Banner";
+import Collage from "../Components/ProductCollage/Collage";
+
 const Home = () => {
     return (
-        <div>
-            <p>I am home</p>
-
+        <div className="pb-52">
+            <Banner />
+            <Collage />
         </div>
     );
 };

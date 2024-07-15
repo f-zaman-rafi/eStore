@@ -1,13 +1,18 @@
+import wishlist from '../../../public/images/heart.svg'
+import cart from '../../../public/images/Cart1.svg'
+import user from '../../../public/images/user.svg'
+import logo from '../../../public/images/Logo Vector.png'
 
 const Navbar = () => {
 
     const navlink = <>
-        <li><a>Item 1</a></li>
-        <li><a>Item 2</a></li>
-        <li><a>Item 3</a></li>
+        <li><a>Home</a></li>
+        <li><a>About</a></li>
+        <li><a>Contact Us</a></li>
+        <li><a>Blog</a></li>
     </>
     return (
-        <div>
+        <div className='md:mx-40'>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -31,15 +36,17 @@ const Navbar = () => {
                             {navlink}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <img className='h-5' src={logo} alt="" />
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         {navlink}
                     </ul>
                 </div>
-                <div className="navbar-end">
-                    <a className="btn">Button</a>
+                <div className="navbar-end flex gap-3">
+                    <img className='h-5' src={wishlist} alt="" />
+                    <img className='h-5' src={cart} alt="" />
+                    <img className='h-4' src={user} alt="" />
                 </div>
             </div>
         </div>
