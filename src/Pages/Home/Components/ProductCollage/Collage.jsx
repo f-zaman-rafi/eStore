@@ -10,11 +10,11 @@ import ShopNowButton from '../../../../SharedComponents/ShopNowButton/ShopNowBut
 const Collage = () => {
     return (
         <div className='flex flex-col lg:flex-row lg:max-h-[600px] overflow-hidden'>
-            <div className='flex-1'>
+            <div className='flex-1 flex lg:flex-col flex-col-reverse'>
 
 
 
-                <div className='relative md:justify-center  lg:justify-start min-h-[328px] flex flex-col md:flex-row items-center lg:items-start py-10 lg:py-0 text-center md:text-start'>
+                <div className='relative md:justify-center lg:justify-start min-h-[328px] flex flex-col md:flex-row items-center lg:items-start py-10 lg:py-0 text-center md:text-start'>
                     <div className='flex-1 '>
                         <img className=' lg:absolute lg:h-[343px] lg:-left-16 h-[300px] mx-10 lg:m-0 ' src={ps5} alt="" />
                     </div>
