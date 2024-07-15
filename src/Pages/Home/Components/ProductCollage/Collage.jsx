@@ -3,7 +3,6 @@ import ps5 from '../../../../../public/images/PlayStation.png'
 import airpod from '../../../../../public/images/headphone.png'
 import visionPro from '../../../../../public/images/visionPro.png'
 import macPro from '../../../../../public/images/MacBook Pro 14.png'
-import ShopNowButton from '../../../../SharedComponents/ShopNowButton/ShopNowButton'
 
 
 
@@ -34,7 +33,7 @@ const Collage = () => {
 
 
                     <div className='flex-1 flex flex-col md:flex-row-reverse text-center md:text-end lg:text-start items-center lg:items-start relative bg-[#EDEDED] py-10 lg:py-0'>
-                        <div className='flex-1 '><img className='lg:absolute lg:right-1/2 h-[300px] lg:h-full' src={airpod} alt="" /></div>
+                        <div className='flex-1 '><img className='lg:absolute lg:right-[53%] h-[300px] lg:h-full' src={airpod} alt="" /></div>
                         <div className='flex-1 lg:pl-40 lg:pt-12'>
                             <p className='lg:w-1/2 text-3xl font-medium pb-3'>Apple AirPods Max</p>
                             <p className='text-sm font-medium leading-relaxed text-[#919191]'>Computational audio. Listen, it's powerful</p>
@@ -43,7 +42,7 @@ const Collage = () => {
 
 
                     <div className='flex-1 flex flex-col md:flex-row text-center md:text-start lg:text-start items-center lg:items-start relative bg-[#353535] py-10 lg:py-0 overflow-hidden'>
-                        <div className='flex-1 lg:flex-auto '><img className='lg:absolute lg:right-1/2 h-[300px] lg:h-full' src={visionPro} alt="" /></div>
+                        <div className='flex-1 lg:flex-auto '><img className='lg:absolute lg:right-[51%] h-[300px] lg:h-full' src={visionPro} alt="" /></div>
                         <div className='flex-1 lg:flex-auto lg:pl-40 lg:pt-12'>
                             <p className='lg:w-1/2 text-3xl font-medium pb-3 text-white'>Apple Vision Pro</p>
                             <p className='text-sm font-medium leading-relaxed text-[#919191] lg:pb-10'>An immersive way to experience entertainment</p>

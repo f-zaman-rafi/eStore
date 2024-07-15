@@ -11,11 +11,11 @@ const Banner = () => {
                     <p className="text-lg font-medium text-[#919191] w-1/2 md:w-3/4 lg:w-full mx-auto">Created to change everything for the better. For everyone</p>
                     <p><Button /></p>
                 </div>
-                <div className="lg:pt-60 pt-12">
+                <div className="lg:pt-60 lg:hover:pt-12 pt-12" style={{ transitionDuration: '1500ms' }}>
                     <img src={bannerPhoto} alt="" />
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
