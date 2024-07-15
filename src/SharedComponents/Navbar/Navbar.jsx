@@ -12,7 +12,7 @@ const Navbar = () => {
         <li><a>Blog</a></li>
     </>
     return (
-        <div className='md:mx-40'>
+        <div className='lg:mx-40 md:mx-10 mx-5'>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
