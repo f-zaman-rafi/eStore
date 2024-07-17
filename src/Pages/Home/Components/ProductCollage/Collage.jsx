@@ -47,6 +47,7 @@ const Collage = () => {
                             <p className='lg:w-1/2 text-3xl font-medium pb-3 text-white'>Apple Vision Pro</p>
                             <p className='text-sm font-medium leading-relaxed text-[#919191] lg:pb-10'>An immersive way to experience entertainment</p>
 
+
                         </div>
 
                     </div>

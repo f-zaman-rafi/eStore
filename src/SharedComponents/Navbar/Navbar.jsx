@@ -1,7 +1,7 @@
 import wishlist from '../../../public/images/heart.svg'
 import cart from '../../../public/images/Cart1.svg'
 import user from '../../../public/images/user.svg'
-import logo from '../../../public/images/Logo Vector.png'
+import logo from '../../../public/icons/Logo.svg'
 
 const Navbar = () => {
 
@@ -12,7 +12,7 @@ const Navbar = () => {
         <li><a>Blog</a></li>
     </>
     return (
-        <div className='lg:mx-40 md:mx-10 mx-5'>
+        <div className='lg:mx-40 md:mx-10 mx-4'>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">

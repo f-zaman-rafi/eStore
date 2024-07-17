@@ -1,0 +1,14 @@
+<svg width="48.000000" height="48.000000" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip153_306">
+			<rect id="Icon/Cameras" rx="-0.500000" width="47.000000" height="47.000000" transform="translate(0.500000 0.500000)" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<g clip-path="url(#clip153_306)">
+		<path id="Vector" d="M12 14C13.06 14 14.07 13.57 14.82 12.82C15.57 12.07 16 11.06 16 10C16 9.46 16.21 8.96 16.58 8.58C16.96 8.21 17.46 8 18 8L30 8C30.53 8 31.03 8.21 31.41 8.58C31.78 8.96 32 9.46 32 10C32 11.06 32.42 12.07 33.17 12.82C33.92 13.57 34.93 14 36 14L38 14C39.06 14 40.07 14.42 40.82 15.17C41.57 15.92 42 16.93 42 18L42 36C42 37.06 41.57 38.07 40.82 38.82C40.07 39.57 39.06 40 38 40L10 40C8.93 40 7.92 39.57 7.17 38.82C6.42 38.07 6 37.06 6 36L6 18C6 16.93 6.42 15.92 7.17 15.17C7.92 14.42 8.93 14 10 14L12 14Z" stroke="#000000" stroke-opacity="1.000000" stroke-width="2.000000" stroke-linejoin="round"/>
+		<path id="Vector" d="M24 32C20.68 32 18 29.31 18 26C18 22.68 20.68 20 24 20C27.31 20 30 22.68 30 26C30 29.31 27.31 32 24 32Z" stroke="#000000" stroke-opacity="1.000000" stroke-width="2.000000" stroke-linejoin="round"/>
+	</g>
+</svg>
