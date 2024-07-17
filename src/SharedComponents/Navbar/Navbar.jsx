@@ -2,6 +2,7 @@ import wishlist from '../../../public/images/heart.svg'
 import cart from '../../../public/images/Cart1.svg'
 import user from '../../../public/images/user.svg'
 import logo from '../../../public/icons/Logo.svg'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -46,7 +47,7 @@ const Navbar = () => {
                 <div className="navbar-end flex gap-3">
                     <img className='h-5' src={wishlist} alt="" />
                     <img className='h-5' src={cart} alt="" />
-                    <img className='h-4' src={user} alt="" />
+                    <Link to='/sign-in'><img className='h-4' src={user} alt="" /></Link>
                 </div>
             </div>
         </div>
