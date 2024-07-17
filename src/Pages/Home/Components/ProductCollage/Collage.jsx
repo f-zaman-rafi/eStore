@@ -25,10 +25,6 @@ const Collage = () => {
                 </div>
 
 
-
-
-
-
                 <div className='flex flex-col lg:flex-row'>
 
 
@@ -42,7 +38,7 @@ const Collage = () => {
 
 
                     <div className='flex-1 flex flex-col md:flex-row text-center md:text-start lg:text-start items-center lg:items-start relative bg-[#353535] py-10 lg:py-0 overflow-hidden'>
-                        <div className='flex-1 lg:flex-auto '><img className='lg:absolute lg:right-[51%] h-[300px] lg:h-full' src={visionPro} alt="" /></div>
+                        <div className='flex-1 lg:flex-auto '><img className='lg:absolute lg:right-[51%] mx-10 h-[200px] md:h-[300px] lg:h-full' src={visionPro} alt="" /></div>
                         <div className='flex-1 lg:flex-auto lg:pl-40 lg:pt-12'>
                             <p className='lg:w-1/2 text-3xl font-medium pb-3 text-white'>Apple Vision Pro</p>
                             <p className='text-sm font-medium leading-relaxed text-[#919191] lg:pb-10'>An immersive way to experience entertainment</p>
@@ -60,7 +56,7 @@ const Collage = () => {
             <div className='flex-1 bg-[#EDEDED] overflow-hidden py-5 lg:py-0'>
                 <div className='lg:relative flex flex-col md:flex-row-reverse lg:flex-col items-center lg:items-start text-center md:text-start'>
                     <div className='flex-1'>
-                        <img className='lg:absolute lg:-bottom-[20%] lg:left-2/3 lg:right-1/2 h-[280px] lg:h-full' src={macPro} alt="" />
+                        <img className='lg:absolute lg:-bottom-[20%] lg:left-2/3 lg:right-1/2 h-52 md:h-[280px] lg:h-full px-5 md:px-0' src={macPro} alt="" />
                     </div>
                     <div className=' lg:pl-[50px] lg:pt-40 space-y-4 flex-1 flex lg:flow-row flex-col items-center py-5 md:items-end text-center md:text-start lg:items-start'>
                         <p className='text-3xl lg:text-[64px] font-medium w-1/2 leading-[60px] text-black'><span className='font-extralight'>Macbook</span> Air</p>

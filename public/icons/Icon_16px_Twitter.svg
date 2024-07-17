@@ -1,0 +1,14 @@
+<svg width="16.000000" height="16.000000" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip366_3789">
+			<rect id="Icon/16px/Twitter" rx="-0.500000" width="15.000000" height="15.000000" transform="translate(0.500000 0.500000)" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<rect id="Icon/16px/Twitter" rx="-0.500000" width="15.000000" height="15.000000" transform="translate(0.500000 0.500000)" fill="#FFFFFF" fill-opacity="0"/>
+	<g clip-path="url(#clip366_3789)">
+		<path id="Twitter" d="M16 2.91C15.41 3.17 14.77 3.36 14.11 3.44C14.79 3.02 15.31 2.36 15.55 1.58C14.92 1.96 14.22 2.24 13.47 2.39C12.87 1.74 12.02 1.33 11.07 1.33C9.26 1.33 7.79 2.84 7.79 4.69C7.79 4.96 7.82 5.21 7.88 5.46C5.15 5.32 2.73 3.98 1.11 1.94C0.83 2.44 0.66 3.02 0.66 3.64C0.66 4.8 1.24 5.83 2.12 6.44C1.59 6.42 1.08 6.27 0.64 6.02L0.64 6.06C0.64 7.69 1.77 9.05 3.27 9.36C3 9.44 2.71 9.48 2.41 9.48C2.2 9.48 1.99 9.46 1.79 9.42C2.21 10.76 3.42 11.73 4.86 11.76C3.73 12.66 2.32 13.2 0.78 13.2C0.51 13.2 0.25 13.18 0 13.15C1.45 14.1 3.17 14.66 5.03 14.66C11.07 14.66 14.37 9.53 14.37 5.09C14.37 4.94 14.36 4.79 14.36 4.65C15 4.17 15.56 3.58 16 2.91Z" fill="#FFFFFF" fill-opacity="1.000000" fill-rule="evenodd"/>
+	</g>
+</svg>
