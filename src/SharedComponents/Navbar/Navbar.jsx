@@ -12,7 +12,7 @@ const Navbar = () => {
         <li><a>Blog</a></li>
     </>
     return (
-        <div className='lg:mx-40 md:mx-10 mx-4'>
+        <div className='lg:px-40 md:px-10 px-4'>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
