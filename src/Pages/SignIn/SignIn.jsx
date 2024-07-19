@@ -4,12 +4,13 @@ import useAuth from "../../Hooks/useAuth";
 
 const SignIn = () => {
 
-    const { signInWithGoogle } = useAuth();
+    const { signInWithGoogle, user } = useAuth();
 
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
     }
+    console.log(user)
 
     return (
         <div className="my-20">
