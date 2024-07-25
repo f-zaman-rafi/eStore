@@ -10,13 +10,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ionic/react": "^8.2.6",
+    "aceternity-ui": "^0.2.2",
+    "add": "^2.0.6",
+    "clsx": "^2.1.1",
     "firebase": "^10.12.4",
+    "framer-motion": "^11.3.18",
+    "ionicons": "^7.4.0",
+    "lamp": "^1.0.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.1",
     "react-router-dom": "^6.24.1",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "styled-components": "^6.1.12",
+    "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

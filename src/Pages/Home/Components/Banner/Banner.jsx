@@ -4,7 +4,7 @@ import Button from "../../../../SharedComponents/ShopNowButton/ShopNowButton";
 const Banner = () => {
     return (
         <div className="max-h-[790px] lg:max-h-[632px] bg-[#211C24FF] overflow-hidden">
-            <div className="lg:mx-40 flex flex-col lg:flex-row justify-center lg:justify-between text-center lg:text-start items-center lg:items-start">
+            <div className="lg:mx-40 flex flex-col lg:flex-row justify-center lg:justify-between text-center lg:text-start items-center lg:items-start lg:mb-12">
                 <div className="pt-[88px] lg:pt-[188px] space-y-6">
                     <p className="text-[#7a777c] border-black text-2xl font-semibold">Pro.Beyond.</p>
                     <p className="text-8xl text-white w-3/4 md:w-full mx-auto"><span className="font-thin">IPhone 14</span> Pro</p>
