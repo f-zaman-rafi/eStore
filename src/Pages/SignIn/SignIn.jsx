@@ -11,7 +11,7 @@ const SignIn = () => {
   const { signIn, createUser, updateUserProfile, signInWithGoogle, signInWithGitHub, user, setUser } = useAuth();
 
   // react hook form
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset, getValues } = useForm();
 
 
   // create user & Login User
@@ -74,6 +74,12 @@ const SignIn = () => {
     reset();
   };
 
+  // validate password
+  const validateConfirmPassword = (value) => {
+    const { password } = getValues();
+    return password === value || "Passwords not matching"
+  }
+
   console.log(user)
 
   return (
@@ -114,8 +120,8 @@ const SignIn = () => {
                   className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Email address"
                 />
-                {errors.logInEmail?.type === 'required' && <p role="alert">Email is required</p>}
               </div>
+              {errors.logInEmail?.type === 'required' && <p role="alert"><span className="text-red-500 ml-2 text-xs">Email is required</span></p>}
 
               <div className="relative flex items-center mt-4">
                 <span className="absolute">
@@ -129,8 +135,8 @@ const SignIn = () => {
                   className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Password"
                 />
-                {errors.logInPassword?.type === 'required' && <p role="alert">Password is required</p>}
               </div>
+              {errors.logInPassword?.type === 'required' && <p role="alert"><span className="text-red-500 ml-2 text-xs">Password is required</span></p>}
 
               <div className="mt-6">
                 <button
@@ -162,10 +168,10 @@ const SignIn = () => {
                   className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="username"
                 />
-                {errors.Username?.type === 'required' && <p role="alert">username is required</p>}
               </div>
+              {errors.username?.type === 'required' && <p role="alert"><span className="text-red-500 ml-2 text-xs">username is required</span></p>}
 
-              <div className="relative flex items-center mt-6">
+              <div className="relative flex items-center mt-4">
                 <span className="absolute">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -177,8 +183,8 @@ const SignIn = () => {
                   className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Email address"
                 />
-                {errors.email?.type === 'required' && <p role="alert">email is required</p>}
               </div>
+              {errors.email?.type === 'required' && <p role="alert"><span className="text-red-500 ml-2 text-xs">email is required</span></p>}
 
               <div className="relative flex items-center mt-4">
                 <span className="absolute">
@@ -187,13 +193,22 @@ const SignIn = () => {
                   </svg>
                 </span>
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "Password is required",
+                    validate: {
+                      minLength: value => value.length >= 8 || "Must be at least 8 characters long",
+                      hasLowerCase: value => /[a-z]/.test(value) || "Must contain at least one lowercase letter",
+                      hasUpperCase: value => /[A-Z]/.test(value) || "Must contain at least one uppercase letter",
+                      hasNumber: value => /\d/.test(value) || "Must contain at least one number",
+                      hasSpecialChar: value => /[@$!%*?&]/.test(value) || "Must contain at least one special character",
+                    }
+                  })}
                   type="password"
                   className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Password"
                 />
-                {errors.password?.type === 'required' && <p role="alert">password is required</p>}
               </div>
+              {errors.password && <span className="text-red-500 ml-2 text-xs">{errors.password.message}</span>}
 
               <div className="relative flex items-center mt-4">
                 <span className="absolute">
@@ -202,13 +217,17 @@ const SignIn = () => {
                   </svg>
                 </span>
                 <input
-                  {...register("confirmPassword", { required: true })}
+                  {...register("confirmPassword", {
+                    required: "Password is required",
+                    validate: validateConfirmPassword
+
+                  })}
                   type="password"
                   className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Confirm Password"
                 />
-                {errors.confirmPassword?.type === 'required' && <p role="alert">password is not matching</p>}
               </div>
+              {errors.confirmPassword && <span className="text-red-500 ml-2 text-xs">{errors.confirmPassword.message}</span>}
 
               <div className="mt-6">
                 <button
