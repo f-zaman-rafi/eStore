@@ -2,30 +2,49 @@ import { useState } from 'react';
 import logo from "../../../public/icons/Logo.svg"
 import useAuth from '../../Hooks/useAuth';
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 
 
 const SignIn = () => {
   const [activeTab, setActiveTab] = useState('sign-in');
-  const { signIn, createUser, signInWithGoogle, signInWithGitHub } = useAuth();
+  const { signIn, createUser, updateUserProfile, signInWithGoogle, signInWithGitHub, user, setUser } = useAuth();
 
   // react hook form
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-  const onSubmit = async data => {
+
+  // create user & Login User
+
+  const onSubmit = async (data) => {
     try {
-      const result = await createUser(data.logInEmail, data.logInPassword);
-      console.log(result)
-    }
-    catch (error) {
-      console.error(error);
+      if (activeTab === 'sign-up') {
+        // create user
+        const res = await createUser(data.email, data.password);
+        const loggedUser = res.user;
+
+        // update user profile
+        await updateUserProfile(data.username)
+
+        // set user state
+        setUser({ ...loggedUser, displayName: data.username })
+
+        // toast
+        toast.success('Registered Successfully');
+
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 
   // tab Handle Function
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    reset();
   };
+
+  console.log(user)
 
   return (
     <div className='my-16 min-h-screen '>
