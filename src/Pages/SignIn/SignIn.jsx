@@ -14,7 +14,7 @@ const SignIn = () => {
 
   const onSubmit = async data => {
     try {
-      const result = await signIn(data.email, data.password);
+      const result = await createUser(data.logInEmail, data.logInPassword);
       console.log(result)
     }
     catch (error) {
@@ -60,12 +60,12 @@ const SignIn = () => {
                   </svg>
                 </span>
                 <input
-                  {...register("email", { required: true })}
+                  {...register("logInEmail", { required: true })}
                   type="email"
                   className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Email address"
                 />
-                {errors.email?.type === 'required' && <p role="alert">Email is required</p>}
+                {errors.logInEmail?.type === 'required' && <p role="alert">Email is required</p>}
               </div>
 
               <div className="relative flex items-center mt-4">
@@ -75,12 +75,12 @@ const SignIn = () => {
                   </svg>
                 </span>
                 <input
-                  {...register("password", { required: true })}
+                  {...register("logInPassword", { required: true })}
                   type="password"
                   className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-stone-700 focus:ring-stone-800 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Password"
                 />
-                {errors.password?.type === 'required' && <p role="alert">Password is required</p>}
+                {errors.logInPassword?.type === 'required' && <p role="alert">Password is required</p>}
               </div>
 
               <div className="mt-6">
