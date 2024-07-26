@@ -18,6 +18,7 @@ const SignIn = () => {
 
   const onSubmit = async (data) => {
     try {
+      // create user
       if (activeTab === 'sign-up') {
         // create user
         const res = await createUser(data.email, data.password);
@@ -33,6 +34,12 @@ const SignIn = () => {
         toast.success('Registered Successfully');
 
       }
+      // login with email
+      if (activeTab === 'sign-in') {
+        await signIn(data.logInEmail, data.logInPassword);
+        toast.success('Logged-In Successfully');
+      }
+
     } catch (error) {
       // toast.error(error.message)
       if (error.message.includes('auth/email-already-in-use')) {
@@ -42,7 +49,7 @@ const SignIn = () => {
       } else if (error.message.includes('auth/weak-password')) {
         toast.error('Password is too weak. Please choose a stronger password.');
       } else if (error.message.includes('auth/user-not-found')) {
-        toast.error('No account found with this email address.');
+        toast.error('No account found with this email address. Please sign up first.');
       } else if (error.message.includes('auth/wrong-password')) {
         toast.error('Incorrect password. Please try again.');
       } else if (error.message.includes('auth/too-many-requests')) {
@@ -51,6 +58,10 @@ const SignIn = () => {
         toast.error('This operation is not allowed. Please contact support.');
       } else if (error.message.includes('auth/user-disabled')) {
         toast.error('This account has been disabled. Please contact support.');
+      } else if (error.message.includes('auth/internal-error')) {
+        toast.error('An internal error occurred. Please try again later.');
+      } else if (error.message.includes('auth/network-request-failed')) {
+        toast.error('Network error. Please check your connection and try again.');
       } else {
         toast.error('An unexpected error occurred. Please try again later.');
       }
