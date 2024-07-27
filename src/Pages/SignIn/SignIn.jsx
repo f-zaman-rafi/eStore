@@ -3,12 +3,15 @@ import logo from "../../../public/icons/Logo.svg"
 import useAuth from '../../Hooks/useAuth';
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 
 const SignIn = () => {
   const [activeTab, setActiveTab] = useState('sign-in');
-  const { signIn, createUser, updateUserProfile, signInWithGoogle, signInWithGitHub, user, setUser } = useAuth();
+  const { signIn, createUser, updateUserProfile, signInWithGoogle, user, setUser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // react hook form
   const { register, handleSubmit, formState: { errors }, reset, getValues } = useForm();
@@ -29,6 +32,10 @@ const SignIn = () => {
 
         // set user state
         setUser({ ...loggedUser, displayName: data.username })
+
+        // redirect
+        const from = location.state?.from?.pathname || '/'
+        navigate(from);
 
         // toast
         toast.success('Registered Successfully');
@@ -65,6 +72,22 @@ const SignIn = () => {
       } else {
         toast.error('An unexpected error occurred. Please try again later.');
       }
+    }
+  }
+
+
+  // continue with google
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+
+      // navigate
+      const from = location.state?.from?.pathname || '/';
+      navigate(from)
+
+      toast.success("Sign-in with Google Successfully");
+    } catch (error) {
+      toast.error(error.message);
     }
   }
 
@@ -106,6 +129,8 @@ const SignIn = () => {
           </div>
 
           {/* Tab Content */}
+
+          {/*  */}
           {activeTab === 'sign-in' && (
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="relative flex items-center mt-6">
@@ -145,11 +170,7 @@ const SignIn = () => {
                 >
                   Sign In
                 </button>
-                <div className="mt-6 text-center">
-                  <a href="#" className="text-sm text-blue-500 hover:underline">
-                    Forgot your password?
-                  </a>
-                </div>
+
               </div>
             </form>
           )}
@@ -236,33 +257,25 @@ const SignIn = () => {
                 >
                   Sign Up
                 </button>
-                <div className="mt-6 text-center">
-                  <a href="#" className="text-sm text-blue-500 hover:underline">
-                    Already have an account?
-                  </a>
-                </div>
               </div>
             </form>
           )}
 
           {/* continue with social */}
 
-          <div className="flex items-center justify-between mt-4">
-            {/* GitHub Icon */}
-            <a className="mx-1.5 dark:hover:text-blue-400 text-gray-400 transition-colors duration-300 transform hover:text-blue-500" href="#">
-              <svg className="w-10 h-10 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.15 6.84 9.47.5.09.68-.22.68-.49v-1.74c-2.81.61-3.4-1.33-3.4-1.33-.46-1.16-1.12-1.47-1.12-1.47-.92-.63.07-.62.07-.62 1.01.07 1.54 1.04 1.54 1.04.9 1.55 2.35 1.11 2.92.85.09-.65.35-1.1.64-1.35-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.66 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.39.2 2.41.1 2.66.64.7 1.03 1.59 1.03 2.68 0 3.83-2.34 4.69-4.56 4.94.35.3.66.91.66 1.83v2.71c0 .28.18.58.68.49C19.13 20.15 22 16.42 22 12c0-5.52-4.48-10-10-10z" />
-              </svg>
-            </a>
+          <p className="mt-4 text-center text-gray-600 ">or</p>
 
-            {/* Google Icon */}
-            <a className="mx-1.5 dark:hover:text-blue-400 text-gray-400 transition-colors duration-300 transform hover:text-blue-500" href="#">
-              <svg className="w-10 h-10 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" clipRule="evenodd" d="M6.75732 6.22215L11.9865 10.0365L17.3285 6.09078C18.1446 5.44632 19.191 5.33494 20.046 5.76509C20.9153 6.20242 21.5 7.1513 21.5 8.44705V16.7618C21.5 17.2333 21.4407 17.9088 21.0814 18.4781C20.6956 19.0893 20.019 19.4943 18.9793 19.4943H16.889C16.6129 19.4943 16.389 19.2704 16.389 18.9943V13.2008L12.2867 16.2518C12.1093 16.3838 11.8662 16.3835 11.689 16.2511L7.61098 13.2036V16.7186C7.61098 16.9947 7.38713 17.2186 7.11098 17.2186C6.83484 17.2186 6.61098 16.9947 6.61098 16.7186V12.2058C6.61098 12.0165 6.71781 11.8435 6.88699 11.7588C7.05617 11.674 7.25871 11.692 7.41029 11.8053L11.9891 15.2269L16.5906 11.8046C16.7423 11.6918 16.9446 11.6741 17.1135 11.759C17.2824 11.8439 17.389 12.0168 17.389 12.2058V18.4943H18.9793C19.7234 18.4943 20.0572 18.2272 20.2358 17.9443C20.4408 17.6194 20.5 17.1787 20.5 16.7618V8.44705C20.5 7.46479 20.0744 6.89879 19.5966 6.65841C19.1071 6.41213 18.4732 6.45826 17.9434 6.87938C17.9388 6.88305 17.9341 6.88664 17.9294 6.89014L12.2854 11.0589C12.1097 11.1887 11.8701 11.1894 11.6937 11.0607L6.16182 7.02554C5.66596 6.65592 4.93253 6.43285 4.36979 6.51816C4.10149 6.55884 3.89833 6.66433 3.75932 6.82883C3.62023 6.99343 3.5 7.27084 3.5 7.74087V17.1491C3.5 17.8103 3.73627 18.1246 3.96224 18.2868C4.21573 18.4688 4.53566 18.5148 4.74399 18.4962C4.75875 18.4949 4.77357 18.4943 4.78839 18.4943H6.11098C6.38713 18.4943 6.61098 18.7181 6.61098 18.9943C6.61098 19.2704 6.38713 19.4943 6.11098 19.4943H4.80887C4.42163 19.5237 3.86072 19.445 3.37906 19.0992C2.85986 18.7264 2.5 18.0915 2.5 17.1491V7.74087C2.5 7.09846 2.66719 6.57192 2.99552 6.18339C3.32393 5.79476 3.7682 5.59794 4.2199 5.52946C5.09621 5.39661 6.09189 5.72702 6.75732 6.22215Z" />
-              </svg>
-            </a>
+          <a onClick={handleGoogleSignIn} href="#" className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg hover:bg-stone-100 ">
+            <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
+              <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107" />
+              <path d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z" fill="#FF3D00" />
+              <path d="M20 36.6667C24.305 36.6667 28.2167 35.0192 31.1742 32.34L26.0159 27.975C24.3425 29.2425 22.2625 30 20 30C15.665 30 11.9842 27.2359 10.5975 23.3784L5.16254 27.5659C7.92087 32.9634 13.5225 36.6667 20 36.6667Z" fill="#4CAF50" />
+              <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#1976D2" />
+            </svg>
 
-          </div>
+            <span className="mx-2">Continue with Google</span>
+          </a>
+
         </div>
       </section >
     </div >
