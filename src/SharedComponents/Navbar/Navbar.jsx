@@ -6,6 +6,7 @@ import logo from '../../../public/icons/Logo.svg';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
+import LoadingComponent from '../Loading/LoadingComponent';
 
 // Navbar component definition
 const Navbar = () => {
@@ -26,6 +27,7 @@ const Navbar = () => {
     const handleLogOut = async () => {
         try {
             await logout();
+            if (loading) { <LoadingComponent /> }
             toast.success('Logged out successfully');
         } catch (error) {
             console.error('Logout failed:', error);

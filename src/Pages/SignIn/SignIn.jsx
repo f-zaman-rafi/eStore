@@ -4,12 +4,13 @@ import useAuth from '../../Hooks/useAuth';
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
+import LoadingComponent from '../../SharedComponents/Loading/LoadingComponent';
 
 
 
 const SignIn = () => {
   const [activeTab, setActiveTab] = useState('sign-in');
-  const { signIn, createUser, updateUserProfile, signInWithGoogle, user, setUser } = useAuth();
+  const { signIn, createUser, updateUserProfile, signInWithGoogle, user, setUser, loading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -80,7 +81,7 @@ const SignIn = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-
+      if (loading) { <LoadingComponent /> }
       // navigate
       const from = location.state?.from?.pathname || '/';
       navigate(from)
@@ -275,7 +276,6 @@ const SignIn = () => {
 
             <span className="mx-2">Continue with Google</span>
           </a>
-
         </div>
       </section >
     </div >
