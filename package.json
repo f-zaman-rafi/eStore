@@ -15,6 +15,7 @@
     "add": "^2.0.6",
     "clsx": "^2.1.1",
     "firebase": "^10.12.4",
+    "flowbite": "^2.4.1",
     "framer-motion": "^11.3.18",
     "ionicons": "^7.4.0",
     "lamp": "^1.0.2",
@@ -42,5 +43,10 @@
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "postcss.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

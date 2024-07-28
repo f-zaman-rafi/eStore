@@ -1,21 +1,54 @@
-import wishlist from '../../../public/images/heart.svg'
-import cart from '../../../public/images/Cart1.svg'
-import user from '../../../public/images/user.svg'
-import logo from '../../../public/icons/Logo.svg'
+// Importing necessary assets and libraries
+import wishlist from '../../../public/images/heart.svg';
+import cart from '../../../public/images/Cart1.svg';
+import userLogo from '../../../public/images/user.svg';
+import logo from '../../../public/icons/Logo.svg';
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
+// Navbar component definition
 const Navbar = () => {
+    // Using custom hook to get user authentication details
+    const { user, logout, loading } = useAuth();
 
-    const navlink = <>
-        <Link to='/'><li><a>Home</a></li></Link>
-        <li><a>About</a></li>
-        <li><a>Contact Us</a></li>
-        <li><a>Blog</a></li>
-    </>
+    // Navigation links component
+    const navlink = (
+        <>
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/about'>About</Link></li>
+            <li><Link to='/contact'>Contact Us</Link></li>
+            <li><Link to='/blog'>Blog</Link></li>
+        </>
+    );
+
+    // logout
+    const handleLogOut = async () => {
+        try {
+            await logout();
+            toast.success('Logged out successfully');
+        } catch (error) {
+            console.error('Logout failed:', error);
+            toast.error('Logout failed. Please try again.');
+        }
+    };
+
+
+    // User menu items
+    const userMenu = user && (
+        <>
+            <li><span>{user.displayName}</span></li>
+            <li><Link to='/dashboard'>Dashboard</Link></li>
+            <li onClick={handleLogOut}><Link>Logout</Link></li>
+        </>
+    );
+
+    // Navbar rendering
     return (
         <div className='lg:px-40 md:px-10 px-4'>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
+                    {/* Dropdown for mobile view */}
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg
@@ -37,17 +70,40 @@ const Navbar = () => {
                             {navlink}
                         </ul>
                     </div>
-                    <img className='h-5' src={logo} alt="" />
+                    {/* Logo */}
+                    <img className='h-5' src={logo} alt="Logo" />
                 </div>
+
+                {/* Navigation links for desktop view */}
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         {navlink}
                     </ul>
                 </div>
-                <div className="navbar-end flex gap-3">
-                    <img className='h-5' src={wishlist} alt="" />
-                    <img className='h-5' src={cart} alt="" />
-                    <Link to='/sign-in'><img className='h-4' src={user} alt="" /></Link>
+
+                {/* Icons and user avatar */}
+                <div className="navbar-end flex gap-3 items-center">
+                    <img className='h-5' src={wishlist} alt="Wishlist" />
+                    <img className='h-5' src={cart} alt="Cart" />
+                    {
+                        user ? (
+                            // User avatar with hover menu for authenticated user
+                            <div className="dropdown dropdown-hover dropdown-end">
+                                <div tabIndex={0} className="flex items-center cursor-pointer">
+                                    <img className='h-5 mt-1 rounded-full' src={user.photoURL} alt="User" />
+                                </div>
+                                <ul tabIndex={0} className="dropdown-content menu menu-sm p-2 shadow bg-white bg-opacity-60 font-medium text-black rounded-box w-auto min-w-max">
+                                    {userMenu}
+                                </ul>
+
+                            </div>
+                        ) : (
+                            // Sign-in icon for unauthenticated user
+                            <Link to='/sign-in'>
+                                <img className='h-4' src={userLogo} alt="User Logo" />
+                            </Link>
+                        )
+                    }
                 </div>
             </div>
         </div>
