@@ -1,4 +1,7 @@
 import { useState } from "react";
+import NewArrivals from "../TabComponents/NewArrival/NewArrivals";
+import BestSeller from "../TabComponents/BestSeller/BestSeller";
+import FeaturedProducts from "../TabComponents/FeaturedProducts/FeaturedProducts";
 
 const ProductTab = () => {
 
@@ -26,6 +29,20 @@ const ProductTab = () => {
 
                 </ul>
             </div>
+
+            {/* tab contents */}
+
+            {/* new arrival */}
+
+            {activeTab === 'new-arrival' && (
+                <NewArrivals />
+            )}
+            {activeTab === 'best-seller' && (
+                <BestSeller />
+            )}
+            {activeTab === 'featured-products' && (
+                <FeaturedProducts />
+            )}
 
         </div>
     );
