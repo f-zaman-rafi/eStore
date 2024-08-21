@@ -90,7 +90,7 @@ const Navbar = () => {
                                 <div tabIndex={0} className="flex items-center cursor-pointer">
                                     <img className='h-5 mt-1 rounded-full' src={user.photoURL} alt="User" />
                                 </div>
-                                <ul tabIndex={0} className="dropdown-content menu menu-sm p-2 shadow bg-white bg-opacity-60 font-medium text-black rounded-box w-auto min-w-max">
+                                <ul tabIndex={0} className="dropdown-content menu menu-sm p-2 shadow bg-gray-200 bg-opacity-80 font-semibold text-stone-800 rounded-box w-auto min-w-max">
                                     {userMenu}
                                 </ul>
 
