@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import logo from "../../../public/icons/Logo.svg"
 import useAuth from '../../Hooks/useAuth';
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -112,7 +111,7 @@ const SignIn = () => {
         <div className="container mx-auto max-w-md p-6 bg-white rounded-lg shadow-2xl  py-10">
           {/* Tabs */}
           <div className="flex justify-center mb-4">
-            <img className="w-auto h-7 sm:h-8" src={logo} alt="Logo" />
+            <img className="w-auto h-7 sm:h-8" src="./icons/Logo.svg" alt="Logo" />
           </div>
           <div className="flex justify-center mb-6">
             <button

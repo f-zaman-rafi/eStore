@@ -1,4 +1,3 @@
-import bannerPhoto from "../../../../../public/images/banner iphone.png"
 import Button from "../../../../SharedComponents/ShopNowButton/ShopNowButton";
 
 const Banner = () => {
@@ -12,7 +11,7 @@ const Banner = () => {
                     <p><Button /></p>
                 </div>
                 <div className="lg:pt-60 lg:hover:pt-12 pt-12" style={{ transitionDuration: '1500ms' }}>
-                    <img src={bannerPhoto} alt="" />
+                    <img src="./images/banner iphone.png" alt="" />
                 </div>
             </div>
         </div >
