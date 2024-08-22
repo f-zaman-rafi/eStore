@@ -10,7 +10,7 @@ const ProductTab = () => {
     const handleTabs = (tab) => {
         setActiveTab(tab);
     }
-    console.log(activeTab)
+    // console.log(activeTab)
 
 
     return (

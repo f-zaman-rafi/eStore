@@ -1,17 +1,14 @@
-import { XlviLoader } from 'react-awesome-loaders';
+import { PropagateLoader } from 'react-spinners';
 
 const LoadingComponent = () => {
     return (
         <div className='min-h-screen flex justify-center items-center'>
-            <XlviLoader
-                boxColors={["#EF4444", "#F59E0B", "#6366F1"]}
-                desktopSize={"128px"}
-                mobileSize={"100px"}
-            />
+            <PropagateLoader color="#36d7b7" />
         </div>
     );
 };
 
 export default LoadingComponent;
+
 
 
