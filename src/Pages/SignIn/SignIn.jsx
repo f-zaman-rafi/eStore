@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoadingComponent from '../../SharedComponents/Loading/LoadingComponent';
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -107,6 +108,11 @@ const SignIn = () => {
 
   return (
     <div className='my-16 min-h-screen '>
+
+      <Helmet>
+        <title>Sign In | cyber</title>
+      </Helmet>
+
       <section className="bg-white flex justify-center">
         <div className="container mx-auto max-w-md p-6 bg-white rounded-lg shadow-2xl  py-10">
           {/* Tabs */}
