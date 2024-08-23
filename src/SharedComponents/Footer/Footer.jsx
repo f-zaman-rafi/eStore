@@ -1,11 +1,15 @@
-
+import whiteLogo from "../../assets/icons/Logo white.svg"
+import twitterLogo from "../../assets/icons/Icon_16px_Twitter.svg"
+import facebookLogo from "../../assets/icons/fb.svg"
+import tiktokLogo from "../../assets/icons/tiktok.svg"
+import instagramLogo from "../../assets/icons/Icon_16px_Instagram.svg"
 
 const Footer = () => {
     return (
         <div className="lg:px-40 md:px-10 px-4 md:py-36 py-8 text-[#b3b1b1] text-sm">
             <div className="grid md:grid-cols-7 md:gap-0 gap-10 text-center md:text-start justify-center md:justify-start md:items-start items-center">
                 <div className="md:col-span-3 space-y-8">
-                    <p className="flex justify-center md:justify-start"><img src="./icons/Logo white.svg" alt="" /></p>
+                    <p className="flex justify-center md:justify-start"><img src={whiteLogo} alt="" /></p>
                     <p className="w-3/4 mx-auto md:mx-0 leading-loose">We are a residential interior design firm located in Portland. Our boutique-studio offers more than</p>
                 </div>
                 <div className="md:col-span-2 space-y-4">
@@ -28,10 +32,10 @@ const Footer = () => {
                 </div>
             </div>
             <div className="flex gap-10 pt-10 justify-center md:justify-start">
-                <img src="./icons/Icon_16px_Twitter.svg" alt="" />
-                <img src="./icons/fb.svg" alt="" />
-                <img src="./icons/tiktok.svg" alt="" />
-                <img src="./icons/Icon_16px_Instagram.svg" alt="" />
+                <img src={twitterLogo} alt="" />
+                <img src={facebookLogo} alt="" />
+                <img src={tiktokLogo} alt="" />
+                <img src={instagramLogo} alt="" />
             </div>
         </div>
     );

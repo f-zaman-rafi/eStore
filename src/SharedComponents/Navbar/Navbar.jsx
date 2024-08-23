@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
 import LoadingComponent from '../Loading/LoadingComponent';
+import logo from "../../assets/icons/Logo.svg"
+import userLogo from "../../assets/images/user.svg"
+import wishlistLogo from "../../assets/images/heart.svg"
+import cartLogo from "../../assets/images/Cart1.svg"
+
 
 // Navbar component definition
 const Navbar = () => {
@@ -69,7 +74,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     {/* Logo */}
-                    <img className='h-5' src="./icons/Logo.svg" alt="Logo" />
+                    <img className='h-5' src={logo} alt="Logo" />
                 </div>
 
                 {/* Navigation links for desktop view */}
@@ -81,8 +86,8 @@ const Navbar = () => {
 
                 {/* Icons and user avatar */}
                 <div className="navbar-end flex gap-3 items-center">
-                    <img className='h-5' src="./images/heart.svg" alt="Wishlist" />
-                    <img className='h-5' src="./images/Cart1.svg" alt="Cart" />
+                    <img className='h-5' src={wishlistLogo} alt="Wishlist" />
+                    <img className='h-5' src={cartLogo} alt="Cart" />
                     {
                         user ? (
                             // User avatar with hover menu for authenticated user
@@ -98,7 +103,7 @@ const Navbar = () => {
                         ) : (
                             // Sign-in icon for unauthenticated user
                             <Link to='/sign-in'>
-                                <img className='h-4' src="./images/user.svg" alt="User Logo" />
+                                <img className='h-4' src={userLogo} alt="User Logo" />
                             </Link>
                         )
                     }
