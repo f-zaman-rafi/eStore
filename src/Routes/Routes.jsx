@@ -4,9 +4,7 @@ import Home from "../Pages/Home/Homepage/Home";
 import SignIn from "../Pages/SignIn/SignIn";
 import AuthGuard from "./AuthGuard";
 import About from "../Pages/About/About";
-import DashHome from "../Pages/Dashboard/DashHome/DashHome";
-import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
-import Dashboard from "../Layout/Dashboard";
+import AddProduct from "../Pages/AddProduct/AddProduct";
 
 export const router = createBrowserRouter([
     {
@@ -25,21 +23,11 @@ export const router = createBrowserRouter([
                 path: '/about',
                 element: <About />
             },
-        ],
-    },
-    {
-        path: '/dashboard',
-        element: <Dashboard />,
-        children: [
             {
-                path: '/dashboard',
-                element: <DashHome />
-            },
-            {
-                path: 'add-product',
+                path: '/add-product',
                 element: <AddProduct />
             }
-        ]
-    }
+        ],
+    },
 ]);
 

@@ -41,7 +41,7 @@ const Navbar = () => {
     const userMenu = user && (
         <>
             <li><span>{user.displayName}</span></li>
-            <li><Link to='/dashboard'>Dashboard</Link></li>
+            <li><Link to='/add-product'>Add Product</Link></li>
             <li onClick={handleLogOut}><Link>Logout</Link></li>
         </>
     );
