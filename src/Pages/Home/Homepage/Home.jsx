@@ -6,10 +6,10 @@ import ProductTab from "../Components/ProductTabs/Tabs/ProductTab";
 const Home = () => {
     return (
         <div className="pb-52">
-            <Banner />
+            <div className=" bg-[#211C24FF]"> <Banner /></div>
             <Collage />
             <BrowseByCatagory />
-            <ProductTab />
+            <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden"><ProductTab /></div>
         </div>
     );
 };

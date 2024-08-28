@@ -6,7 +6,7 @@ import instagramLogo from "../../assets/icons/Icon_16px_Instagram.svg"
 
 const Footer = () => {
     return (
-        <div className="lg:px-40 md:px-10 px-4 md:py-36 py-8 text-[#b3b1b1] text-sm">
+        <div className="lg:px-40 md:px-10 px-4 md:py-36 py-8 text-[#b3b1b1] text-sm max-w-[1440px] mx-auto font-inter overflow-x-hidden">
             <div className="grid md:grid-cols-7 md:gap-0 gap-10 text-center md:text-start justify-center md:justify-start md:items-start items-center">
                 <div className="md:col-span-3 space-y-8">
                     <p className="flex justify-center md:justify-start"><img src={whiteLogo} alt="" /></p>

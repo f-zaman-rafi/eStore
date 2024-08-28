@@ -6,7 +6,7 @@ import vision from "../../../../assets/images/visionPro.png"
 
 const Collage = () => {
     return (
-        <div className='flex flex-col lg:flex-row lg:max-h-[600px] overflow-hidden'>
+        <div className='flex flex-col lg:flex-row lg:max-h-[600px] overflow-hidden max-w-[1440px] mx-auto font-inter'>
             <div className='flex-1 flex lg:flex-col flex-col-reverse'>
 
 

@@ -4,10 +4,10 @@ import Footer from "../SharedComponents/Footer/Footer";
 
 const Main = () => {
     return (
-        <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden">
+        <div className=" ">
             <Navbar />
             <Outlet />
-            <div className="bg-black "><Footer /></div>
+            <div className="bg-black"><Footer /></div>
         </div>
     );
 };

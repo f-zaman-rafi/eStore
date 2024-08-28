@@ -48,7 +48,7 @@ const Navbar = () => {
 
     // Navbar rendering
     return (
-        <div className='lg:px-40 md:px-10 px-4'>
+        <div className='lg:px-40 md:px-10 px-4 max-w-[1440px] mx-auto font-inter'>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     {/* Dropdown for mobile view */}

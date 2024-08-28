@@ -7,7 +7,7 @@ import gamingLogo from "../../../../assets/icons/Icon_Gaming.svg"
 
 const BrowseByCatagory = () => {
     return (
-        <div className="lg:px-40 md:px-10 px-4 lg:py-20">
+        <div className="lg:px-40 md:px-10 px-4 lg:py-20 max-w-[1440px] mx-auto font-inter">
             <div><p className="text-2xl font-semibold text-black pb-8">Browse By Category</p></div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
