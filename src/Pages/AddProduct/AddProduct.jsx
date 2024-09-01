@@ -2,34 +2,32 @@ import { useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
+import { Helmet } from 'react-helmet-async';
 
 // Access environment variables
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
-
 const AddProduct = () => {
-    // Destructure functions and objects from useForm
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [selectedStorage, setSelectedStorage] = useState({});
-
-    // State to manage the selected category
+    const [storagePrices, setStoragePrices] = useState({});
     const [selectedCategory, setSelectedCategory] = useState('');
-
-    // Axios instance for API calls
     const axiosCommon = useAxiosCommon();
-    // Navigation function to redirect after successful submission
     const navigate = useNavigate();
 
     // Handle form submission
     const onSubmit = async (data) => {
         try {
-            console.log(data);
+            // Prepare storage data
+            const storageData = Object.keys(selectedStorage).map(size => ({
+                size,
+                price: storagePrices[size] || ''
+            }));
 
-            // Image upload
+            // Handle image upload
             const formData = new FormData();
             formData.append("file", data.image[0]);
             formData.append("upload_preset", UPLOAD_PRESET);
@@ -42,36 +40,50 @@ const AddProduct = () => {
 
             // Add the uploaded image URL to data
             data.image = photoRes.data.secure_url;
+            data.storageData = storageData; // Add storage data to form data
 
             // Submit product data
             const res = await axiosCommon.post('/products', data);
-            console.log(res);
 
-            // Check if the insertion was successful
             if (res.data.insertedId) {
                 console.log('Product added to the database successfully');
                 toast.success('Product added successfully');
                 navigate('/'); // Redirect to home page
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Error adding product:', error);
             toast.error('Failed to add product');
         }
     };
 
-    // Handle category change and update the state
+    // Handle category change
     const handleCategoryChange = (event) => {
         setSelectedCategory(event.target.value);
     };
 
+    // Handle storage checkbox change
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
-        setSelectedStorage(prev => ({
+        setSelectedStorage(prev => {
+            const updated = { ...prev };
+            if (checked) {
+                updated[value] = true;
+            } else {
+                delete updated[value];
+            }
+            return updated;
+        });
+    };
+
+    // Handle storage price change
+    const handlePriceChange = (e) => {
+        const { id, value } = e.target;
+        setStoragePrices(prev => ({
             ...prev,
-            [value]: checked
+            [id]: value
         }));
     };
+
 
     return (
         <div className="pb-10 lg:px-20 px-10 my-10 min-h-[80vh] max-w-[1440px] mx-auto font-inter overflow-x-hidden">
@@ -822,7 +834,7 @@ const AddProduct = () => {
                                 <label className="label">
                                     <span className="label-text">Storage</span>
                                 </label>
-                                <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+                                <div className="flex flex-wrap gap-4">
                                     {["32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
                                         <div key={size}>
                                             <input
@@ -836,8 +848,10 @@ const AddProduct = () => {
                                                 <div className="mt-2">
                                                     <input
                                                         type="number"
+                                                        id={size}
                                                         placeholder={`Price for ${size}`}
-                                                        {...register(`storagePrice.${size}`, { required: "Price is required" })}
+                                                        value={storagePrices[size] || ''}
+                                                        onChange={handlePriceChange}
                                                         className="input input-bordered w-full"
                                                     />
                                                     {errors.storagePrice && errors.storagePrice[size] && (
