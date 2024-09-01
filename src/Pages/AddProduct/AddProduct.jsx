@@ -14,6 +14,7 @@ const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 const AddProduct = () => {
     // Destructure functions and objects from useForm
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [selectedStorage, setSelectedStorage] = useState({});
 
     // State to manage the selected category
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -22,10 +23,6 @@ const AddProduct = () => {
     const axiosCommon = useAxiosCommon();
     // Navigation function to redirect after successful submission
     const navigate = useNavigate();
-
-    // State to manage visibility of the 'Specify Color' input field when 'Other' color is selected
-    const [otherColorVisible, setOtherColorVisible] = useState(false);
-
 
     // Handle form submission
     const onSubmit = async (data) => {
@@ -68,6 +65,14 @@ const AddProduct = () => {
         setSelectedCategory(event.target.value);
     };
 
+    const handleCheckboxChange = (e) => {
+        const { value, checked } = e.target;
+        setSelectedStorage(prev => ({
+            ...prev,
+            [value]: checked
+        }));
+    };
+
     return (
         <div className="pb-10 lg:px-20 px-10 my-10 min-h-[80vh] max-w-[1440px] mx-auto font-inter overflow-x-hidden">
             <Helmet>
@@ -77,7 +82,8 @@ const AddProduct = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 {/* Category and Status Selection */}
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-7">
+
                     {/* Category Selection */}
                     <div className="form-control flex-1">
                         <label htmlFor="category" className="label">
@@ -136,7 +142,6 @@ const AddProduct = () => {
                     <div>
                         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-5 gap-x-10 pt-10">
 
-
                             {/* Title Input Field */}
 
                             <div className="form-control mb-4">
@@ -177,7 +182,6 @@ const AddProduct = () => {
                                 )}
                             </div>
 
-
                             {/* Model Input Field */}
 
                             <div className="form-control mb-4">
@@ -198,24 +202,189 @@ const AddProduct = () => {
                                 )}
                             </div>
 
-                            {/* Image Input Field */}
+                            {/* Color Selection */}
 
                             <div className="form-control mb-4">
-                                <label htmlFor="image" className="label">
-                                    <span className="label-text">Upload a file</span>
+                                <label htmlFor="color" className="label">
+                                    <span className="label-text">Color</span>
                                 </label>
                                 <input
-                                    id="image"
-                                    type="file"
-                                    {...register("image", { required: "Image is required" })}
+                                    id="color"
+                                    type="text"
+                                    {...register("color", { required: "Color is required" })}
+                                    placeholder="Enter color"
                                     className="input input-bordered w-full"
                                 />
-                                {errors.image && (
-                                    <span className="text-red-500 text-xs mt-2">
-                                        {errors.image.message}
+                                {errors.color && (
+                                    <span className="text-red-500 text-xs mt-2 ml-2">
+                                        {errors.color.message}
                                     </span>
                                 )}
                             </div>
+
+                            {/* Front Camera Input Field */}
+
+                            {selectedCategory === 'phone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="frontCamera" className="label">
+                                        <span className="label-text">Front Camera</span>
+                                    </label>
+                                    <select
+                                        id="frontCamera"
+                                        {...register("frontCamera", { required: "Front Camera is required" })}
+                                        className="input input-bordered w-full"
+                                    >
+                                        <option value="" selected disabled>Select Front Camera</option>
+                                        <option value="2MP">2 MP</option>
+                                        <option value="5MP">5 MP</option>
+                                        <option value="8MP">8 MP</option>
+                                        <option value="12MP">12 MP</option>
+                                        <option value="16MP">16 MP</option>
+                                        <option value="20MP">20 MP</option>
+                                        <option value="32MP">32 MP</option>
+                                        <option value="48MP">48 MP</option>
+                                        <option value="64MP">64 MP</option>
+                                        <option value="108MP">108 MP</option>
+                                    </select>
+                                    {errors.frontCamera && (
+                                        <span className="text-red-500 text-xs mt-2">
+                                            {errors.frontCamera.message}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Main Camera Input Field */}
+
+                            {selectedCategory === 'phone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="mainCamera" className="label">
+                                        <span className="label-text">Main Camera</span>
+                                    </label>
+                                    <select
+                                        id="mainCamera"
+                                        {...register("mainCamera", { required: "Main Camera is required" })}
+                                        className="input input-bordered w-full"
+                                    >
+                                        <option value="" selected disabled>Select Main Camera</option>
+                                        <option value="5MP">5 MP</option>
+                                        <option value="8MP">8 MP</option>
+                                        <option value="12MP">12 MP</option>
+                                        <option value="16MP">16 MP</option>
+                                        <option value="20MP">20 MP</option>
+                                        <option value="32MP">32 MP</option>
+                                        <option value="48MP">48 MP</option>
+                                        <option value="64MP">64 MP</option>
+                                        <option value="108MP">108 MP</option>
+                                        <option value="200MP">200 MP</option>
+                                    </select>
+                                    {errors.mainCamera && (
+                                        <span className="text-red-500 text-xs mt-2">
+                                            {errors.mainCamera.message}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Depth Camera Input Field */}
+
+                            {selectedCategory === 'phone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="depthCamera" className="label">
+                                        <span className="label-text">Depth Camera</span>
+                                    </label>
+                                    <select
+                                        id="depthCamera"
+                                        {...register("depthCamera")}
+                                        className="input input-bordered w-full"
+                                    >
+                                        <option value="" selected disabled>Select Depth Camera</option>
+                                        <option value="5MP">5 MP</option>
+                                        <option value="8MP">8 MP</option>
+                                        <option value="12MP">12 MP</option>
+                                        <option value="16MP">16 MP</option>
+                                        <option value="20MP">20 MP</option>
+                                    </select>
+                                </div>
+                            )}
+
+                            {/* Ultra-Wide Camera Input Field */}
+
+                            {selectedCategory === 'phone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="ultraWideCamera" className="label">
+                                        <span className="label-text">Ultra-Wide Camera</span>
+                                    </label>
+                                    <select
+                                        id="ultraWideCamera"
+                                        {...register("ultraWideCamera")}
+                                        className="input input-bordered w-full"
+                                    >
+                                        <option value="" selected disabled>Select Ultra-Wide Camera</option>
+                                        <option value="5MP">5 MP</option>
+                                        <option value="8MP">8 MP</option>
+                                        <option value="12MP">12 MP</option>
+                                        <option value="16MP">16 MP</option>
+                                        <option value="20MP">20 MP</option>
+                                        <option value="32MP">32 MP</option>
+                                        <option value="48MP">48 MP</option>
+                                        <option value="64MP">64 MP</option>
+                                        <option value="108MP">108 MP</option>
+                                        <option value="200MP">200 MP</option>
+                                    </select>
+                                </div>
+                            )}
+
+                            {/* Telephoto Camera Input Field */}
+
+                            {selectedCategory === 'phone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="telephotoCamera" className="label">
+                                        <span className="label-text">Telephoto Camera</span>
+                                    </label>
+                                    <select
+                                        id="telephotoCamera"
+                                        {...register("telephotoCamera")}
+                                        className="input input-bordered w-full"
+                                    >
+                                        <option value="" selected disabled>Select Telephoto Camera</option>
+                                        <option value="5MP">5 MP</option>
+                                        <option value="8MP">8 MP</option>
+                                        <option value="12MP">12 MP</option>
+                                        <option value="16MP">16 MP</option>
+                                        <option value="20MP">20 MP</option>
+                                        <option value="32MP">32 MP</option>
+                                        <option value="48MP">48 MP</option>
+                                        <option value="64MP">64 MP</option>
+                                        <option value="108MP">108 MP</option>
+                                        <option value="200MP">200 MP</option>
+                                    </select>
+                                </div>
+                            )}
+
+                            {/* Macro Camera Input Field */}
+
+                            {selectedCategory === 'phone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="macroCamera" className="label">
+                                        <span className="label-text">Macro Camera</span>
+                                    </label>
+                                    <select
+                                        id="macroCamera"
+                                        {...register("macroCamera")}
+                                        className="input input-bordered w-full"
+                                    >
+                                        <option value="" selected disabled>Select Macro Camera</option>
+                                        <option value="5MP">5 MP</option>
+                                        <option value="8MP">8 MP</option>
+                                        <option value="12MP">12 MP</option>
+                                        <option value="16MP">16 MP</option>
+                                        <option value="20MP">20 MP</option>
+                                        <option value="32MP">32 MP</option>
+                                        <option value="48MP">48 MP</option>
+                                    </select>
+                                </div>
+                            )}
 
                             {/* Processor Input Field */}
 
@@ -237,54 +406,51 @@ const AddProduct = () => {
                                 )}
                             </div>
 
-                            {/* Display Input Field */}
+                            {/* Display Size Input Field */}
 
-                            <div className="form-control mb-4">
-                                <label htmlFor="display" className="label">
-                                    <span className="label-text">Display</span>
-                                </label>
-                                <input
-                                    id="display"
-                                    type="text"
-                                    {...register("display", { required: "Display is required" })}
-                                    placeholder="Enter display details"
-                                    className="input input-bordered w-full"
-                                />
-                                {errors.display && (
-                                    <span className="text-red-500 text-xs mt-2">
-                                        {errors.display.message}
-                                    </span>
-                                )}
-                            </div>
+                            {selectedCategory !== 'headphone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="displaySize" className="label">
+                                        <span className="label-text">Display Size</span>
+                                    </label>
+                                    <input
+                                        id="displaySize"
+                                        type="text"
+                                        {...register("displaySize", { required: "Display Size is required" })}
+                                        placeholder="Enter display size"
+                                        className="input input-bordered w-full"
+                                    />
+                                    {errors.displaySize && (
+                                        <span className="text-red-500 text-xs mt-2">
+                                            {errors.displaySize.message}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
 
-                            {/* Storage Selection */}
+                            {/* Display Size Input Field */}
 
-                            <div className="form-control mb-4">
-                                <label htmlFor="storage" className="label">
-                                    <span className="label-text">Storage</span>
-                                </label>
-                                <select
-                                    id="storage"
-                                    {...register("storage", { required: "Storage is required" })}
-                                    className="select select-bordered w-full"
-                                >
-                                    <option value="" selected disabled>Select Storage Capacity</option>
-                                    <option value="32GB">32GB</option>
-                                    <option value="64GB">64GB</option>
-                                    <option value="128GB">128GB</option>
-                                    <option value="256GB">256GB</option>
-                                    <option value="512GB">512GB</option>
-                                    <option value="1TB">1TB</option>
-                                    <option value="2TB">2TB</option>
-                                    <option value="4TB">4TB</option>
-                                    <option value="8TB">8TB</option>
-                                </select>
-                                {errors.storage && (
-                                    <span className="text-red-500 text-xs mt-2">
-                                        {errors.storage.message}
-                                    </span>
-                                )}
-                            </div>
+                            {selectedCategory !== 'headphone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="displayResolution" className="label">
+                                        <span className="label-text">Display Resolution</span>
+                                    </label>
+                                    <input
+                                        id="displayResolution"
+                                        type="text"
+                                        {...register("displayResolution", { required: "Display Resolution is required" })}
+                                        placeholder="Enter display resolution"
+                                        className="input input-bordered w-full"
+                                    />
+                                    {errors.displayResolution && (
+                                        <span className="text-red-500 text-xs mt-2">
+                                            {errors.displayResolution.message}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+
+
 
                             {/* RAM Input Field */}
 
@@ -322,7 +488,6 @@ const AddProduct = () => {
                                     )}
                                 </div>
                             )}
-
 
                             {/* Graphics Input Field */}
 
@@ -377,7 +542,6 @@ const AddProduct = () => {
                                     </div>
                                 )}
 
-
                             {/* Type Dropdown Field */}
 
                             {(selectedCategory === 'camera' ||
@@ -428,12 +592,11 @@ const AddProduct = () => {
                                     </div>
                                 )}
 
-
                             {/* Battery Input Field */}
 
                             <div className="form-control mb-4">
                                 <label htmlFor="battery" className="label">
-                                    <span className="label-text">Battery</span>
+                                    <span className="label-text">Battery Capacity</span>
                                 </label>
                                 <input
                                     id="battery"
@@ -451,7 +614,7 @@ const AddProduct = () => {
 
                             {/*  Battery Life */}
 
-                            {selectedCategory === 'headphone' && (
+                            {selectedCategory === 'headphone' || selectedCategory === 'smart-watch' && (
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Battery Life</span>
@@ -463,8 +626,10 @@ const AddProduct = () => {
                                     >
                                         <option value="" selected disabled>Select Battery Life</option>
                                         <option value="Up to 5 hours">Up to 5 hours</option>
-                                        <option value="5-10 hours">5-10 hours</option>
-                                        <option value="10-20 hours">10-20 hours</option>
+                                        <option value="5-7 hours">5-7 hours</option>
+                                        <option value="8-10 hours">8-10 hours</option>
+                                        <option value="10-15 hours">10-15 hours</option>
+                                        <option value="15-20 hours">15-20 hours</option>
                                         <option value="More than 20 hours">More than 20 hours</option>
                                     </select>
                                     {errors.batteryLife && (
@@ -650,6 +815,48 @@ const AddProduct = () => {
                         {/* checkbox */}
 
                         <div className='space-y-5'>
+
+                            {/* Storage Selection */}
+
+                            <div className="form-control mb-4">
+                                <label className="label">
+                                    <span className="label-text">Storage</span>
+                                </label>
+                                <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+                                    {["32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
+                                        <div key={size}>
+                                            <input
+                                                type="checkbox"
+                                                id={`storage-${size}`}
+                                                value={size}
+                                                onChange={handleCheckboxChange}
+                                            />
+                                            <label htmlFor={`storage-${size}`} className="ml-2">{size}</label>
+                                            {selectedStorage[size] && (
+                                                <div className="mt-2">
+                                                    <input
+                                                        type="number"
+                                                        placeholder={`Price for ${size}`}
+                                                        {...register(`storagePrice.${size}`, { required: "Price is required" })}
+                                                        className="input input-bordered w-full"
+                                                    />
+                                                    {errors.storagePrice && errors.storagePrice[size] && (
+                                                        <span className="text-red-500 text-xs mt-2">
+                                                            {errors.storagePrice[size]?.message}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                                {errors.storage && (
+                                    <span className="text-red-500 text-xs mt-2">
+                                        {errors.storage.message}
+                                    </span>
+                                )}
+                            </div>
+
 
                             {/* Sensors */}
 
@@ -1001,106 +1208,6 @@ const AddProduct = () => {
                                 )}
                             </div>
 
-                            {/* color */}
-
-                            {(selectedCategory === 'phone' || selectedCategory === 'smart-watch' || selectedCategory === 'headphone') && (
-                                <div className="form-control">
-                                    <label className="label py-5">
-                                        <span className="label-text">Color</span>
-                                    </label>
-                                    <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                value="Black"
-                                                {...register("color")}
-                                                className="checkbox"
-                                            />
-                                            <span className="ml-2">Black</span>
-                                        </label>
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                value="White"
-                                                {...register("color")}
-                                                className="checkbox"
-                                            />
-                                            <span className="ml-2">White</span>
-                                        </label>
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                value="Silver"
-                                                {...register("color")}
-                                                className="checkbox"
-                                            />
-                                            <span className="ml-2">Silver</span>
-                                        </label>
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                value="Gold"
-                                                {...register("color")}
-                                                className="checkbox"
-                                            />
-                                            <span className="ml-2">Gold</span>
-                                        </label>
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                value="Blue"
-                                                {...register("color")}
-                                                className="checkbox"
-                                            />
-                                            <span className="ml-2">Blue</span>
-                                        </label>
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                value="Red"
-                                                {...register("color")}
-                                                className="checkbox"
-                                            />
-                                            <span className="ml-2">Red</span>
-                                        </label>
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                value="Other"
-                                                {...register("color")}
-                                                onChange={(e) => setOtherColorVisible(e.target.checked)}
-                                                className="checkbox"
-                                            />
-                                            <span className="ml-2">Other</span>
-                                        </label>
-                                        {otherColorVisible && (
-                                            <div className="form-control mt-2">
-                                                <label className="label">
-                                                    <span className="label-text">Specify Color</span>
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    {...register("otherColor", { required: "Please specify the color" })}
-                                                    placeholder="Enter color"
-                                                    className="input input-bordered w-full"
-                                                />
-                                                {errors.otherColor && (
-                                                    <span className="text-red-500 text-xs mt-2 ml-2">
-                                                        {errors.otherColor.message}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
-                                    {errors.color && (
-                                        <span className="text-red-500 text-xs mt-2 ml-2">
-                                            {errors.color.message}
-                                        </span>
-                                    )}
-                                </div>
-                            )}
-
-
                             {/* Controllers */}
 
                             {selectedCategory === 'gaming-device' && (
@@ -1162,7 +1269,6 @@ const AddProduct = () => {
                                     )}
                                 </div>
                             )}
-
                         </div>
 
                         {/*details Input Field */}
@@ -1181,6 +1287,25 @@ const AddProduct = () => {
                             {errors.details && (
                                 <span className="text-red-500 text-xs mt-2">
                                     {errors.details.message}
+                                </span>
+                            )}
+                        </div>
+
+                        {/* Image Input Field */}
+
+                        <div className="form-control mb-4">
+                            <label htmlFor="image" className="label">
+                                <span className="label-text">Upload a file</span>
+                            </label>
+                            <input
+                                id="image"
+                                type="file"
+                                {...register("image", { required: "Image is required" })}
+                                className="input input-bordered w-full"
+                            />
+                            {errors.image && (
+                                <span className="text-red-500 text-xs mt-2">
+                                    {errors.image.message}
                                 </span>
                             )}
                         </div>
