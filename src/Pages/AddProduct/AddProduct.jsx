@@ -15,6 +15,7 @@ const AddProduct = () => {
     const [selectedStorage, setSelectedStorage] = useState({});
     const [storagePrices, setStoragePrices] = useState({});
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedColors, setSelectedColors] = useState([]);
     const axiosCommon = useAxiosCommon();
     const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ const AddProduct = () => {
     };
 
     // Handle storage checkbox change
-    const handleCheckboxChange = (e) => {
+    const handleStorageCheckboxChange = (e) => {
         const { value, checked } = e.target;
         setSelectedStorage(prev => {
             const updated = { ...prev };
@@ -82,6 +83,14 @@ const AddProduct = () => {
             ...prev,
             [id]: value
         }));
+    };
+
+    // Handle checkbox change
+    const handleColorCheckboxChange = (e) => {
+        const { value, checked } = e.target;
+        setSelectedColors(prev =>
+            checked ? [...prev, value] : prev.filter(color => color !== value)
+        );
     };
 
 
@@ -132,7 +141,7 @@ const AddProduct = () => {
                             {...register("status", { required: "Status is required" })}
                             className="input input-bordered"
                         >
-                            <option value="" selected disabled>Select a status</option>
+                            <option value="" selected>Select a status</option>
                             <option value="regular">Regular</option>
                             <option value="new_arrival">New Arrival</option>
                             <option value="best_seller">Best Seller</option>
@@ -214,26 +223,6 @@ const AddProduct = () => {
                                 )}
                             </div>
 
-                            {/* Color Selection */}
-
-                            <div className="form-control mb-4">
-                                <label htmlFor="color" className="label">
-                                    <span className="label-text">Color</span>
-                                </label>
-                                <input
-                                    id="color"
-                                    type="text"
-                                    {...register("color", { required: "Color is required" })}
-                                    placeholder="Enter color"
-                                    className="input input-bordered w-full"
-                                />
-                                {errors.color && (
-                                    <span className="text-red-500 text-xs mt-2 ml-2">
-                                        {errors.color.message}
-                                    </span>
-                                )}
-                            </div>
-
                             {/* Front Camera Input Field */}
 
                             {selectedCategory === 'phone' && (
@@ -246,7 +235,7 @@ const AddProduct = () => {
                                         {...register("frontCamera", { required: "Front Camera is required" })}
                                         className="input input-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Front Camera</option>
+                                        <option value="" selected>Select Front Camera</option>
                                         <option value="2MP">2 MP</option>
                                         <option value="5MP">5 MP</option>
                                         <option value="8MP">8 MP</option>
@@ -278,7 +267,7 @@ const AddProduct = () => {
                                         {...register("mainCamera", { required: "Main Camera is required" })}
                                         className="input input-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Main Camera</option>
+                                        <option value="" selected>Select Main Camera</option>
                                         <option value="5MP">5 MP</option>
                                         <option value="8MP">8 MP</option>
                                         <option value="12MP">12 MP</option>
@@ -310,7 +299,7 @@ const AddProduct = () => {
                                         {...register("depthCamera")}
                                         className="input input-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Depth Camera</option>
+                                        <option value="" selected>Select Depth Camera</option>
                                         <option value="5MP">5 MP</option>
                                         <option value="8MP">8 MP</option>
                                         <option value="12MP">12 MP</option>
@@ -332,7 +321,7 @@ const AddProduct = () => {
                                         {...register("ultraWideCamera")}
                                         className="input input-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Ultra-Wide Camera</option>
+                                        <option value="" selected>Select Ultra-Wide Camera</option>
                                         <option value="5MP">5 MP</option>
                                         <option value="8MP">8 MP</option>
                                         <option value="12MP">12 MP</option>
@@ -359,7 +348,7 @@ const AddProduct = () => {
                                         {...register("telephotoCamera")}
                                         className="input input-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Telephoto Camera</option>
+                                        <option value="" selected>Select Telephoto Camera</option>
                                         <option value="5MP">5 MP</option>
                                         <option value="8MP">8 MP</option>
                                         <option value="12MP">12 MP</option>
@@ -386,7 +375,7 @@ const AddProduct = () => {
                                         {...register("macroCamera")}
                                         className="input input-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Macro Camera</option>
+                                        <option value="" selected>Select Macro Camera</option>
                                         <option value="5MP">5 MP</option>
                                         <option value="8MP">8 MP</option>
                                         <option value="12MP">12 MP</option>
@@ -537,7 +526,7 @@ const AddProduct = () => {
                                             {...register("os", { required: "OS is required" })}
                                             className="select select-bordered w-full"
                                         >
-                                            <option value="" selected disabled>Select OS</option>
+                                            <option value="" selected>Select OS</option>
                                             <option value="iOS">iOS</option>
                                             <option value="Android">Android</option>
                                             <option value="Windows">Windows</option>
@@ -570,7 +559,7 @@ const AddProduct = () => {
                                         >
                                             {selectedCategory === 'camera' && (
                                                 <>
-                                                    <option value="" selected disabled>Select type</option>
+                                                    <option value="" selected>Select type</option>
                                                     <option value="DSLR">DSLR</option>
                                                     <option value="Mirrorless">Mirrorless</option>
                                                     <option value="Point-and-Shoot">Point-and-Shoot</option>
@@ -579,7 +568,7 @@ const AddProduct = () => {
                                             )}
                                             {selectedCategory === 'headphones' && (
                                                 <>
-                                                    <option value="" selected disabled>Select type</option>
+                                                    <option value="" selected>Select type</option>
                                                     <option value="Over-Ear">Over-Ear</option>
                                                     <option value="On-Ear">On-Ear</option>
                                                     <option value="In-Ear">In-Ear</option>
@@ -588,7 +577,7 @@ const AddProduct = () => {
                                             )}
                                             {selectedCategory === 'gaming-device' && (
                                                 <>
-                                                    <option value="" selected disabled>Select type</option>
+                                                    <option value="" selected>Select type</option>
                                                     <option value="Console">Console</option>
                                                     <option value="Handheld">Handheld</option>
                                                     <option value="PC">PC</option>
@@ -636,7 +625,7 @@ const AddProduct = () => {
                                         className="select select-bordered w-full"
                                         defaultValue=""
                                     >
-                                        <option value="" selected disabled>Select Battery Life</option>
+                                        <option value="" selected>Select Battery Life</option>
                                         <option value="Up to 5 hours">Up to 5 hours</option>
                                         <option value="5-7 hours">5-7 hours</option>
                                         <option value="8-10 hours">8-10 hours</option>
@@ -663,7 +652,7 @@ const AddProduct = () => {
                                         {...register("frequencyResponse")}
                                         className="select select-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Frequency</option>
+                                        <option value="" selected>Select Frequency</option>
                                         <option value="20Hz - 20kHz">20Hz - 20kHz</option>
                                         <option value="18Hz - 22kHz">18Hz - 22kHz</option>
                                         <option value="15Hz - 25kHz">15Hz - 25kHz</option>
@@ -758,7 +747,7 @@ const AddProduct = () => {
                                         {...register("waterResistance", { required: "Water resistance is required" })}
                                         className="select select-bordered"
                                     >
-                                        <option value="" selected disabled>Select Water Resistance</option>
+                                        <option value="" selected>Select Water Resistance</option>
                                         <option value="none">N/A</option>
                                         <option value="IP67">IP67 - Dust tight and water-resistant</option>
                                         <option value="IP68">IP68 - Dust tight and water-resistant to a greater depth</option>
@@ -785,7 +774,7 @@ const AddProduct = () => {
                                         {...register("shutterSpeed")}
                                         className="select select-bordered w-full"
                                     >
-                                        <option value="" selected disabled>Select Shutter Speed</option>
+                                        <option value="" selected>Select Shutter Speed</option>
                                         <option value="1/4000s">1/4000s</option>
                                         <option value="1/2000s">1/2000s</option>
                                         <option value="1/1000s">1/1000s</option>
@@ -811,7 +800,7 @@ const AddProduct = () => {
                                     {...register("stockStatus", { required: "Stock status is required" })}
                                     className="input input-bordered w-full"
                                 >
-                                    <option value="" selected disabled>Select stock status</option>
+                                    <option value="" selected>Select stock status</option>
                                     <option value="in_stock">In Stock</option>
                                     <option value="out_of_stock">Out of Stock</option>
                                 </select>
@@ -831,17 +820,17 @@ const AddProduct = () => {
                             {/* Storage Selection */}
 
                             <div className="form-control mb-4">
-                                <label className="label">
+                                <label className="label py-5">
                                     <span className="label-text">Storage</span>
                                 </label>
-                                <div className="flex flex-wrap gap-4">
+                                <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
                                     {["32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
                                         <div key={size}>
                                             <input
                                                 type="checkbox"
                                                 id={`storage-${size}`}
                                                 value={size}
-                                                onChange={handleCheckboxChange}
+                                                onChange={handleStorageCheckboxChange}
                                             />
                                             <label htmlFor={`storage-${size}`} className="ml-2">{size}</label>
                                             {selectedStorage[size] && (
@@ -871,6 +860,80 @@ const AddProduct = () => {
                                 )}
                             </div>
 
+                            {/* Color Selection */}
+
+                            <div className="form-control mb-4">
+                                <label className="label">
+                                    <span className="label-text py-5">Color</span>
+                                </label>
+                                <div className="flex flex-wrap gap-4">
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="Black"
+                                            onChange={handleColorCheckboxChange}
+                                            checked={selectedColors.includes("Black")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">Black</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="White"
+                                            onChange={handleColorCheckboxChange}
+                                            checked={selectedColors.includes("White")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">White</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="Silver"
+                                            onChange={handleColorCheckboxChange}
+                                            checked={selectedColors.includes("Silver")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">Silver</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="Gold"
+                                            onChange={handleColorCheckboxChange}
+                                            checked={selectedColors.includes("Gold")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">Gold</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="Blue"
+                                            onChange={handleColorCheckboxChange}
+                                            checked={selectedColors.includes("Blue")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">Blue</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="Red"
+                                            onChange={handleColorCheckboxChange}
+                                            checked={selectedColors.includes("Red")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">Red</span>
+                                    </label>
+                                </div>
+                                {errors.color && (
+                                    <span className="text-red-500 text-xs mt-2 ml-2">
+                                        {errors.color.message}
+                                    </span>
+                                )}
+                            </div>
 
                             {/* Sensors */}
 
@@ -1021,8 +1084,8 @@ const AddProduct = () => {
                             {/* connectivity */}
 
                             <div className="form-control">
-                                <label className="label py-5">
-                                    <span className="label-text">Connectivity</span>
+                                <label className="label ">
+                                    <span className="label-text py-5">Connectivity</span>
                                 </label>
                                 <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
                                     <label className="flex items-center">
