@@ -4,9 +4,11 @@ import Footer from "../SharedComponents/Footer/Footer";
 
 const Main = () => {
     return (
-        <div className=" ">
-            <Navbar />
-            <Outlet />
+        <div className="">
+            <div className="min-h-[90vh]">
+                <Navbar />
+                <Outlet />
+            </div>
             <div className="bg-black"><Footer /></div>
         </div>
     );

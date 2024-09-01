@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 
+// Access environment variables
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+
 const AddProduct = () => {
     // Destructure functions and objects from useForm
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -24,20 +30,34 @@ const AddProduct = () => {
     // Handle form submission
     const onSubmit = async (data) => {
         try {
-            // Log form data for debugging
             console.log(data);
 
-            // Post data to the server
+            // Image upload
+            const formData = new FormData();
+            formData.append("file", data.image[0]);
+            formData.append("upload_preset", UPLOAD_PRESET);
+
+            const photoRes = await axiosCommon.post(UPLOAD_URL, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
+
+            // Add the uploaded image URL to data
+            data.image = photoRes.data.secure_url;
+
+            // Submit product data
             const res = await axiosCommon.post('/products', data);
             console.log(res);
 
             // Check if the insertion was successful
             if (res.data.insertedId) {
                 console.log('Product added to the database successfully');
-                navigate('/'); // Redirect to home page
                 toast.success('Product added successfully');
+                navigate('/'); // Redirect to home page
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error('Error adding product:', error);
             toast.error('Failed to add product');
         }
@@ -158,6 +178,25 @@ const AddProduct = () => {
                                 )}
                             </div>
 
+                            {/* Image Input Field */}
+
+                            <div className="form-control mb-4">
+                                <label htmlFor="image" className="label">
+                                    <span className="label-text">Upload a file</span>
+                                </label>
+                                <input
+                                    id="image"
+                                    type="file"
+                                    {...register("image", { required: "Image is required" })}
+                                    className="input input-bordered w-full"
+                                />
+                                {errors.image && (
+                                    <span className="text-red-500 text-xs mt-2">
+                                        {errors.image.message}
+                                    </span>
+                                )}
+                            </div>
+
                             {/* Processor Input Field */}
 
                             <div className="form-control mb-4">
@@ -178,25 +217,35 @@ const AddProduct = () => {
                                 )}
                             </div>
 
-                            {/* Storage Input Field */}
+                            {/* Storage Selection */}
 
                             <div className="form-control mb-4">
                                 <label htmlFor="storage" className="label">
                                     <span className="label-text">Storage</span>
                                 </label>
-                                <input
+                                <select
                                     id="storage"
-                                    type="text"
                                     {...register("storage", { required: "Storage is required" })}
-                                    placeholder="Enter storage details"
-                                    className="input input-bordered w-full"
-                                />
+                                    className="select select-bordered w-full"
+                                >
+                                    <option value="" selected disabled>Select Storage Capacity</option>
+                                    <option value="32GB">32GB</option>
+                                    <option value="64GB">64GB</option>
+                                    <option value="128GB">128GB</option>
+                                    <option value="256GB">256GB</option>
+                                    <option value="512GB">512GB</option>
+                                    <option value="1TB">1TB</option>
+                                    <option value="2TB">2TB</option>
+                                    <option value="4TB">4TB</option>
+                                    <option value="8TB">8TB</option>
+                                </select>
                                 {errors.storage && (
                                     <span className="text-red-500 text-xs mt-2">
                                         {errors.storage.message}
                                     </span>
                                 )}
                             </div>
+
 
                             {/* Display Input Field */}
 
@@ -262,7 +311,7 @@ const AddProduct = () => {
                                 </div>
                             )}
 
-                            {/* OS Input Field */}
+                            {/* OS Selection */}
 
                             {(selectedCategory === 'phone' ||
                                 selectedCategory === 'smart-watch' ||
@@ -271,13 +320,20 @@ const AddProduct = () => {
                                         <label htmlFor="os" className="label">
                                             <span className="label-text">OS</span>
                                         </label>
-                                        <input
+                                        <select
                                             id="os"
-                                            type="text"
                                             {...register("os", { required: "OS is required" })}
-                                            placeholder="Enter OS details"
-                                            className="input input-bordered w-full"
-                                        />
+                                            className="select select-bordered w-full"
+                                        >
+                                            <option value="" selected disabled>Select OS</option>
+                                            <option value="iOS">iOS</option>
+                                            <option value="Android">Android</option>
+                                            <option value="Windows">Windows</option>
+                                            <option value="macOS">macOS</option>
+                                            <option value="watchOS">watchOS</option>
+                                            <option value="Wear OS">Wear OS</option>
+                                            <option value="Linux">Linux</option>
+                                        </select>
                                         {errors.os && (
                                             <span className="text-red-500 text-xs mt-2">
                                                 {errors.os.message}
@@ -285,6 +341,7 @@ const AddProduct = () => {
                                         )}
                                     </div>
                                 )}
+
 
                             {/* Type Dropdown Field */}
 
