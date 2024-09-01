@@ -137,6 +137,26 @@ const AddProduct = () => {
                         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-5 gap-x-10 pt-10">
 
 
+                            {/* Title Input Field */}
+
+                            <div className="form-control mb-4">
+                                <label htmlFor="title" className="label">
+                                    <span className="label-text">Title</span>
+                                </label>
+                                <input
+                                    id="title"
+                                    type="text"
+                                    {...register("title", { required: "Title is required" })}
+                                    placeholder="Enter title"
+                                    className="input input-bordered w-full"
+                                />
+                                {errors.title && (
+                                    <span className="text-red-500 text-xs mt-2">
+                                        {errors.title.message}
+                                    </span>
+                                )}
+                            </div>
+
                             {/* Brand Input Field */}
 
                             <div className="form-control mb-4">
@@ -217,6 +237,26 @@ const AddProduct = () => {
                                 )}
                             </div>
 
+                            {/* Display Input Field */}
+
+                            <div className="form-control mb-4">
+                                <label htmlFor="display" className="label">
+                                    <span className="label-text">Display</span>
+                                </label>
+                                <input
+                                    id="display"
+                                    type="text"
+                                    {...register("display", { required: "Display is required" })}
+                                    placeholder="Enter display details"
+                                    className="input input-bordered w-full"
+                                />
+                                {errors.display && (
+                                    <span className="text-red-500 text-xs mt-2">
+                                        {errors.display.message}
+                                    </span>
+                                )}
+                            </div>
+
                             {/* Storage Selection */}
 
                             <div className="form-control mb-4">
@@ -246,41 +286,35 @@ const AddProduct = () => {
                                 )}
                             </div>
 
-
-                            {/* Display Input Field */}
-
-                            <div className="form-control mb-4">
-                                <label htmlFor="display" className="label">
-                                    <span className="label-text">Display</span>
-                                </label>
-                                <input
-                                    id="display"
-                                    type="text"
-                                    {...register("display", { required: "Display is required" })}
-                                    placeholder="Enter display details"
-                                    className="input input-bordered w-full"
-                                />
-                                {errors.display && (
-                                    <span className="text-red-500 text-xs mt-2">
-                                        {errors.display.message}
-                                    </span>
-                                )}
-                            </div>
-
                             {/* RAM Input Field */}
 
-                            {selectedCategory !== 'camera' && (
+                            {selectedCategory && selectedCategory !== 'camera' && (
                                 <div className="form-control mb-4">
                                     <label htmlFor="ram" className="label">
                                         <span className="label-text">RAM</span>
                                     </label>
-                                    <input
+                                    <select
                                         id="ram"
-                                        type="text"
                                         {...register("ram", { required: "RAM is required" })}
-                                        placeholder="Enter RAM details"
                                         className="input input-bordered w-full"
-                                    />
+                                    >
+                                        <option value="">Select RAM</option>
+                                        <option value="1GB">1GB</option>
+                                        <option value="2GB">2GB</option>
+                                        <option value="4GB">4GB</option>
+                                        <option value="6GB">6GB</option>
+                                        <option value="8GB">8GB</option>
+                                        <option value="12GB">12GB</option>
+                                        <option value="16GB">16GB</option>
+                                        <option value="20GB">20GB</option>
+                                        <option value="24GB">24GB</option>
+                                        <option value="32GB">32GB</option>
+                                        <option value="40GB">40GB</option>
+                                        <option value="48GB">48GB</option>
+                                        <option value="64GB">64GB</option>
+                                        <option value="96GB">96GB</option>
+                                        <option value="128GB">128GB</option>
+                                    </select>
                                     {errors.ram && (
                                         <span className="text-red-500 text-xs mt-2">
                                             {errors.ram.message}
@@ -288,6 +322,7 @@ const AddProduct = () => {
                                     )}
                                 </div>
                             )}
+
 
                             {/* Graphics Input Field */}
 
@@ -588,11 +623,29 @@ const AddProduct = () => {
 
                             )}
 
+                            {/* Stock Status Input Field */}
 
-
+                            <div className="form-control mb-4">
+                                <label htmlFor="stockStatus" className="label">
+                                    <span className="label-text">Stock Status</span>
+                                </label>
+                                <select
+                                    id="stockStatus"
+                                    {...register("stockStatus", { required: "Stock status is required" })}
+                                    className="input input-bordered w-full"
+                                >
+                                    <option value="" selected disabled>Select stock status</option>
+                                    <option value="in_stock">In Stock</option>
+                                    <option value="out_of_stock">Out of Stock</option>
+                                </select>
+                                {errors.stockStatus && (
+                                    <span className="text-red-500 text-xs mt-2">
+                                        {errors.stockStatus.message}
+                                    </span>
+                                )}
+                            </div>
 
                         </div>
-
 
                         {/* checkbox */}
 
@@ -1112,6 +1165,25 @@ const AddProduct = () => {
 
                         </div>
 
+                        {/*details Input Field */}
+
+                        <div className="form-control mb-4">
+                            <label htmlFor="details" className="label">
+                                <span className="label-text py-5">Details</span>
+                            </label>
+                            <textarea
+                                id="details"
+                                type="text"
+                                {...register("details", { required: "details are required" })}
+                                placeholder="Enter details"
+                                className="input input-bordered w-full h-40"
+                            />
+                            {errors.details && (
+                                <span className="text-red-500 text-xs mt-2">
+                                    {errors.details.message}
+                                </span>
+                            )}
+                        </div>
                     </div>
                 )}
 
