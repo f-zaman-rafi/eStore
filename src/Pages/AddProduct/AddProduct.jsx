@@ -275,6 +275,7 @@ const AddProduct = () => {
                                         <option value="20MP">20 MP</option>
                                         <option value="32MP">32 MP</option>
                                         <option value="48MP">48 MP</option>
+                                        <option value="50MP">50 MP</option>
                                         <option value="64MP">64 MP</option>
                                         <option value="108MP">108 MP</option>
                                         <option value="200MP">200 MP</option>
@@ -351,6 +352,7 @@ const AddProduct = () => {
                                         <option value="" selected>Select Telephoto Camera</option>
                                         <option value="5MP">5 MP</option>
                                         <option value="8MP">8 MP</option>
+                                        <option value="10MP">10 MP</option>
                                         <option value="12MP">12 MP</option>
                                         <option value="16MP">16 MP</option>
                                         <option value="20MP">20 MP</option>
@@ -639,7 +641,10 @@ const AddProduct = () => {
                                         <option value="8-10 hours">8-10 hours</option>
                                         <option value="10-15 hours">10-15 hours</option>
                                         <option value="15-20 hours">15-20 hours</option>
-                                        <option value="More than 20 hours">More than 20 hours</option>
+                                        <option value="20-25 hours">20-25 hours</option>
+                                        <option value="25-30 hours">25-30 hours</option>
+                                        <option value="up to 40 hours">up to 40 hours</option>
+
                                     </select>
                                     {errors.batteryLife && (
                                         <span className="text-red-500 text-xs mt-2">
@@ -689,6 +694,24 @@ const AddProduct = () => {
                                     </span>
                                 )}
                             </div>
+
+                            {/* Transparency Mode */}
+
+                            {selectedCategory === 'headphone' && (
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Transparency Mode</span>
+                                    </label>
+                                    <label className="flex items-center py-3">
+                                        <input
+                                            type="checkbox"
+                                            {...register("noiseCancellation")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">Transparency Mode</span>
+                                    </label>
+                                </div>
+                            )}
 
                             {/* Noise Cancellation */}
 
@@ -833,7 +856,7 @@ const AddProduct = () => {
                                         <span className="label-text">Storage</span>
                                     </label>
                                     <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-                                        {["32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
+                                        {["16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
                                             <div key={size}>
                                                 <input
                                                     type="checkbox"
@@ -1142,6 +1165,15 @@ const AddProduct = () => {
                                             className="checkbox"
                                         />
                                         <span className="ml-2">SDI</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="LTE"
+                                            {...register("connectivity")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">LTE</span>
                                     </label>
                                     <label className="flex items-center">
                                         <input
