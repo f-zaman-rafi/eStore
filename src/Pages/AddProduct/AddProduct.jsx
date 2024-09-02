@@ -389,23 +389,25 @@ const AddProduct = () => {
 
                             {/* Processor Input Field */}
 
-                            <div className="form-control mb-4">
-                                <label htmlFor="processor" className="label">
-                                    <span className="label-text">Processor</span>
-                                </label>
-                                <input
-                                    id="processor"
-                                    type="text"
-                                    {...register("processor", { required: "Processor is required" })}
-                                    placeholder="Enter processor details"
-                                    className="input input-bordered w-full"
-                                />
-                                {errors.processor && (
-                                    <span className="text-red-500 text-xs mt-2">
-                                        {errors.processor.message}
-                                    </span>
-                                )}
-                            </div>
+                            {selectedCategory !== 'camera' && selectedCategory !== 'headphone' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="processor" className="label">
+                                        <span className="label-text">Processor</span>
+                                    </label>
+                                    <input
+                                        id="processor"
+                                        type="text"
+                                        {...register("processor", { required: "Processor is required" })}
+                                        placeholder="Enter processor details"
+                                        className="input input-bordered w-full"
+                                    />
+                                    {errors.processor && (
+                                        <span className="text-red-500 text-xs mt-2">
+                                            {errors.processor.message}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
 
                             {/* Display Size Input Field */}
 
@@ -455,7 +457,7 @@ const AddProduct = () => {
 
                             {/* RAM Input Field */}
 
-                            {selectedCategory && selectedCategory !== 'camera' && (
+                            {(selectedCategory !== 'headphone' && selectedCategory !== 'camera') && (
                                 <div className="form-control mb-4">
                                     <label htmlFor="ram" className="label">
                                         <span className="label-text">RAM</span>
@@ -466,6 +468,7 @@ const AddProduct = () => {
                                         className="input input-bordered w-full"
                                     >
                                         <option value="">Select RAM</option>
+                                        <option value="unknown">N/A</option>
                                         <option value="1GB">1GB</option>
                                         <option value="2GB">2GB</option>
                                         <option value="4GB">4GB</option>
@@ -595,27 +598,29 @@ const AddProduct = () => {
 
                             {/* Battery Input Field */}
 
-                            <div className="form-control mb-4">
-                                <label htmlFor="battery" className="label">
-                                    <span className="label-text">Battery Capacity</span>
-                                </label>
-                                <input
-                                    id="battery"
-                                    type="text"
-                                    {...register("battery", { required: "Battery is required" })}
-                                    placeholder="Enter battery details"
-                                    className="input input-bordered w-full"
-                                />
-                                {errors.battery && (
-                                    <span className="text-red-500 text-xs mt-2">
-                                        {errors.battery.message}
-                                    </span>
-                                )}
-                            </div>
+                            {selectedCategory !== 'camera' && selectedCategory !== 'headphone' && selectedCategory !== 'smart-watch' && (
+                                <div className="form-control mb-4">
+                                    <label htmlFor="battery" className="label">
+                                        <span className="label-text">Battery Capacity</span>
+                                    </label>
+                                    <input
+                                        id="battery"
+                                        type="text"
+                                        {...register("battery", { required: "Battery is required" })}
+                                        placeholder="Enter battery details"
+                                        className="input input-bordered w-full"
+                                    />
+                                    {errors.battery && (
+                                        <span className="text-red-500 text-xs mt-2">
+                                            {errors.battery.message}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
 
                             {/*  Battery Life */}
 
-                            {selectedCategory === 'headphone' || selectedCategory === 'smart-watch' && (
+                            {(selectedCategory === 'headphone' || selectedCategory === 'smart-watch' || selectedCategory === 'camera') && (
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Battery Life</span>
@@ -626,6 +631,9 @@ const AddProduct = () => {
                                         defaultValue=""
                                     >
                                         <option value="" selected>Select Battery Life</option>
+                                        <option value="Up to 1 hours">Up to 1 hours</option>
+                                        <option value="Up to 2 hours">Up to 2 hours</option>
+                                        <option value="Up to 3 hours">Up to 3 hours</option>
                                         <option value="Up to 5 hours">Up to 5 hours</option>
                                         <option value="5-7 hours">5-7 hours</option>
                                         <option value="8-10 hours">8-10 hours</option>
@@ -819,46 +827,48 @@ const AddProduct = () => {
 
                             {/* Storage Selection */}
 
-                            <div className="form-control mb-4">
-                                <label className="label py-5">
-                                    <span className="label-text">Storage</span>
-                                </label>
-                                <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-                                    {["32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
-                                        <div key={size}>
-                                            <input
-                                                type="checkbox"
-                                                id={`storage-${size}`}
-                                                value={size}
-                                                onChange={handleStorageCheckboxChange}
-                                            />
-                                            <label htmlFor={`storage-${size}`} className="ml-2">{size}</label>
-                                            {selectedStorage[size] && (
-                                                <div className="mt-2">
-                                                    <input
-                                                        type="number"
-                                                        id={size}
-                                                        placeholder={`Price for ${size}`}
-                                                        value={storagePrices[size] || ''}
-                                                        onChange={handlePriceChange}
-                                                        className="input input-bordered w-full"
-                                                    />
-                                                    {errors.storagePrice && errors.storagePrice[size] && (
-                                                        <span className="text-red-500 text-xs mt-2">
-                                                            {errors.storagePrice[size]?.message}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </div>
-                                    ))}
+                            {selectedCategory !== 'headphone' && (
+                                <div className="form-control mb-4">
+                                    <label className="label py-5">
+                                        <span className="label-text">Storage</span>
+                                    </label>
+                                    <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+                                        {["32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
+                                            <div key={size}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={`storage-${size}`}
+                                                    value={size}
+                                                    onChange={handleStorageCheckboxChange}
+                                                />
+                                                <label htmlFor={`storage-${size}`} className="ml-2">{size}</label>
+                                                {selectedStorage[size] && (
+                                                    <div className="mt-2">
+                                                        <input
+                                                            type="number"
+                                                            id={size}
+                                                            placeholder={`Price for ${size}`}
+                                                            value={storagePrices[size] || ''}
+                                                            onChange={handlePriceChange}
+                                                            className="input input-bordered w-full"
+                                                        />
+                                                        {errors.storagePrice && errors.storagePrice[size] && (
+                                                            <span className="text-red-500 text-xs mt-2">
+                                                                {errors.storagePrice[size]?.message}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {errors.storage && (
+                                        <span className="text-red-500 text-xs mt-2">
+                                            {errors.storage.message}
+                                        </span>
+                                    )}
                                 </div>
-                                {errors.storage && (
-                                    <span className="text-red-500 text-xs mt-2">
-                                        {errors.storage.message}
-                                    </span>
-                                )}
-                            </div>
+                            )}
 
                             {/* Color Selection */}
 
@@ -1105,6 +1115,33 @@ const AddProduct = () => {
                                             className="checkbox"
                                         />
                                         <span className="ml-2">Bluetooth</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="SOS"
+                                            {...register("connectivity")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">SOS</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="UWB"
+                                            {...register("connectivity")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">UWB</span>
+                                    </label>
+                                    <label className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            value="SDI"
+                                            {...register("connectivity")}
+                                            className="checkbox"
+                                        />
+                                        <span className="ml-2">SDI</span>
                                     </label>
                                     <label className="flex items-center">
                                         <input
