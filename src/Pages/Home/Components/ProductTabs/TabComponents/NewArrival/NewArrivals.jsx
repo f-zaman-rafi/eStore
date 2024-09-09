@@ -5,26 +5,35 @@ import LoadingComponent from "../../../../../../SharedComponents/Loading/Loading
 
 
 const NewArrivals = () => {
-    const axiosCommon = useAxiosCommon(); // Custom hook or function for axios configuration
+    const axiosCommon = useAxiosCommon();
 
     const { data: productData = [], isLoading } = useQuery({
         queryKey: ['productData'],
         queryFn: async () => {
-            const { data } = await axiosCommon.get(`/products`); // Making a GET request to fetch products
+            const { data } = await axiosCommon.get(`/products`);
             return data;
         }
     });
 
-    if (isLoading) return <LoadingComponent />; // Show loading state while data is being fetched
-
-    console.log(productData); // Log the fetched product data
+    if (isLoading) return <LoadingComponent />;
+    console.log(productData);
 
 
 
 
     return (
         <div>
-            <p>New Arrivals</p>
+            <p>total products:  {productData.length}</p>
+
+            {
+                productData.map(product => (
+                    <div key={product._id}>
+                        <img className="h-40 w-40" src={product.image} alt="" />
+                        <p>{product.title}</p>
+                        <p>{product.ram}</p>
+                    </div>
+                ))
+            }
         </div>
     );
 };
