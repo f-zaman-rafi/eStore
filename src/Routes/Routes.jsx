@@ -5,13 +5,14 @@ import SignIn from "../Pages/SignIn/SignIn";
 import AuthGuard from "./AuthGuard";
 import About from "../Pages/About/About";
 import AddProduct from "../Pages/AddProduct/AddProduct";
-import Phone from "../Pages/AddProduct/Phone/Phone";
+// import Phone from "../Pages/AddProduct/Phone/Phone";
 import SmartWatch from "../Pages/AddProduct/SmartWatch/SmartWatch";
 import Camera from "../Pages/AddProduct/Camera/Camera";
 import Headphone from "../Pages/AddProduct/Headphone/Headphone";
 import Computer from "../Pages/AddProduct/Computer/Computer";
 import GamingDevice from "../Pages/AddProduct/GamingDevice/GamingDevice";
 import AddProductCategory from "../Pages/AddProduct/AddProductCategory/AddProductCategory";
+import Smartphone from "../Pages/AddProduct/Smartphone/Smartphone";
 
 export const router = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'phone',
-                        element: <Phone />
+                        element: <Smartphone />
                     },
                     {
                         path: 'smartwatch',

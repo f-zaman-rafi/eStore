@@ -74,7 +74,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     {/* Logo */}
-                    <img className='h-5' src={logo} alt="Logo" />
+                    <Link to='/'><img className='h-5' src={logo} alt="Logo" /></Link>
                 </div>
 
                 {/* Navigation links for desktop view */}
