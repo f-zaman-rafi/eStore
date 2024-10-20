@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxiosCommon from '../../../Hooks/useAxiosCommon';
 import { useNavigate } from "react-router-dom";
@@ -13,80 +12,44 @@ const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
 const Smartphone = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [selectedStorage, setSelectedStorage] = useState({});
-    const [storagePrices, setStoragePrices] = useState({});
-    const [selectedColors, setSelectedColors] = useState([]);
+
     const axiosCommon = useAxiosCommon();
     const navigate = useNavigate();
 
-    // Handle form submission
+    // submit the data
+
     const onSubmit = async (data) => {
         try {
-            // Prepare storage data
-            const storageData = Object.keys(selectedStorage).map(size => ({
-                size,
-                price: storagePrices[size] || ''
-            }));
 
-            // Handle image upload
+            // upload image first
+
             const formData = new FormData();
             formData.append("file", data.image[0]);
-            formData.append("upload_preset", UPLOAD_PRESET);
-
+            formData.append('upload_preset', UPLOAD_PRESET);
             const photoRes = await axiosCommon.post(UPLOAD_URL, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
             });
 
-            // Add the uploaded image URL to data
+            //add the uploaded image url to database 
             data.image = photoRes.data.secure_url;
-            data.storageData = storageData; // Add storage data to form data
 
-            // Submit product data
-            const res = await axiosCommon.post('/products', data);
-
+            const res = await axiosCommon.post('/phones', data);
             if (res.data.insertedId) {
-                console.log('Product added to the database successfully');
+                console.log('Product successfully added to the database');
                 toast.success('Product added successfully');
-                navigate('/'); // Redirect to home page
+                navigate('/');
             }
-        } catch (error) {
-            console.error('Error adding product:', error);
-            toast.error('Failed to add product');
         }
-    };
+        catch (error) {
+            console.error("Error at adding phone: ", error);
+            toast.error('Failed to add phone');
 
-    // Handle storage checkbox change
-    const handleStorageCheckboxChange = (e) => {
-        const { value, checked } = e.target;
-        setSelectedStorage(prev => {
-            const updated = { ...prev };
-            if (checked) {
-                updated[value] = true;
-            } else {
-                delete updated[value];
-            }
-            return updated;
-        });
-    };
+        }
+    }
 
-    // Handle storage price change
-    const handlePriceChange = (e) => {
-        const { id, value } = e.target;
-        setStoragePrices(prev => ({
-            ...prev,
-            [id]: value
-        }));
-    };
 
-    // Handle checkbox change
-    const handleColorCheckboxChange = (e) => {
-        const { value, checked } = e.target;
-        setSelectedColors(prev =>
-            checked ? [...prev, value] : prev.filter(color => color !== value)
-        );
-    };
 
 
     return (
@@ -482,49 +445,6 @@ const Smartphone = () => {
                             {errors.Sensors && (
                                 <span className="text-red-500 text-xs mt-2">
                                     {errors.Sensors.message}
-                                </span>
-                            )}
-                        </div>
-
-                        {/* Price Selection */}
-
-                        <div className="form-control mb-4">
-                            <label className="label py-5">
-                                <span className="label-text">Price</span>
-                            </label>
-                            <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-                                {["16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1TB", "2TB", "4TB", "8TB"].map(size => (
-                                    <div key={size}>
-                                        <input
-                                            type="checkbox"
-                                            id={`storage-${size}`}
-                                            value={size}
-                                            onChange={handleStorageCheckboxChange}
-                                        />
-                                        <label htmlFor={`storage-${size}`} className="ml-2">{size}</label>
-                                        {selectedStorage[size] && (
-                                            <div className="mt-2">
-                                                <input
-                                                    type="number"
-                                                    id={size}
-                                                    placeholder={`Price for ${size}`}
-                                                    value={storagePrices[size] || ''}
-                                                    onChange={handlePriceChange}
-                                                    className="input input-bordered w-full"
-                                                />
-                                                {errors.storagePrice && errors.storagePrice[size] && (
-                                                    <span className="text-red-500 text-xs mt-2">
-                                                        {errors.storagePrice[size]?.message}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                            {errors.storage && (
-                                <span className="text-red-500 text-xs mt-2">
-                                    {errors.storage.message}
                                 </span>
                             )}
                         </div>
