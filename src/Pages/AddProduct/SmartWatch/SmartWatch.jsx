@@ -92,6 +92,26 @@ const SmartWatch = () => {
 
                 <div className=" gap-y-5 gap-x-10 pt-10">
 
+                    {/* Title Input Field */}
+
+                    <div className="form-control mb-4">
+                        <label htmlFor="Title" className="label">
+                            <span className="label-text">Title</span>
+                        </label>
+                        <input
+                            id="Title"
+                            type="text"
+                            {...register("Title", { required: "Title is required" })}
+                            placeholder="e.g., Apple Watch Series 9 GPS 41mm Starlight Aluminium"
+                            className="input input-bordered w-full"
+                        />
+                        {errors.Title && (
+                            <span className="text-red-500 text-xs mt-2">
+                                {errors.Title.message}
+                            </span>
+                        )}
+                    </div>
+
                     {/* Brand Input Field */}
 
                     <div className="form-control mb-4">
@@ -182,7 +202,7 @@ const SmartWatch = () => {
                             id="Weight"
                             type="text"
                             {...register("Weight", { required: "Weight info is required" })}
-                            placeholder="e.g.,30g, 45g"
+                            placeholder="e.g., 30g, 45g"
                             className="input input-bordered w-full"
                         />
                         {errors.Weight && (
@@ -262,7 +282,7 @@ const SmartWatch = () => {
                             id="os"
                             type="text"
                             {...register("os", { required: "OS is required" })}
-                            placeholder="e.g.,watchOS, Wear OS"
+                            placeholder="e.g., watchOS, Wear OS"
                             className="input input-bordered w-full"
                         />
                         {errors.os && (

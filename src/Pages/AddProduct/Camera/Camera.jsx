@@ -92,6 +92,26 @@ const Camera = () => {
 
                 <div className=" gap-y-5 gap-x-10 pt-10">
 
+                    {/* Title Input Field */}
+
+                    <div className="form-control mb-4">
+                        <label htmlFor="Title" className="label">
+                            <span className="label-text">Title</span>
+                        </label>
+                        <input
+                            id="Title"
+                            type="text"
+                            {...register("Title", { required: "Title is required" })}
+                            placeholder="e.g., Blackmagic Pocket Cinema Camera 6k"
+                            className="input input-bordered w-full"
+                        />
+                        {errors.Title && (
+                            <span className="text-red-500 text-xs mt-2">
+                                {errors.Title.message}
+                            </span>
+                        )}
+                    </div>
+
                     {/* Brand Input Field */}
 
                     <div className="form-control mb-4">
@@ -102,7 +122,7 @@ const Camera = () => {
                             id="Brand"
                             type="text"
                             {...register("Brand", { required: "Brand name is required" })}
-                            placeholder="e.g.,  Canon, Nikon"
+                            placeholder="e.g., Canon, Nikon"
                             className="input input-bordered w-full"
                         />
                         {errors.Brand && (

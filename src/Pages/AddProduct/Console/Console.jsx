@@ -42,7 +42,7 @@ const Console = () => {
             data.image = photoRes.data.secure_url;
 
             // Send product data to backend
-            const res = await axiosCommon.post('/headphones', data);
+            const res = await axiosCommon.post('/consoles', data);
             if (res.data.insertedId) {
                 toast.success('Product added successfully');
                 navigate('/');
@@ -91,6 +91,26 @@ const Console = () => {
                 </div>
 
                 <div className=" gap-y-5 gap-x-10 pt-10">
+
+                    {/* Title Input Field */}
+
+                    <div className="form-control mb-4">
+                        <label htmlFor="Title" className="label">
+                            <span className="label-text">Title</span>
+                        </label>
+                        <input
+                            id="Title"
+                            type="text"
+                            {...register("Title", { required: "Title is required" })}
+                            placeholder="e.g., Play Station 5 Disc Edition"
+                            className="input input-bordered w-full"
+                        />
+                        {errors.Title && (
+                            <span className="text-red-500 text-xs mt-2">
+                                {errors.Title.message}
+                            </span>
+                        )}
+                    </div>
 
                     {/* Brand Input Field */}
 

@@ -92,6 +92,26 @@ const Smartphone = () => {
 
                 <div className=" gap-y-5 gap-x-10 pt-10">
 
+                    {/* Title Input Field */}
+
+                    <div className="form-control mb-4">
+                        <label htmlFor="Title" className="label">
+                            <span className="label-text">Title</span>
+                        </label>
+                        <input
+                            id="Title"
+                            type="text"
+                            {...register("Title", { required: "Title is required" })}
+                            placeholder="e.g., Apple iPhone 14 Pro Max 128GB Deep Purple"
+                            className="input input-bordered w-full"
+                        />
+                        {errors.Title && (
+                            <span className="text-red-500 text-xs mt-2">
+                                {errors.Title.message}
+                            </span>
+                        )}
+                    </div>
+
                     {/* Brand Input Field */}
 
                     <div className="form-control mb-4">
@@ -337,7 +357,7 @@ const Smartphone = () => {
 
                     <div className="form-control mb-4">
                         <label htmlFor="memory" className="label">
-                            <span className="label-text">Memory/Storage</span>
+                            <span className="label-text">Memory</span>
                         </label>
                         <input
                             id="memory"
