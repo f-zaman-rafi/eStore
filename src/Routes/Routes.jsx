@@ -13,6 +13,7 @@ import Computer from "../Pages/AddProduct/Computer/Computer";
 import GamingDevice from "../Pages/AddProduct/GamingDevice/GamingDevice";
 import AddProductCategory from "../Pages/AddProduct/AddProductCategory/AddProductCategory";
 import Smartphone from "../Pages/AddProduct/Smartphone/Smartphone";
+import Demo from "../Pages/Demo/Demo";
 
 export const router = createBrowserRouter([
     {
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/about',
-                element: <About />
+                element: <Demo />
             },
             {
                 path: '/add-product',
