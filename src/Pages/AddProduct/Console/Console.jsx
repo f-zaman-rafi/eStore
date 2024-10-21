@@ -10,7 +10,7 @@ const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
-const GamingDevice = () => {
+const Console = () => {
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
             priceVariants: [{ variant: '', price: '' }]  // Initializing with one price variant field
@@ -42,7 +42,7 @@ const GamingDevice = () => {
             data.image = photoRes.data.secure_url;
 
             // Send product data to backend
-            const res = await axiosCommon.post('/computers', data);
+            const res = await axiosCommon.post('/headphones', data);
             if (res.data.insertedId) {
                 toast.success('Product added successfully');
                 navigate('/');
@@ -59,9 +59,9 @@ const GamingDevice = () => {
     return (
         <div className="pb-10 lg:px-20 px-10 my-10 min-h-[80vh] max-w-[1440px] mx-auto font-inter overflow-x-hidden">
             <Helmet>
-                <title>Add SmartWatch | Cyber</title>
+                <title>Add Gaming Console | Cyber</title>
             </Helmet>
-            <h1 className="text-2xl font-medium text-gray-800 dark:text-white px-4 py-10">Add Computer</h1>
+            <h1 className="text-2xl font-medium text-gray-800 dark:text-white px-4 py-10">Add Gaming Console</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-7">
 
@@ -102,7 +102,7 @@ const GamingDevice = () => {
                             id="Brand"
                             type="text"
                             {...register("Brand", { required: "Brand name is required" })}
-                            placeholder="e.g., Samsung, Apple, OnePlus"
+                            placeholder="e.g., Sony"
                             className="input input-bordered w-full"
                         />
                         {errors.Brand && (
@@ -122,7 +122,7 @@ const GamingDevice = () => {
                             id="Model"
                             type="text"
                             {...register("Model", { required: "Model name is required" })}
-                            placeholder="e.g., Galaxy S21, iPhone 13, Pixel 6"
+                            placeholder="e.g., Play Station 5 Slim Edition"
                             className="input input-bordered w-full"
                         />
                         {errors.Model && (
@@ -142,7 +142,7 @@ const GamingDevice = () => {
                             id="Processor"
                             type="text"
                             {...register("Processor", { required: "Processor name is required" })}
-                            placeholder="e.g., Snapdragon 888, A15 Bionic"
+                            placeholder="e.g., AMD Ryzen “Zen 2” | 8 Cores / 16 Threads” "
                             className="input input-bordered w-full"
                         />
                         {errors.Processor && (
@@ -156,13 +156,13 @@ const GamingDevice = () => {
 
                     <div className="form-control mb-4">
                         <label htmlFor="Graphics" className="label">
-                            <span className="label-text"> Graphics</span>
+                            <span className="label-text">Graphics</span>
                         </label>
                         <input
                             id="Graphics"
                             type="text"
-                            {...register("Graphics", { required: " Graphics is required" })}
-                            placeholder="e.g., 6.7 inches, 5.5 inches"
+                            {...register("Graphics", { required: "Graphics is required" })}
+                            placeholder="e.g., AMD Radeon RDNA 2 | Ray Tracing Acceleration"
                             className="input input-bordered w-full"
                         />
                         {errors.Graphics && (
@@ -172,187 +172,48 @@ const GamingDevice = () => {
                         )}
                     </div>
 
-                    {/* Connectivity Input Field */}
+                    {/* Storage Input Field */}
 
                     <div className="form-control mb-4">
-                        <label htmlFor="Connectivity" className="label">
-                            <span className="label-text">Connectivity</span>
+                        <label htmlFor="Storage" className="label">
+                            <span className="label-text">Storage</span>
                         </label>
                         <input
-                            id="Connectivity"
+                            id="Storage"
                             type="text"
-                            {...register("Connectivity", { required: "Connectivity info is required" })}
-                            placeholder="e.g., GPS / Cellular | Wi-Fi "
+                            {...register("Storage", { required: "Storage info is required" })}
+                            placeholder="e.g., 1TB | 5.5GB/s Read Bandwidth "
                             className="input input-bordered w-full"
                         />
-                        {errors.Connectivity && (
+                        {errors.Storage && (
                             <span className="text-red-500 text-xs mt-2">
-                                {errors.Connectivity.message}
+                                {errors.Storage.message}
                             </span>
                         )}
                     </div>
 
-                    {/* KeyboardType Input Field */}
+                    {/* Memory Input Field */}
 
                     <div className="form-control mb-4">
-                        <label htmlFor="KeyboardType" className="label">
-                            <span className="label-text">Keyboard Type</span>
+                        <label htmlFor="Memory" className="label">
+                            <span className="label-text">Memory</span>
                         </label>
                         <input
-                            id="KeyboardType"
+                            id="Memory"
                             type="text"
-                            {...register("KeyboardType", { required: "Keyboard Type info is required" })}
-                            placeholder="e.g., 146.7 x 71.5 x 7.4 mm"
+                            {...register("Memory", { required: "Memory info is required" })}
+                            placeholder="e.g., 16GB | 448GB/s Bandwidth "
                             className="input input-bordered w-full"
                         />
-                        {errors.KeyboardType && (
+                        {errors.Memory && (
                             <span className="text-red-500 text-xs mt-2">
-                                {errors.KeyboardType.message}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* Body Input Field */}
-
-                    <div className="form-control mb-4">
-                        <label htmlFor="Body" className="label">
-                            <span className="label-text">Body</span>
-                        </label>
-                        <input
-                            id="Body"
-                            type="text"
-                            {...register("Body", { required: "Body info is required" })}
-                            placeholder="e.g., 	357.78 x 278.63 x 25.95 mm | 2.8kg"
-                            className="input input-bordered w-full"
-                        />
-                        {errors.Body && (
-                            <span className="text-red-500 text-xs mt-2">
-                                {errors.Body.message}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* Display Input Field */}
-
-                    <div className="form-control mb-4">
-                        <label htmlFor="Display" className="label">
-                            <span className="label-text">Display Type</span>
-                        </label>
-                        <input
-                            id="Display"
-                            type="text"
-                            {...register("Display", { required: "Display Type is required" })}
-                            placeholder="e.g., AMOLED, LCD"
-                            className="input input-bordered w-full"
-                        />
-                        {errors.Display && (
-                            <span className="text-red-500 text-xs mt-2">
-                                {errors.Display.message}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* Ports Input Field */}
-
-                    <div className="form-control mb-4">
-                        <label htmlFor="Ports" className="label">
-                            <span className="label-text">Display Resolution</span>
-                        </label>
-                        <input
-                            id="Ports"
-                            type="text"
-                            {...register("Ports", { required: "Display Resolution is required" })}
-                            placeholder="e.g., 1080 x 2400 pixels, 1440 x 3200 pixels"
-                            className="input input-bordered w-full"
-                        />
-                        {errors.Ports && (
-                            <span className="text-red-500 text-xs mt-2">
-                                {errors.Ports.message}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* os Input Field */}
-
-                    <div className="form-control mb-4">
-                        <label htmlFor="os" className="label">
-                            <span className="label-text">OS</span>
-                        </label>
-                        <input
-                            id="os"
-                            type="text"
-                            {...register("os", { required: "OS is required" })}
-                            placeholder="e.g., Android 11, iOS 14"
-                            className="input input-bordered w-full"
-                        />
-                        {errors.os && (
-                            <span className="text-red-500 text-xs mt-2">
-                                {errors.os.message}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* memory Input Field */}
-
-                    <div className="form-control mb-4">
-                        <label htmlFor="memory" className="label">
-                            <span className="label-text">Memory/Storage</span>
-                        </label>
-                        <input
-                            id="memory"
-                            type="text"
-                            {...register("memory", { required: "Memory/Storage info is required" })}
-                            placeholder="e.g., 128GB/8GB RAM, 256GB/12GB RAM"
-                            className="input input-bordered w-full"
-                        />
-                        {errors.memory && (
-                            <span className="text-red-500 text-xs mt-2">
-                                {errors.memory.message}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* BatteryInfo Input Field */}
-
-                    <div className="form-control mb-4">
-                        <label htmlFor="BatteryInfo" className="label">
-                            <span className="label-text">Battery Info</span>
-                        </label>
-                        <input
-                            id="BatteryInfo"
-                            type="text"
-                            {...register("BatteryInfo", { required: "Battery Info is required" })}
-                            placeholder="e.g., 5000mAh, 4500mAh"
-                            className="input input-bordered w-full"
-                        />
-                        {errors.BatteryInfo && (
-                            <span className="text-red-500 text-xs mt-2">
-                                {errors.BatteryInfo.message}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* Sensors Input Field */}
-
-                    <div className="form-control mb-4">
-                        <label htmlFor="Sensors" className="label">
-                            <span className="label-text">Sensors</span>
-                        </label>
-                        <input
-                            id="Sensors"
-                            type="text"
-                            {...register("Sensors", { required: "Sensors info is required" })}
-                            placeholder="e.g., Fingerprint, Gyroscope"
-                            className="input input-bordered w-full"
-                        />
-                        {errors.Sensors && (
-                            <span className="text-red-500 text-xs mt-2">
-                                {errors.Sensors.message}
+                                {errors.Memory.message}
                             </span>
                         )}
                     </div>
 
                     {/* Other Features / Info Input Field */}
+
                     <div className="form-control mb-4">
                         <label htmlFor="OtherFeatures" className="label">
                             <span className="label-text">Other Features / Info</span>
@@ -361,7 +222,7 @@ const GamingDevice = () => {
                             id="OtherFeatures"
                             type="text"
                             {...register("OtherFeatures", { required: "Other features info is required" })}
-                            placeholder="e.g., Glass front (Corning-made), IP68 water resistance, Always on Display"
+                            placeholder="e.g., Remote-Play"
                             className="input input-bordered w-full"
                         />
                         {errors.OtherFeatures && (
@@ -434,5 +295,5 @@ const GamingDevice = () => {
     );
 };
 
-export default GamingDevice;
+export default Console;
 

@@ -10,10 +10,10 @@ import SmartWatch from "../Pages/AddProduct/SmartWatch/SmartWatch";
 import Camera from "../Pages/AddProduct/Camera/Camera";
 import Headphone from "../Pages/AddProduct/Headphone/Headphone";
 import Computer from "../Pages/AddProduct/Computer/Computer";
-import GamingDevice from "../Pages/AddProduct/GamingDevice/GamingDevice";
 import AddProductCategory from "../Pages/AddProduct/AddProductCategory/AddProductCategory";
 import Smartphone from "../Pages/AddProduct/Smartphone/Smartphone";
 import Demo from "../Pages/Demo/Demo";
+import Console from "../Pages/AddProduct/Console/Console";
 
 export const router = createBrowserRouter([
     {
@@ -61,8 +61,8 @@ export const router = createBrowserRouter([
                         element: <Computer />
                     },
                     {
-                        path: 'gaming-device',
-                        element: <GamingDevice />
+                        path: 'console',
+                        element: <Console />
                     },
                 ]
             }

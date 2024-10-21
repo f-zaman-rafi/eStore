@@ -10,7 +10,7 @@ const AddProductCategory = () => {
                 <Link to='/add-product/camera'><div className="bg-gray-100 border-2 shadow-md rounded-2xl cursor-pointer text-center py-5 md:py-10 lg:py-16 font-bold text-xl hover:bg-gray-300 ease-in-out duration-500"><p>Camera</p></div></Link>
                 <Link to='/add-product/headphone'><div className="bg-gray-100 border-2 shadow-md rounded-2xl cursor-pointer text-center py-5 md:py-10 lg:py-16 font-bold text-xl hover:bg-gray-300 ease-in-out duration-500"><p>Headphone</p></div></Link>
                 <Link to='/add-product/computer'><div className="bg-gray-100 border-2 shadow-md rounded-2xl cursor-pointer text-center py-5 md:py-10 lg:py-16 font-bold text-xl hover:bg-gray-300 ease-in-out duration-500"><p>Computer</p></div></Link>
-                <Link to='/add-product/gaming-device'><div className="bg-gray-100 border-2 shadow-md rounded-2xl cursor-pointer text-center py-5 md:py-10 lg:py-16 font-bold text-xl hover:bg-gray-300 ease-in-out duration-500"><p>Gaming Device</p></div></Link>
+                <Link to='/add-product/console'><div className="bg-gray-100 border-2 shadow-md rounded-2xl cursor-pointer text-center py-5 md:py-10 lg:py-16 font-bold text-xl hover:bg-gray-300 ease-in-out duration-500"><p>Gaming Console</p></div></Link>
             </div>
         </div>
     );
