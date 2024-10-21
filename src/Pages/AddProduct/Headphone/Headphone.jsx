@@ -102,7 +102,7 @@ const Headphone = () => {
                             id="Brand"
                             type="text"
                             {...register("Brand", { required: "Brand name is required" })}
-                            placeholder="e.g., Samsung, Apple, OnePlus"
+                            placeholder="e.g., Sony, Bose, Apple"
                             className="input input-bordered w-full"
                         />
                         {errors.Brand && (
@@ -122,7 +122,7 @@ const Headphone = () => {
                             id="Model"
                             type="text"
                             {...register("Model", { required: "Model name is required" })}
-                            placeholder="e.g., Galaxy S21, iPhone 13, Pixel 6"
+                            placeholder="e.g., WH-1000XM4, AirPods Pro"
                             className="input input-bordered w-full"
                         />
                         {errors.Model && (
@@ -222,7 +222,7 @@ const Headphone = () => {
                             id="Playtime"
                             type="text"
                             {...register("Playtime", { required: "Playtime info is required" })}
-                            placeholder="e.g., 	Up to 20 hours"
+                            placeholder="e.g., Up to 20 hours"
                             className="input input-bordered w-full"
                         />
                         {errors.Playtime && (
@@ -280,7 +280,7 @@ const Headphone = () => {
                             <div key={item.id} className="priceGroup mb-2 flex items-center gap-4">
                                 <input
                                     type="text"
-                                    placeholder="Variant (e.g., 512/12)"
+                                    placeholder="Variant (e.g., red, green, pink)"
                                     {...register(`priceVariants.${index}.variant`, { required: "Variant is required" })}
                                     className="input input-bordered w-full"
                                 />

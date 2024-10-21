@@ -102,7 +102,7 @@ const SmartWatch = () => {
                             id="Brand"
                             type="text"
                             {...register("Brand", { required: "Brand name is required" })}
-                            placeholder="e.g., Samsung, Apple, OnePlus"
+                            placeholder="e.g., Dell, HP, Apple"
                             className="input input-bordered w-full"
                         />
                         {errors.Brand && (
@@ -122,7 +122,7 @@ const SmartWatch = () => {
                             id="Model"
                             type="text"
                             {...register("Model", { required: "Model name is required" })}
-                            placeholder="e.g., Galaxy S21, iPhone 13, Pixel 6"
+                            placeholder="e.g., XPS 13, Spectre x360"
                             className="input input-bordered w-full"
                         />
                         {errors.Model && (
@@ -142,7 +142,7 @@ const SmartWatch = () => {
                             id="Processor"
                             type="text"
                             {...register("Processor", { required: "Processor name is required" })}
-                            placeholder="e.g., Snapdragon 888, A15 Bionic"
+                            placeholder="e.g., Intel i7, AMD Ryzen 5"
                             className="input input-bordered w-full"
                         />
                         {errors.Processor && (
@@ -162,7 +162,7 @@ const SmartWatch = () => {
                             id="Graphics"
                             type="text"
                             {...register("Graphics", { required: " Graphics is required" })}
-                            placeholder="e.g., 6.7 inches, 5.5 inches"
+                            placeholder="e.g., NVIDIA GTX 1650, Intel Iris Xe"
                             className="input input-bordered w-full"
                         />
                         {errors.Graphics && (
@@ -182,7 +182,7 @@ const SmartWatch = () => {
                             id="Connectivity"
                             type="text"
                             {...register("Connectivity", { required: "Connectivity info is required" })}
-                            placeholder="e.g., GPS / Cellular | Wi-Fi "
+                            placeholder="e.g., Wi-Fi 6, Bluetooth 5.0"
                             className="input input-bordered w-full"
                         />
                         {errors.Connectivity && (
@@ -202,7 +202,7 @@ const SmartWatch = () => {
                             id="KeyboardType"
                             type="text"
                             {...register("KeyboardType", { required: "Keyboard Type info is required" })}
-                            placeholder="e.g., 146.7 x 71.5 x 7.4 mm"
+                            placeholder="e.g., Full-size, Backlit"
                             className="input input-bordered w-full"
                         />
                         {errors.KeyboardType && (
@@ -222,7 +222,7 @@ const SmartWatch = () => {
                             id="Body"
                             type="text"
                             {...register("Body", { required: "Body info is required" })}
-                            placeholder="e.g., 	357.78 x 278.63 x 25.95 mm | 2.8kg"
+                            placeholder="e.g., 14.1 x 9.8 x 0.7 inches | 3.2 lbs"
                             className="input input-bordered w-full"
                         />
                         {errors.Body && (
@@ -262,7 +262,7 @@ const SmartWatch = () => {
                             id="Ports"
                             type="text"
                             {...register("Ports", { required: "Display Resolution is required" })}
-                            placeholder="e.g., 1080 x 2400 pixels, 1440 x 3200 pixels"
+                            placeholder="e.g.,  USB-C, HDMI, headphone jack"
                             className="input input-bordered w-full"
                         />
                         {errors.Ports && (
@@ -282,7 +282,7 @@ const SmartWatch = () => {
                             id="os"
                             type="text"
                             {...register("os", { required: "OS is required" })}
-                            placeholder="e.g., Android 11, iOS 14"
+                            placeholder="e.g., Windows 10, macOS Monterey"
                             className="input input-bordered w-full"
                         />
                         {errors.os && (
@@ -322,7 +322,7 @@ const SmartWatch = () => {
                             id="BatteryInfo"
                             type="text"
                             {...register("BatteryInfo", { required: "Battery Info is required" })}
-                            placeholder="e.g., 5000mAh, 4500mAh"
+                            placeholder="e.g., 56WHr, Up to 10 hours"
                             className="input input-bordered w-full"
                         />
                         {errors.BatteryInfo && (
@@ -342,7 +342,7 @@ const SmartWatch = () => {
                             id="Sensors"
                             type="text"
                             {...register("Sensors", { required: "Sensors info is required" })}
-                            placeholder="e.g., Fingerprint, Gyroscope"
+                            placeholder="e.g., Fingerprint Reader, Ambient Light Sensor"
                             className="input input-bordered w-full"
                         />
                         {errors.Sensors && (
@@ -361,7 +361,7 @@ const SmartWatch = () => {
                             id="OtherFeatures"
                             type="text"
                             {...register("OtherFeatures", { required: "Other features info is required" })}
-                            placeholder="e.g., Glass front (Corning-made), IP68 water resistance, Always on Display"
+                            placeholder="e.g., Thunderbolt 4, Backlit Keyboard"
                             className="input input-bordered w-full"
                         />
                         {errors.OtherFeatures && (
