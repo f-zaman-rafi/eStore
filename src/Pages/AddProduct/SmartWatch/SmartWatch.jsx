@@ -102,7 +102,7 @@ const SmartWatch = () => {
                             id="Brand"
                             type="text"
                             {...register("Brand", { required: "Brand name is required" })}
-                            placeholder="e.g., Samsung, Apple, OnePlus"
+                            placeholder="e.g., Apple, Samsung, Fitbit"
                             className="input input-bordered w-full"
                         />
                         {errors.Brand && (
