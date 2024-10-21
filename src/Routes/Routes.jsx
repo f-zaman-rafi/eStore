@@ -3,7 +3,7 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Homepage/Home";
 import SignIn from "../Pages/SignIn/SignIn";
 import AuthGuard from "./AuthGuard";
-import About from "../Pages/About/About";
+// import About from "../Pages/About/About";
 import AddProduct from "../Pages/AddProduct/AddProduct";
 // import Phone from "../Pages/AddProduct/Phone/Phone";
 import SmartWatch from "../Pages/AddProduct/SmartWatch/SmartWatch";

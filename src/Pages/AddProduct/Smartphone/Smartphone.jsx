@@ -102,7 +102,7 @@ const Smartphone = () => {
                             id="Brand"
                             type="text"
                             {...register("Brand", { required: "Brand name is required" })}
-                            placeholder="Enter Brand Name"
+                            placeholder="e.g., Samsung, Apple, OnePlus"
                             className="input input-bordered w-full"
                         />
                         {errors.Brand && (
@@ -111,6 +111,7 @@ const Smartphone = () => {
                             </span>
                         )}
                     </div>
+
 
                     {/* Model Input Field */}
 
@@ -122,7 +123,7 @@ const Smartphone = () => {
                             id="Model"
                             type="text"
                             {...register("Model", { required: "Model name is required" })}
-                            placeholder="Enter Model Name"
+                            placeholder="e.g., Galaxy S21, iPhone 13, Pixel 6"
                             className="input input-bordered w-full"
                         />
                         {errors.Model && (
@@ -142,7 +143,7 @@ const Smartphone = () => {
                             id="Network"
                             type="text"
                             {...register("Network", { required: "Network info is required" })}
-                            placeholder="Enter Network info"
+                            placeholder="e.g., 5G, 4G LTE"
                             className="input input-bordered w-full"
                         />
                         {errors.Network && (
@@ -162,7 +163,7 @@ const Smartphone = () => {
                             id="Dimensions"
                             type="text"
                             {...register("Dimensions", { required: "Dimensions info is required" })}
-                            placeholder="Enter Dimensions info"
+                            placeholder="e.g., 146.7 x 71.5 x 7.4 mm"
                             className="input input-bordered w-full"
                         />
                         {errors.Dimensions && (
@@ -182,7 +183,7 @@ const Smartphone = () => {
                             id="Weight"
                             type="text"
                             {...register("Weight", { required: "Weight info is required" })}
-                            placeholder="Enter Weight info"
+                            placeholder="e.g., 189g, 202g"
                             className="input input-bordered w-full"
                         />
                         {errors.Weight && (
@@ -202,7 +203,7 @@ const Smartphone = () => {
                             id="SIM"
                             type="text"
                             {...register("SIM", { required: "SIM info is required" })}
-                            placeholder="Enter SIM info"
+                            placeholder="e.g., Dual SIM, Nano SIM"
                             className="input input-bordered w-full"
                         />
                         {errors.SIM && (
@@ -222,7 +223,7 @@ const Smartphone = () => {
                             id="DisplayType"
                             type="text"
                             {...register("DisplayType", { required: "Display Type is required" })}
-                            placeholder="Enter Display Type"
+                            placeholder="e.g., AMOLED, LCD"
                             className="input input-bordered w-full"
                         />
                         {errors.DisplayType && (
@@ -242,7 +243,7 @@ const Smartphone = () => {
                             id="DisplaySize"
                             type="text"
                             {...register("DisplaySize", { required: "Display Size is required" })}
-                            placeholder="Enter Display Size"
+                            placeholder="e.g., 6.7 inches, 5.5 inches"
                             className="input input-bordered w-full"
                         />
                         {errors.DisplaySize && (
@@ -262,7 +263,7 @@ const Smartphone = () => {
                             id="DisplayResolution"
                             type="text"
                             {...register("DisplayResolution", { required: "Display Resolution is required" })}
-                            placeholder="Enter Display Resolution"
+                            placeholder="e.g., 1080 x 2400 pixels, 1440 x 3200 pixels"
                             className="input input-bordered w-full"
                         />
                         {errors.DisplayResolution && (
@@ -282,7 +283,7 @@ const Smartphone = () => {
                             id="os"
                             type="text"
                             {...register("os", { required: "OS is required" })}
-                            placeholder="Enter OS"
+                            placeholder="e.g., Android 11, iOS 14"
                             className="input input-bordered w-full"
                         />
                         {errors.os && (
@@ -302,7 +303,7 @@ const Smartphone = () => {
                             id="Chipset"
                             type="text"
                             {...register("Chipset", { required: "Chipset name is required" })}
-                            placeholder="Enter Chipset name"
+                            placeholder="e.g., Snapdragon 888, A15 Bionic"
                             className="input input-bordered w-full"
                         />
                         {errors.Chipset && (
@@ -322,7 +323,7 @@ const Smartphone = () => {
                             id="cpu"
                             type="text"
                             {...register("cpu", { required: "CPU name is required" })}
-                            placeholder="Enter CPU name"
+                            placeholder="e.g., Octa-core, Hexa-core"
                             className="input input-bordered w-full"
                         />
                         {errors.cpu && (
@@ -342,7 +343,7 @@ const Smartphone = () => {
                             id="memory"
                             type="text"
                             {...register("memory", { required: "Memory/Storage info is required" })}
-                            placeholder="Enter Memory/Storage info"
+                            placeholder="e.g., 128GB/8GB RAM, 256GB/12GB RAM"
                             className="input input-bordered w-full"
                         />
                         {errors.memory && (
@@ -362,7 +363,7 @@ const Smartphone = () => {
                             id="MainCamera"
                             type="text"
                             {...register("MainCamera", { required: "Main Camera info is required" })}
-                            placeholder="Enter Main Camera info"
+                            placeholder="e.g., 108MP (wide), 12MP (ultrawide)"
                             className="input input-bordered w-full"
                         />
                         {errors.MainCamera && (
@@ -382,7 +383,7 @@ const Smartphone = () => {
                             id="SelfieCamera"
                             type="text"
                             {...register("SelfieCamera", { required: "Selfie Camera info is required" })}
-                            placeholder="Enter Selfie Camera info"
+                            placeholder="e.g., 32MP (wide), 12MP (ultrawide)"
                             className="input input-bordered w-full"
                         />
                         {errors.SelfieCamera && (
@@ -402,7 +403,7 @@ const Smartphone = () => {
                             id="Sound"
                             type="text"
                             {...register("Sound", { required: "Sound info is required" })}
-                            placeholder="Enter Sound info"
+                            placeholder="e.g., Stereo speakers, 3.5mm jack"
                             className="input input-bordered w-full"
                         />
                         {errors.Sound && (
@@ -422,7 +423,7 @@ const Smartphone = () => {
                             id="BatteryInfo"
                             type="text"
                             {...register("BatteryInfo", { required: "Battery Info is required" })}
-                            placeholder="Enter Battery Info"
+                            placeholder="e.g., 5000mAh, 4500mAh"
                             className="input input-bordered w-full"
                         />
                         {errors.BatteryInfo && (
@@ -442,7 +443,7 @@ const Smartphone = () => {
                             id="Sensors"
                             type="text"
                             {...register("Sensors", { required: "Sensors info is required" })}
-                            placeholder="Enter Sensors info"
+                            placeholder="e.g., Fingerprint, Gyroscope"
                             className="input input-bordered w-full"
                         />
                         {errors.Sensors && (
@@ -451,6 +452,26 @@ const Smartphone = () => {
                             </span>
                         )}
                     </div>
+
+                    {/* Other Features / Info Input Field */}
+                    <div className="form-control mb-4">
+                        <label htmlFor="OtherFeatures" className="label">
+                            <span className="label-text">Other Features / Info</span>
+                        </label>
+                        <input
+                            id="OtherFeatures"
+                            type="text"
+                            {...register("OtherFeatures", { required: "Other features info is required" })}
+                            placeholder="e.g., Glass front (Corning-made), IP68 water resistance, Always on Display"
+                            className="input input-bordered w-full"
+                        />
+                        {errors.OtherFeatures && (
+                            <span className="text-red-500 text-xs mt-2">
+                                {errors.OtherFeatures.message}
+                            </span>
+                        )}
+                    </div>
+
 
                     {/* Image Input Field */}
 
