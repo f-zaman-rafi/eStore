@@ -14,6 +14,7 @@ import AddProductCategory from "../Pages/AddProduct/AddProductCategory/AddProduc
 import Smartphone from "../Pages/AddProduct/Smartphone/Smartphone";
 import Demo from "../Pages/Demo/Demo";
 import Console from "../Pages/AddProduct/Console/Console";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 
 export const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
             {
                 path: '/about',
                 element: <Demo />
+            },
+            {
+                path: '/:type/:id',
+                element: <ProductDetails />
             },
             {
                 path: '/add-product',

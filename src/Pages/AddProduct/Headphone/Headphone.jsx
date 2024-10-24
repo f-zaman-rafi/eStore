@@ -88,6 +88,33 @@ const Headphone = () => {
                             </span>
                         )}
                     </div>
+
+                    {/* Type Field */}
+
+                    <div className="form-control flex-1">
+                        <label htmlFor="type" className="label">
+                            <span className="label-text">Type</span>
+                        </label>
+                        <select
+                            id="type"
+                            {...register("type", { required: "type is required" })}
+                            className="input input-bordered"
+                        >
+                            <option value="" disabled>Select a type</option>
+                            <option value="phone" disabled>phone</option>
+                            <option value="camera" disabled>Camera</option>
+                            <option value="smartwatch" disabled>Smart-Watch</option>
+                            <option value="headphone" disabled selected>Headphone</option>
+                            <option value="computer" disabled >Computer</option>
+                            <option value="console" disabled>Console</option>
+                        </select>
+                        {errors.type && (
+                            <span className="text-red-500 text-xs mt-2 ml-2">
+                                {errors.type.message}
+                            </span>
+                        )}
+                    </div>
+
                 </div>
 
                 <div className=" gap-y-5 gap-x-10 pt-10">

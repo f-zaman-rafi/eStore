@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoadingComponent from '../../SharedComponents/Loading/LoadingComponent';
 import { Helmet } from 'react-helmet-async';
+import logo from '../../assets/icons/Logo.svg'
 
 
 
@@ -117,7 +118,7 @@ const SignIn = () => {
         <div className="container mx-auto max-w-md p-6 bg-white rounded-lg shadow-2xl  py-10">
           {/* Tabs */}
           <div className="flex justify-center mb-4">
-            <img className="w-auto h-7 sm:h-8" src="./icons/Logo.svg" alt="Logo" />
+            <img className="w-auto h-7 sm:h-8" src={logo} alt="Logo" />
           </div>
           <div className="flex justify-center mb-6">
             <button

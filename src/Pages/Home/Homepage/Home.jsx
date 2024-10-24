@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import Banner from "../Components/Banner/Banner";
 import BrowseByCatagory from "../Components/BrowseByCatagory/BrowseByCatagory";
 import Category2 from "../Components/Category2/Category2";
@@ -8,6 +9,9 @@ import SummerSale from "../Components/SummerSale/SummerSale";
 const Home = () => {
     return (
         <div className="">
+            <Helmet>
+                <title>Home | Cyber</title>
+            </Helmet>
             <div className=" bg-[#211C24FF]"> <Banner /></div>
             <Collage />
             <BrowseByCatagory />
