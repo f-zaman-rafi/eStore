@@ -14,8 +14,8 @@ const ProductTab = () => {
 
 
     return (
-        <div className="lg:mx-40 lg:mt-14">
-            <div className="text-sm font-medium text-center text-gray-500  mb-8">
+        <div className="lg:mx-40 mt-14">
+            <div className="text-sm font-medium text-center text-gray-500  mb-8  mx-4 lg:mx-0">
                 <ul className="flex gap-8">
                     <li className="me-2">
                         <a onClick={() => handleTabs('new-arrival')} className={`inline-block text-lg font-semibold ${activeTab === 'new-arrival' ? 'border-black border-b-[3px] text-black font-bold ' : 'border-transparent text-gray-500'}`} >New Arrival</a>

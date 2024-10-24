@@ -36,13 +36,13 @@ const NewArrivals = () => {
     console.log(productData);
 
     return (
-        < div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" >
+        < div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-4 lg:mx-0" >
 
             {
                 productData.map(product => (
                     <div key={product._id} className="bg-gray-100 rounded-md">
                         <div className=" flex flex-col justify-center items-center text-center h-full">
-                            <img className="h-40 w-40 mx-14 mt-[72px]" src={product.image} />
+                            <img className="h-40 w-auto mx-14 mt-[72px]" src={product.image} />
                             <h3 className=" mx-4 px-6 font-semibold my-4">{product.Title}</h3>
                             <p className="font-bold text-lg mt-auto">${product.priceVariants[0].price}</p>
                             <p className="btn bg-black text-white px-16 mx-6 my-4 hover:bg-gray-100 hover:border-black duration-700 hover:text-black">Buy Now</p>
