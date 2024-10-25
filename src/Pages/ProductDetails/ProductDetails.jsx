@@ -3,11 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useEffect, useState } from "react";
 import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
+import useCart from "../../Hooks/useCart";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
 
     const axiosCommon = useAxiosCommon();
-
     const { id, type } = useParams();
 
     const { data: product, isLoading, error } = useQuery({
@@ -42,6 +43,28 @@ const ProductDetails = () => {
         setSelectedVariant(variant);
     };
 
+
+    const { addToCart, cartItems } = useCart(); // Destructure addToCart from the useCart hook
+
+    // Function to handle adding an item to the cart
+    const handleAddToCart = () => {
+        if (selectedVariant) {
+            // Create an item object with necessary details for the cart
+            const item = {
+                id: product._id, // Product ID
+                model: product.Model, // Product model name
+                variant: selectedVariant.variant, // Selected variant name
+                price: selectedVariant.price, // Selected variant price
+                quantity: items, // Number of items to add
+                image: product.image, // Product image
+            };
+            addToCart(item); // Call addToCart with the item object to add it to the cart
+            toast.success('Added Successfully');
+        }
+    };
+    console.log(cartItems.length)
+
+
     if (isLoading) return <div><LoadingComponent /></div>;
     if (error) return <div>Error: {error.message}</div>;
 
@@ -74,7 +97,7 @@ const ProductDetails = () => {
                             <p className="py-1 w-16 text-center border-black border-[1px]  ">{items}</p>
                             <p className="px-4 py-1 border-black rounded-e-md border-y-[1px] border-r-[1px] cursor-pointer" onClick={removeItem}>-</p>
                         </div>
-                        <p className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px]  cursor-pointer font-semibold select-none">Add to Cart</p>
+                        <p onClick={handleAddToCart} className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px]  cursor-pointer font-semibold select-none">Add to Cart</p>
                     </div>
                 </div>
             </div>

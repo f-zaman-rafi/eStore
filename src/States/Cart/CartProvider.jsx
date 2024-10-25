@@ -9,7 +9,7 @@ const CartProvider = ({ children }) => {
 
     const [cartItems, setCartItems] = useState([]);
 
-    const addToCar = (item) => {
+    const addToCart = (item) => {
         setCartItems((prevItems) => [...prevItems, item])
     };
 
@@ -20,7 +20,7 @@ const CartProvider = ({ children }) => {
 
 
     const cartInfo = {
-        cartItems, addToCar, removeFromCart
+        cartItems, addToCart, removeFromCart
     };
 
     return (
