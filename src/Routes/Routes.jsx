@@ -15,6 +15,7 @@ import Smartphone from "../Pages/AddProduct/Smartphone/Smartphone";
 import Demo from "../Pages/Demo/Demo";
 import Console from "../Pages/AddProduct/Console/Console";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import Cart from "../Pages/Cart/Cart";
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
                 element: <Demo />
             },
             {
+                path: '/cart',
+                element: <Cart />
+            },
+            {
                 path: '/:type/:id',
                 element: <ProductDetails />
             },
@@ -42,7 +47,7 @@ export const router = createBrowserRouter([
                 element: <AddProduct />,
                 children: [
                     {
-                        path: '/add-product',
+                        path: '',
                         element: <AddProductCategory />
                     },
                     {

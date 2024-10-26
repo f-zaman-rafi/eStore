@@ -90,6 +90,7 @@ const SignIn = () => {
       toast.success("Sign-in with Google Successfully");
     } catch (error) {
       toast.error(error.message);
+      navigate('/');
     }
   }
 

@@ -1,5 +1,5 @@
 // Importing necessary assets and libraries
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
 import LoadingComponent from '../Loading/LoadingComponent';
@@ -7,12 +7,15 @@ import logo from "../../assets/icons/Logo.svg"
 import userLogo from "../../assets/images/user.svg"
 import wishlistLogo from "../../assets/images/heart.svg"
 import cartLogo from "../../assets/images/Cart1.svg"
+// import useCart from '../../Hooks/useCart';
 
 
 // Navbar component definition
 const Navbar = () => {
     // Using custom hook to get user authentication details
     const { user, logout, loading } = useAuth();
+    // const { cartItems } = useCart();
+    const navigate = useNavigate();
 
     // Navigation links component
     const navlink = (
@@ -87,7 +90,10 @@ const Navbar = () => {
                 {/* Icons and user avatar */}
                 <div className="navbar-end flex gap-3 items-center">
                     <img className='h-5' src={wishlistLogo} alt="Wishlist" />
-                    <img className='h-5' src={cartLogo} alt="Cart" />
+                    <img className='h-5' src={cartLogo} alt="Cart" onClick={() => { if (user) { navigate('/cart') } else { navigate('/sign-in') } }} style={{ cursor: 'pointer' }} />
+
+
+
                     {
                         user ? (
                             // User avatar with hover menu for authenticated user

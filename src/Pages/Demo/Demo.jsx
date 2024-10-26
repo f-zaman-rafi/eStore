@@ -24,30 +24,36 @@ const Demo = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {priceFields.map((field, index) => (
-                <div key={index} className="priceGroup">
-                    <input
-                        type="text"
-                        name="variant"
-                        placeholder="Enter Variant (e.g., 512/12)"
-                        value={field.variant}
-                        onChange={(e) => handleInputChange(index, e)}
-                        required
-                    />
-                    <input
-                        type="number"
-                        name="price"
-                        placeholder="Enter Price"
-                        value={field.price}
-                        onChange={(e) => handleInputChange(index, e)}
-                        required
-                    />
-                </div>
-            ))}
-            <button className='p-10 border-2 border-black m-5' type="button" onClick={addPriceField}>Add More</button>
-            <button className='p-10 border-2 border-black m-5' type="submit">Submit</button>
-        </form>
+        <div>
+            <form onSubmit={handleSubmit}>
+                {priceFields.map((field, index) => (
+                    <div key={index} className="priceGroup">
+                        <input
+                            type="text"
+                            name="variant"
+                            placeholder="Enter Variant (e.g., 512/12)"
+                            value={field.variant}
+                            onChange={(e) => handleInputChange(index, e)}
+                            required
+                        />
+                        <input
+                            type="number"
+                            name="price"
+                            placeholder="Enter Price"
+                            value={field.price}
+                            onChange={(e) => handleInputChange(index, e)}
+                            required
+                        />
+                    </div>
+                ))}
+                <button className='p-10 border-2 border-black m-5' type="button" onClick={addPriceField}>Add More</button>
+                <button className='p-10 border-2 border-black m-5' type="submit">Submit</button>
+
+            </form>
+
+
+        </div>
+
     );
 };
 

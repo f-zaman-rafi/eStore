@@ -1,32 +1,36 @@
-import axios from 'axios'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import useAuth from './useAuth'
+import axios from 'axios';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from './useAuth';
 
 export const axiosSecure = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true,
-})
+});
+
 const useAxiosSecure = () => {
-    const { logout } = useAuth()
-    const navigate = useNavigate()
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+    const hasInterceptorRef = useRef(false); // Prevent multiple registrations
+
     useEffect(() => {
-        axiosSecure.interceptors.response.use(
-            res => {
-                return res
-            },
-            async error => {
-                console.log('error tracked in the interceptor', error.response)
-                if (error.response.status === 401 || error.response.status === 403) {
-                    await logout()
-                    navigate('/sign-in')
+        if (!hasInterceptorRef.current) {
+            axiosSecure.interceptors.response.use(
+                res => res, // Pass through successful responses
+                async error => {
+                    console.log('Interceptor error:', error.response);
+                    if (error.response.status === 401 || error.response.status === 403) {
+                        await logout(); // Handle logout
+                        navigate('/sign-in'); // Redirect to sign-in
+                    }
+                    return Promise.reject(error); // Propagate the error
                 }
-                return Promise.reject(error)
-            }
-        )
-    }, [logout, navigate])
+            );
+            hasInterceptorRef.current = true; // Set the ref to true to avoid re-registration
+        }
+    }, [logout, navigate]);
 
-    return axiosSecure
-}
+    return axiosSecure; // Return the secure axios instance
+};
 
-export default useAxiosSecure
+export default useAxiosSecure;

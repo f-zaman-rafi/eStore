@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
 import useCart from "../../Hooks/useCart";
 import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 const ProductDetails = () => {
 
     const axiosCommon = useAxiosCommon();
     const { id, type } = useParams();
+    const { user } = useAuth();
 
     const { data: product, isLoading, error } = useQuery({
         queryKey: ['product', id, type],
@@ -20,17 +22,16 @@ const ProductDetails = () => {
         enabled: !!id && !!type,
     });
 
-    console.log(product)
-
-
     const [selectedVariant, setSelectedVariant] = useState(null);
-    const [items, setItems] = useState(1);
+    const [quantity, setQuantity] = useState(1);
+
 
     const addItem = () => {
-        setItems(prevItems => prevItems + 1);
+        setQuantity(prevQuantity => prevQuantity + 1);
     };
+
     const removeItem = () => {
-        setItems(prevItems => (prevItems > 1 ? prevItems - 1 : 1))
+        setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1))
     }
 
     useEffect(() => {
@@ -44,25 +45,24 @@ const ProductDetails = () => {
     };
 
 
-    const { addToCart, cartItems } = useCart(); // Destructure addToCart from the useCart hook
+    const { addToCart, cartItems } = useCart();
 
     // Function to handle adding an item to the cart
     const handleAddToCart = () => {
-        if (selectedVariant) {
-            // Create an item object with necessary details for the cart
+        if (selectedVariant && user?.email) { // Ensure selectedVariant and user email exist
             const item = {
-                id: product._id, // Product ID
-                model: product.Model, // Product model name
-                variant: selectedVariant.variant, // Selected variant name
-                price: selectedVariant.price, // Selected variant price
-                quantity: items, // Number of items to add
-                image: product.image, // Product image
+                product_id: product._id,
+                email: user.email,
+                product_type: product.type,
+                quantity: quantity
             };
-            addToCart(item); // Call addToCart with the item object to add it to the cart
-            toast.success('Added Successfully');
+            addToCart(item); // `addToCart` handles success/error toasts
+        } else {
+            toast.error('Please select a variant and ensure you are logged in.');
         }
     };
-    console.log(cartItems.length)
+
+    console.log(cartItems)
 
 
     if (isLoading) return <div><LoadingComponent /></div>;
@@ -94,7 +94,7 @@ const ProductDetails = () => {
                     <div className="flex gap-5 mt-16">
                         <div className="flex select-none">
                             <p className="px-4 py-1 border-black rounded-s-md border-y-[1px] border-l-[1px] cursor-pointer" onClick={addItem}>+</p>
-                            <p className="py-1 w-16 text-center border-black border-[1px]  ">{items}</p>
+                            <p className="py-1 w-16 text-center border-black border-[1px]  ">{quantity}</p>
                             <p className="px-4 py-1 border-black rounded-e-md border-y-[1px] border-r-[1px] cursor-pointer" onClick={removeItem}>-</p>
                         </div>
                         <p onClick={handleAddToCart} className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px]  cursor-pointer font-semibold select-none">Add to Cart</p>
