@@ -51,28 +51,10 @@ const SignIn = () => {
 
     } catch (error) {
       // toast.error(error.message)
-      if (error.message.includes('auth/email-already-in-use')) {
-        toast.error('The email provided is already in use. Please log in or use another email.');
-      } else if (error.message.includes('auth/invalid-email')) {
-        toast.error('Please enter a valid email address.');
-      } else if (error.message.includes('auth/weak-password')) {
-        toast.error('Password is too weak. Please choose a stronger password.');
-      } else if (error.message.includes('auth/user-not-found')) {
-        toast.error('No account found with this email address. Please sign up first.');
-      } else if (error.message.includes('auth/wrong-password')) {
-        toast.error('Incorrect password. Please try again.');
-      } else if (error.message.includes('auth/too-many-requests')) {
-        toast.error('Too many login attempts. Please try again later.');
-      } else if (error.message.includes('auth/operation-not-allowed')) {
-        toast.error('This operation is not allowed. Please contact support.');
-      } else if (error.message.includes('auth/user-disabled')) {
-        toast.error('This account has been disabled. Please contact support.');
-      } else if (error.message.includes('auth/internal-error')) {
-        toast.error('An internal error occurred. Please try again later.');
-      } else if (error.message.includes('auth/network-request-failed')) {
-        toast.error('Network error. Please check your connection and try again.');
-      } else {
-        toast.error('An unexpected error occurred. Please try again later.');
+      if (error) {
+        toast.error(error.message);
+        navigate('/');
+
       }
     }
   }

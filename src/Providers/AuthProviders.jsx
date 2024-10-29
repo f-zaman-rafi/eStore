@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider,
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/firebase.config";
 import { Toaster } from "react-hot-toast";
+import useAxiosCommon from "../Hooks/useAxiosCommon";
 
 export const AuthContext = createContext(null);
 
@@ -12,6 +13,7 @@ const gitHubProvider = new GithubAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(null);
+    const axiosCommon = useAxiosCommon();
 
     // create user with email
 
@@ -48,18 +50,33 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, gitHubProvider)
     }
 
-    // logout
-
-    const logout = () => {
+    const logout = async () => {
         setLoading(true);
-        return signOut(auth);
-    }
+        try {
+            await signOut(auth);
+            await axiosCommon.post('/logout');
+            setUser(null);
+        } catch (error) {
+            console.error("Error during logout:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    // auth state change
+
+    // auth state change 
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
+            if (currentUser) {
+                const userInfo = { email: currentUser.email };
+                try {
+                    await axiosCommon.post('/jwt', userInfo);
+                } catch {
+                    // Handle error if needed (optional)
+                }
+            }
             setLoading(false)
         });
         return () => unsubscribe();
