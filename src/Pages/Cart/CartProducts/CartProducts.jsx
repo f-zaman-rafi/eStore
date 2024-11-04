@@ -1,26 +1,30 @@
-// /* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types */
 
-// const CartProducts = ({ product }) => {
+import { useState } from "react";
 
-//     const [quantity, setQuantity] = useState({});
+const CartProducts = ({ data }) => {
 
-//     const addItem = () => {
-//         setQuantity(prevQuantity => prevQuantity + 1);
-//     };
+    const { image, model, quantity } = data;
+    const [updateQuantity, setUpdateQuantity] = useState(quantity);
 
-//     const removeItem = () => {
-//         setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1))
-//     }
+    const addItem = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
 
-//     return (
-//         <div>
-//             <div>
-//                 <img className="h-24" src={product.image} alt="" />
-//                 <p>{product.Model}</p>
-//             </div>
-//             <div></div>
-//         </div>
-//     );
-// };
+    const removeItem = () => {
+        setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1))
+    }
+    console.log(data)
+    return (
+        <div>
+            <div>
+                <img className="h-24" src={image} alt="" />
+                <p>{model}</p>
+                <p>{updateQuantity}</p>
+            </div>
+            <div></div>
+        </div>
+    );
+};
 
-// export default CartProducts;
+export default CartProducts;

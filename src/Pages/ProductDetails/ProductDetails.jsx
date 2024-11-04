@@ -58,7 +58,11 @@ const ProductDetails = () => {
                 email: user.email,
                 product_id: product._id,
                 quantity: quantity,
-                type: product.type
+                type: product.type,
+                image: product.image,
+                model: product.Model,
+                varient: selectedVariant.variant,
+                price: selectedVariant.price
             });
             console.log(res.data.message);
             toast.success('Added to Cart');
