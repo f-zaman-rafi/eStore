@@ -102,10 +102,8 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                <p>Specifications: {product.Model}</p>
+            <div className="mt-32 py-10">
                 <Specifications product={product} />
-
             </div>
         </div>
     );

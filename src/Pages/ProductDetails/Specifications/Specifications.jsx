@@ -72,23 +72,48 @@ const Specifications = ({ product }) => {
             { name: 'Other Features', value: product.OtherFeatures },
         ];
     }
+    else if (product.type === "computer") {
+        fields = [
+            { name: 'Model', value: product.Model },
+            { name: 'Brand', value: product.Brand },
+            { name: 'Processor', value: product.Processor },
+            { name: 'Graphics', value: product.Graphics },
+            { name: 'Connectivity', value: product.Connectivity },
+            { name: 'Keyboard Type', value: product.KeyboardType },
+            { name: 'Body', value: product.Body },
+            { name: 'Display', value: product.Display },
+            { name: 'Ports', value: product.Ports },
+            { name: 'OS', value: product.os },
+            { name: 'Memory', value: product.memory },
+            { name: 'Battery Info', value: product.BatteryInfo },
+            { name: 'Sensors', value: product.Sensors },
+            { name: 'Other Features', value: product.OtherFeatures },
+        ];
+    }
+    else if (product.type === "console") {
+        fields = [
+            { name: 'Model', value: product.Model },
+            { name: 'Brand', value: product.Brand },
+            { name: 'Processor', value: product.Processor },
+            { name: 'Graphics', value: product.Graphics },
+            { name: 'Storage', value: product.Storage },
+            { name: 'Memory', value: product.Memory },
+            { name: 'Other Features', value: product.OtherFeatures },
+        ];
+    }
+
+
 
 
     return (
         <div>
-            <p>Specifications:</p>
+            <p className="text-3xl font-bold py-10">Specifications:</p>
             <table>
-                <thead>
-                    <tr>
-                        <th>Field Name</th>
-                        <th>Field Data</th>
-                    </tr>
-                </thead>
                 <tbody>
                     {fields.map((field, index) => (
                         <tr key={index}>
-                            <td>{field.name}</td>
-                            <td>{field.value}</td>
+                            <td className="border-2 py-2 pr-5 pl-2">{field.name}</td>
+                            <td className="border-2 py-2 pl-5 w-full">{field.value}</td>
                         </tr>
                     ))}
                 </tbody>
