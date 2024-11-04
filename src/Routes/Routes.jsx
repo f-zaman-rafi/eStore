@@ -15,7 +15,6 @@ import Smartphone from "../Pages/AddProduct/Smartphone/Smartphone";
 import Demo from "../Pages/Demo/Demo";
 import Console from "../Pages/AddProduct/Console/Console";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
-import Cart from "../Pages/Cart/Cart";
 
 export const router = createBrowserRouter([
     {
@@ -36,7 +35,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/cart',
-                element: <Cart />
+                element: <Home />
             },
             {
                 path: '/:type/:id',

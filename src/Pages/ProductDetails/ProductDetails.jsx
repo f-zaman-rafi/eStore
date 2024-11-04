@@ -3,15 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useEffect, useState } from "react";
 import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
-import useCart from "../../Hooks/useCart";
-import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import Specifications from './Specifications/Specifications'
+
+
 
 const ProductDetails = () => {
 
     const axiosCommon = useAxiosCommon();
     const { id, type } = useParams();
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const { data: product, isLoading, error } = useQuery({
         queryKey: ['product', id, type],
@@ -44,25 +47,23 @@ const ProductDetails = () => {
         setSelectedVariant(variant);
     };
 
-
-    const { addToCart, cartItems } = useCart();
-
-    // Function to handle adding an item to the cart
-    const handleAddToCart = () => {
-        if (selectedVariant && user?.email) { // Ensure selectedVariant and user email exist
-            const item = {
-                product_id: product._id,
+    const handleAddToCart = async () => {
+        if (!user) {
+            navigate('/sign-in');
+            return;
+        }
+        try {
+            const res = await axiosCommon.post('/cart', {
                 email: user.email,
-                product_type: product.type,
+                product_id: product._id,
                 quantity: quantity
-            };
-            addToCart(item); // `addToCart` handles success/error toasts
-        } else {
-            toast.error('Please select a variant and ensure you are logged in.');
+            });
+            console.log(res.data.message);
+        } catch (error) {
+            console.error('Issue adding/updating the cart:', error);
         }
     };
 
-    console.log(cartItems)
 
 
     if (isLoading) return <div><LoadingComponent /></div>;
@@ -100,6 +101,11 @@ const ProductDetails = () => {
                         <p onClick={handleAddToCart} className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px]  cursor-pointer font-semibold select-none">Add to Cart</p>
                     </div>
                 </div>
+            </div>
+            <div>
+                <p>Specifications: {product.Model}</p>
+                <Specifications product={product} />
+
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
-const SmartWatch = () => {
+const Computer = () => {
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
             priceVariants: [{ variant: '', price: '' }]  // Initializing with one price variant field
@@ -48,7 +48,7 @@ const SmartWatch = () => {
                 navigate('/');
             }
         } catch (error) {
-            console.error("Error adding phone: ", error);
+            console.error("Error adding Computer: ", error);
             toast.error('Failed to add phone');
         }
     }
@@ -481,5 +481,5 @@ const SmartWatch = () => {
     );
 };
 
-export default SmartWatch;
+export default Computer;
 

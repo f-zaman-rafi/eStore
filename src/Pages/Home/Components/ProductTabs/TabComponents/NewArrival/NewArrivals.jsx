@@ -1,21 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingComponent from "../../../../../../SharedComponents/Loading/LoadingComponent";
 import { Link } from "react-router-dom";
-import useAxiosSecure from "../../../../../../Hooks/useAxiosSecure";
+import useAxiosCommon from "../../../../../../Hooks/useAxiosCommon";
 
 const NewArrivals = () => {
-    const axiosSecure = useAxiosSecure();
+    const axiosCommon = useAxiosCommon();
 
     const { data: productData = [], isLoading, error } = useQuery({
         queryKey: ['allProducts'],
         queryFn: async () => {
             const [phones, smartWatches, cameras, headphones, computers, consoles] = await Promise.all([
-                axiosSecure.get(`/phones?status=new_arrival`),
-                axiosSecure.get(`/smartWatches?status=new_arrival`),
-                axiosSecure.get(`/cameras?status=new_arrival`),
-                axiosSecure.get(`/headphones?status=new_arrival`),
-                axiosSecure.get(`/computers?status=new_arrival`),
-                axiosSecure.get(`/consoles?status=new_arrival`),
+                axiosCommon.get(`/phones?status=new_arrival`),
+                axiosCommon.get(`/smartWatches?status=new_arrival`),
+                axiosCommon.get(`/cameras?status=new_arrival`),
+                axiosCommon.get(`/headphones?status=new_arrival`),
+                axiosCommon.get(`/computers?status=new_arrival`),
+                axiosCommon.get(`/consoles?status=new_arrival`),
             ]);
 
             return [

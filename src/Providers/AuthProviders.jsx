@@ -73,14 +73,16 @@ const AuthProvider = ({ children }) => {
                 const userInfo = { email: currentUser.email };
                 try {
                     await axiosCommon.post('/jwt', userInfo);
-                } catch {
-                    // Handle error if needed (optional)
+                } catch (error) {
+                    console.error("Error during JWT request:", error);
+                    // Optionally, set an error state here to display to the user
                 }
             }
-            setLoading(false)
+            setLoading(false);
         });
         return () => unsubscribe();
-    }, [])
+    }, [axiosCommon]);
+
 
     const authInfo = {
         loading,
