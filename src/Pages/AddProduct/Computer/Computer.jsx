@@ -54,8 +54,6 @@ const Computer = () => {
     }
 
 
-
-
     return (
         <div className="pb-10 lg:px-20 px-10 my-10 min-h-[80vh] max-w-[1440px] mx-auto font-inter overflow-x-hidden">
             <Helmet>

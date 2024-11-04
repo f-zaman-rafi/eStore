@@ -6,6 +6,7 @@ import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Specifications from './Specifications/Specifications'
+import toast from "react-hot-toast";
 
 
 
@@ -56,9 +57,11 @@ const ProductDetails = () => {
             const res = await axiosCommon.post('/cart', {
                 email: user.email,
                 product_id: product._id,
-                quantity: quantity
+                quantity: quantity,
+                type: product.type
             });
             console.log(res.data.message);
+            toast.success('Added to Cart');
         } catch (error) {
             console.error('Issue adding/updating the cart:', error);
         }

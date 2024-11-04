@@ -112,7 +112,7 @@ const Specifications = ({ product }) => {
                 <tbody>
                     {fields.map((field, index) => (
                         <tr key={index}>
-                            <td className="border-2 py-2 pr-5 pl-2">{field.name}</td>
+                            <td className="border-2 py-2 pr-5 pl-2 w-1/6">{field.name}</td>
                             <td className="border-2 py-2 pl-5 w-full">{field.value}</td>
                         </tr>
                     ))}
