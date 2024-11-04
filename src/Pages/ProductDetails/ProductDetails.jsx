@@ -71,12 +71,12 @@ const ProductDetails = () => {
 
     return (
         <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden">
-            <div className="flex gap-20 lg:mx-40 mt-14">
-                <div>
+            <div className="grid grid-cols-3 lg:mx-40 mt-14">
+                <div className="col-span-1">
                     <img className="h-96" src={product?.image} alt={product?.Model} />
                 </div>
 
-                <div>
+                <div className="col-span-2 pl-28">
                     <h1 className="font-bold text-4xl">{product?.Model}</h1>
                     <p className="font-medium text-3xl pt-4 pb-6">${selectedVariant?.price}</p>
 
@@ -98,7 +98,7 @@ const ProductDetails = () => {
                             <p className="py-1 w-16 text-center border-black border-[1px]  ">{quantity}</p>
                             <p className="px-4 py-1 border-black rounded-e-md border-y-[1px] border-r-[1px] cursor-pointer" onClick={removeItem}>-</p>
                         </div>
-                        <p onClick={handleAddToCart} className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px]  cursor-pointer font-semibold select-none">Add to Cart</p>
+                        <p onClick={handleAddToCart} className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px] px-20 cursor-pointer font-semibold select-none">Add to Cart</p>
                     </div>
                 </div>
             </div>
