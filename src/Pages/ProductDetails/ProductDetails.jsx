@@ -59,6 +59,7 @@ const ProductDetails = () => {
         product_id: product._id,
         quantity: quantity,
         type: product.type,
+        varient: selectedVariant.variant,
       });
       console.log(res.data.message);
       toast.success("Added to Cart");
@@ -79,7 +80,7 @@ const ProductDetails = () => {
     <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden">
       <div className="grid grid-cols-3 lg:mx-40 mt-14">
         <div className="col-span-1">
-          <img className="h-96" src={product?.image} alt={product?.Model} />
+          <img className="h-full w-96" src={product?.image} alt={product?.Model} />
         </div>
 
         <div className="col-span-2 pl-28">

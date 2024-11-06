@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-const CartProducts = ({ data }) => {
-  const { image, model, quantity, varient, price, _id } = data;
+const CartProducts = ({ data, details }) => {
+  const { quantity, varient, _id } = data;
+  const { image, Model, priceVariants } = details
+
+
   const [updateQuantity, setUpdateQuantity] = useState(quantity);
   const [updatedPrice, setUpdatedPrice] = useState("");
 
@@ -17,19 +20,26 @@ const CartProducts = ({ data }) => {
     );
   };
 
+  // Find the price based on the variant selected
   useEffect(() => {
-    setUpdatedPrice(updateQuantity * price);
-  }, [updateQuantity, price])
+    if (priceVariants && varient) {
+      const variantDetails = priceVariants.find(
+        (variant) => variant.variant === varient
+      );
+      if (variantDetails) {
+        setUpdatedPrice(variantDetails.price * updateQuantity);
+      }
+    }
+  }, [updateQuantity, varient, priceVariants]);
 
-
-  console.log(data);
+  // console.log(details)
 
   return (
     <div className="flex py-8 border-b-[1px] gap-5 items-center">
-      <img className="h-[90px]" src={image} alt="" />
+      <img className="h-full w-[90px]" src={image} alt="" />
       <div className="pb-2 pr-10 font-semibold">
-        <p>{model}</p>
-        <p className="pb-2">{varient}</p>
+        <p>{Model}</p>
+        <p className="pb-2 text-sm">{varient}</p>
         <p className="font-medium text-xs pt-1">#{_id}</p>
       </div>
       <div className="flex select-none h-10 items-center">

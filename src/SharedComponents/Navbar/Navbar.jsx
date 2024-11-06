@@ -59,7 +59,7 @@ const Navbar = () => {
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
+                                className="h-7 w-5"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -77,20 +77,20 @@ const Navbar = () => {
                         </ul>
                     </div>
                     {/* Logo */}
-                    <Link to='/'><img className='h-5' src={logo} alt="Logo" /></Link>
+                    <Link to='/'><img className='h-7' src={logo} alt="Logo" /></Link>
                 </div>
 
                 {/* Navigation links for desktop view */}
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-horizontal text-lg px-1">
                         {navlink}
                     </ul>
                 </div>
 
                 {/* Icons and user avatar */}
                 <div className="navbar-end flex gap-3 items-center">
-                    <img className='h-5' src={wishlistLogo} alt="Wishlist" />
-                    <img className='h-5' src={cartLogo} alt="Cart" onClick={() => { if (user) { navigate('/cart') } else { navigate('/sign-in') } }} style={{ cursor: 'pointer' }} />
+                    <img className='h-7' src={wishlistLogo} alt="Wishlist" />
+                    <img className='h-7' src={cartLogo} alt="Cart" onClick={() => { if (user) { navigate('/cart') } else { navigate('/sign-in') } }} style={{ cursor: 'pointer' }} />
 
 
 
@@ -99,7 +99,7 @@ const Navbar = () => {
                             // User avatar with hover menu for authenticated user
                             <div className="dropdown dropdown-hover dropdown-end">
                                 <div tabIndex={0} className="flex items-center cursor-pointer">
-                                    <img className='h-5 mt-1 rounded-full' src={user.photoURL} alt="User" />
+                                    <img className='h-7 mt-1 rounded-full' src={user.photoURL} alt="User" />
                                 </div>
                                 <ul tabIndex={0} className="dropdown-content menu menu-sm p-2 shadow bg-gray-200 bg-opacity-80 font-semibold text-stone-800 rounded-box w-auto min-w-max">
                                     {userMenu}
