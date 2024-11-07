@@ -3,7 +3,7 @@
 // import { useEffect, useState } from "react";
 
 // const CartProducts = ({ data, details }) => {
-//   const { quantity, varient, _id } = data;
+//   const { quantity, variant, _id } = data;
 //   const { image, Model, priceVariants } = details
 
 
@@ -22,15 +22,15 @@
 
 //   // Find the price based on the variant selected
 //   useEffect(() => {
-//     if (priceVariants && varient) {
+//     if (priceVariants && variant) {
 //       const variantDetails = priceVariants.find(
-//         (variant) => variant.variant === varient
+//         (variant) => variant.variant === variant
 //       );
 //       if (variantDetails) {
 //         setUpdatedPrice(variantDetails.price * updateQuantity);
 //       }
 //     }
-//   }, [updateQuantity, varient, priceVariants]);
+//   }, [updateQuantity, variant, priceVariants]);
 
 
 //   return (
@@ -38,7 +38,7 @@
 //       <img className="h-full w-[90px]" src={image} alt="" />
 //       <div className="pb-2 pr-10 font-semibold w-80">
 //         <p>{Model}</p>
-//         <p className="pb-2 text-sm">{varient}</p>
+//         <p className="pb-2 text-sm">{variant}</p>
 //         <p className="font-medium text-xs pt-1">#{_id}</p>
 //       </div>
 //       <div className="flex select-none h-10 items-center px-5">

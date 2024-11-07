@@ -59,7 +59,7 @@ const ProductDetails = () => {
         product_id: product._id,
         quantity: quantity,
         type: product.type,
-        varient: selectedVariant.variant,
+        variant: selectedVariant.variant,
       });
       console.log(res.data.message);
       toast.success("Added to Cart");
@@ -77,62 +77,64 @@ const ProductDetails = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden">
-      <div className="grid grid-cols-3 lg:mx-40 mt-14">
-        <div className="col-span-1">
-          <img className="h-full w-96" src={product?.image} alt={product?.Model} />
-        </div>
-
-        <div className="col-span-2 pl-28">
-          <h1 className="font-bold text-4xl">{product?.Model}</h1>
-          <p className="font-medium text-3xl pt-4 pb-6">
-            ${selectedVariant?.price}
-          </p>
-
-          {/* Variant buttons */}
-          <div className="flex space-x-4 mt-12">
-            {product?.priceVariants?.map((variant, index) => (
-              <button
-                key={index}
-                onClick={() => handleVariantClick(variant)}
-                className={`px-8 text-center items-center btn btn-outline ${selectedVariant?.variant === variant.variant
-                  ? " bg-black text-white"
-                  : "border-gray-300"
-                  }`}
-              >
-                {variant.variant}
-              </button>
-            ))}
+    <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden ">
+      <div className="lg:ml-32 lg:mr-40 md:px-10 ">
+        <div className="grid grid-cols-3 mt-14">
+          <div className="col-span-1">
+            <img className="h-full w-96" src={product?.image} alt={product?.Model} />
           </div>
-          <div className="flex gap-5 mt-16">
-            <div className="flex select-none">
+
+          <div className="col-span-2 pl-28">
+            <h1 className="font-bold text-4xl">{product?.Model}</h1>
+            <p className="font-medium text-3xl pt-4 pb-6">
+              ${selectedVariant?.price}
+            </p>
+
+            {/* Variant buttons */}
+            <div className="flex space-x-4 mt-12">
+              {product?.priceVariants?.map((variant, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleVariantClick(variant)}
+                  className={`px-8 text-center items-center btn btn-outline ${selectedVariant?.variant === variant.variant
+                    ? " bg-black text-white"
+                    : "border-gray-300"
+                    }`}
+                >
+                  {variant.variant}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-5 mt-16">
+              <div className="flex select-none">
+                <p
+                  className="px-4 py-1 border-black rounded-s-md border-y-[1px] border-l-[1px] cursor-pointer"
+                  onClick={addItem}
+                >
+                  +
+                </p>
+                <p className="py-1 w-16 text-center border-black border-[1px]  ">
+                  {quantity}
+                </p>
+                <p
+                  className="px-4 py-1 border-black rounded-e-md border-y-[1px] border-r-[1px] cursor-pointer"
+                  onClick={removeItem}
+                >
+                  -
+                </p>
+              </div>
               <p
-                className="px-4 py-1 border-black rounded-s-md border-y-[1px] border-l-[1px] cursor-pointer"
-                onClick={addItem}
+                onClick={handleAddToCart}
+                className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px] px-20 cursor-pointer font-semibold select-none"
               >
-                +
-              </p>
-              <p className="py-1 w-16 text-center border-black border-[1px]  ">
-                {quantity}
-              </p>
-              <p
-                className="px-4 py-1 border-black rounded-e-md border-y-[1px] border-r-[1px] cursor-pointer"
-                onClick={removeItem}
-              >
-                -
+                Add to Cart
               </p>
             </div>
-            <p
-              onClick={handleAddToCart}
-              className=" mx-auto w-full text-center py-1 border-black rounded-md border-[1px] px-20 cursor-pointer font-semibold select-none"
-            >
-              Add to Cart
-            </p>
           </div>
         </div>
-      </div>
-      <div className="mt-32 py-10">
-        <Specifications product={product} />
+        <div className="mt-32 py-10">
+          <Specifications product={product} />
+        </div>
       </div>
     </div>
   );
