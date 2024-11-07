@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 
 import useAuth from "../../Hooks/useAuth";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
 import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const Cart = () => {
   const { user } = useAuth();
@@ -65,10 +66,25 @@ const Cart = () => {
     }));
   };
 
+  //store the quantity inside db 
+  useEffect(() => {
+    const updateQuantitiesInDB = async () => {
+      await axiosCommon.put('/cart/update-quantities', { quantities });
+    };
+
+    if (quantities) updateQuantitiesInDB();
+
+  }, [quantities]);
+
+
+
+
+
+  console.log(quantities)
+
   if (!user) return <LoadingComponent />;
   if (isLoading) return <LoadingComponent />;
   if (error) return <p>Error loading cart: {error.message}</p>;
-
   return (
     <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden">
       <div className="lg:mx-40 mt-14">
@@ -76,7 +92,7 @@ const Cart = () => {
           <p>No product found</p>
         ) : (
           <div className="grid grid-cols-6 gap-2">
-            <div className="col-span-4 border-2">
+            <div className="col-span-4">
               <p className="text-lg font-bold pb-5">Shopping Cart</p>
               {cartData.map((data) => {
                 const matchingDetails = productDetails.find(details => details._id === data.product_id);
@@ -92,7 +108,7 @@ const Cart = () => {
                   return (
                     <div key={data.product_id} className="flex py-8 border-b-[1px] items-center">
                       <img className="h-full w-[90px]" src={image} alt="" />
-                      <div className="pb-2 pr-10 font-semibold w-80">
+                      <div className="pb-2 font-semibold w-72 pl-3">
                         <p>{Model}</p>
                         <p className="pb-2 text-sm">{data.varient}</p>
                         <p className="font-medium text-xs pt-1">#{data.product_id}</p>
@@ -116,7 +132,7 @@ const Cart = () => {
                       </div>
                       <p className="font-semibold w-20">${updatedPrice.toFixed(2)}</p>
                       <p
-                        className="border-2 border-transparent hover:border-black rounded-full text-xl text-center flex items-center mx-auto p-1 cursor-pointer"
+                        className="border-[1px] border-transparent hover:border-gray-400 rounded-full text-xl text-center flex items-center mx-auto p-1 cursor-pointer"
                         style={{ transitionDuration: '500ms' }}
                       >
                         <ion-icon name="close-outline" />
