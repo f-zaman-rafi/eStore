@@ -81,7 +81,7 @@ const ProductDetails = () => {
       <div className="lg:ml-32 lg:mr-40 md:px-10 ">
         <div className="grid grid-cols-3 mt-14">
           <div className="col-span-1">
-            <img className="h-full w-96" src={product?.image} alt={product?.Model} />
+            <img className="h-auto w-96" src={product?.image} alt={product?.Model} />
           </div>
 
           <div className="col-span-2 pl-28">
