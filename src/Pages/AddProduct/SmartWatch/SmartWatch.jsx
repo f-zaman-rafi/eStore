@@ -3,6 +3,7 @@ import useAxiosCommon from '../../../Hooks/useAxiosCommon';
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import useAxios from "../../../Hooks/useAxios";
 
 
 // Access environment variables
@@ -22,6 +23,7 @@ const SmartWatch = () => {
         name: "priceVariants"
     });
 
+    const axios = useAxios();
     const axiosCommon = useAxiosCommon();
     const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const SmartWatch = () => {
             const formData = new FormData();
             formData.append("file", data.image[0]);
             formData.append('upload_preset', UPLOAD_PRESET);
-            const photoRes = await axiosCommon.post(UPLOAD_URL, formData, {
+            const photoRes = await axios.post(UPLOAD_URL, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }

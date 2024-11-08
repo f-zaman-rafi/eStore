@@ -102,9 +102,6 @@ const Specifications = ({ product }) => {
         ];
     }
 
-
-
-
     return (
         <div>
             <p className="text-3xl font-bold py-10">Specifications:</p>

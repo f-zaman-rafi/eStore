@@ -7,14 +7,12 @@ import logo from "../../assets/icons/Logo.svg"
 import userLogo from "../../assets/images/user.svg"
 import wishlistLogo from "../../assets/images/heart.svg"
 import cartLogo from "../../assets/images/Cart1.svg"
-// import useCart from '../../Hooks/useCart';
 
 
 // Navbar component definition
 const Navbar = () => {
     // Using custom hook to get user authentication details
     const { user, logout, loading } = useAuth();
-    // const { cartItems } = useCart();
     const navigate = useNavigate();
 
     // Navigation links component
@@ -88,7 +86,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Icons and user avatar */}
-                <div className="navbar-end flex gap-3 items-center">
+                <div className="navbar-end flex gap-4 items-center">
                     <img className='h-7' src={wishlistLogo} alt="Wishlist" />
                     <img className='h-7' src={cartLogo} alt="Cart" onClick={() => { if (user) { navigate('/cart') } else { navigate('/sign-in') } }} style={{ cursor: 'pointer' }} />
 
@@ -99,7 +97,7 @@ const Navbar = () => {
                             // User avatar with hover menu for authenticated user
                             <div className="dropdown dropdown-hover dropdown-end">
                                 <div tabIndex={0} className="flex items-center cursor-pointer">
-                                    <img className='h-7 mt-1 rounded-full' src={user.photoURL} alt="User" />
+                                    <img className='h-7 mt-1 rounded-full' src={user.photoURL} alt="user" />
                                 </div>
                                 <ul tabIndex={0} className="dropdown-content menu menu-sm p-2 shadow bg-gray-200 bg-opacity-80 font-semibold text-stone-800 rounded-box w-auto min-w-max">
                                     {userMenu}
@@ -109,7 +107,7 @@ const Navbar = () => {
                         ) : (
                             // Sign-in icon for unauthenticated user
                             <Link to='/sign-in'>
-                                <img className='h-4' src={userLogo} alt="User Logo" />
+                                <img className='h-6' src={userLogo} alt="User Logo" />
                             </Link>
                         )
                     }
