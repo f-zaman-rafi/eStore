@@ -249,7 +249,12 @@ const Cart = () => {
                 <p className="text-sm font-semibold ">Total</p>
                 <p className="text-sm font-semibold">${total.toFixed(2)}</p>
               </div>
-              <p className="btn bg-black text-xs text-white mt-14">Checkout</p>
+              {cartData.length === 0 ?
+                <p className="btn bg-gray-300 text-gray-500 text-xs mt-14 disabled cursor-not-allowed">Checkout</p>
+                :
+                <Link to='/checkout'><p className="btn bg-black text-xs text-white mt-14 w-full">Checkout</p></Link>
+
+              }
             </label>
           </div>
 
