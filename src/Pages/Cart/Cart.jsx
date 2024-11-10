@@ -180,7 +180,7 @@ const Cart = () => {
                       <div className="pb-2 font-semibold w-56 mx-auto pl-3">
                         <Link to={`/${data.type}/${data.product_id}`}><p className="w-auto">{Model}</p></Link>
                         <p className="pb-2 text-sm">{data.variant}</p>
-                        <p className="font-medium text-xs pt-1">
+                        <p className="font-medium text-xs pt-1 break-all">
                           {`#${data._id.slice(0, 15)}${data._id.length > 15 ? '...' : ''}`}
                         </p>
                       </div>
@@ -252,7 +252,7 @@ const Cart = () => {
               {cartData.length === 0 ?
                 <p className="btn bg-gray-300 text-gray-500 text-xs mt-14 disabled cursor-not-allowed">Checkout</p>
                 :
-                <Link to='/checkout'><p className="btn bg-black text-xs text-white mt-14 w-full">Checkout</p></Link>
+                <Link to='address'><p className="btn bg-black text-xs text-white mt-14 w-full">Checkout</p></Link>
 
               }
             </label>

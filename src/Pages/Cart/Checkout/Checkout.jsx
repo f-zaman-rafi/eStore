@@ -4,9 +4,16 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import LoadingComponent from "../../../SharedComponents/Loading/LoadingComponent";
 import { Link } from "react-router-dom";
+// import creditCard from "../../../assets/props/creditCard.svg"
+import Cards from 'react-credit-cards-2';
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
+import { FaLocationDot } from "react-icons/fa6";
+import { FaShippingFast } from "react-icons/fa";
+import { PiContactlessPayment } from "react-icons/pi";
+
 
 
 
@@ -16,6 +23,7 @@ const Checkout = () => {
 
     const [productDetails, setProductDetails] = useState([]);
     const [quantities, setQuantities] = useState({});
+    const [activeTab, setActiveTab] = useState('creditCard');
 
     // Fetch cart data
     const { data: cartData = [], isLoading, error } = useQuery({
@@ -32,7 +40,6 @@ const Checkout = () => {
         },
         enabled: !!user?.email, // Only run query if user email exists
     });
-
 
     // Fetch product details for each item in cartData
     useEffect(() => {
@@ -55,7 +62,6 @@ const Checkout = () => {
         }
     }, [cartData, axiosCommon]);
 
-
     // Initialize quantities based on cart data
     useEffect(() => {
         const initialQuantities = cartData.reduce((acc, item) => {
@@ -64,7 +70,6 @@ const Checkout = () => {
         }, {});
         setQuantities(initialQuantities);
     }, [cartData]);
-
 
     useEffect(() => {
         const updateQuantitiesInDB = async () => {
@@ -80,8 +85,6 @@ const Checkout = () => {
 
         updateQuantitiesInDB();
     }, [quantities]); // This runs only when 'quantities' change
-
-
 
     const calculateSubtotal = () => {
         if (cartData.length === 0) return 0;
@@ -111,18 +114,63 @@ const Checkout = () => {
         return totalQuantity * 10;
     };
 
-
-
     const total = calculateSubtotal() + tax() + shippingCost();
+
+    // credit card
+    const [state, setState] = useState({
+        number: '',
+        expiry: '',
+        cvc: '',
+        name: '',
+        focus: '',
+    });
+
+    const handleInputChange = (evt) => {
+        const { name, value } = evt.target;
+
+        if (name === 'number' && value.length > 16) return;
+        if (name === 'expiry' && value.length > 4) return;
+        if (name === 'cvc' && value.length > 4) return;
+
+        setState((prev) => ({ ...prev, [name]: value }));
+    }
+
+    const handleInputFocus = (evt) => {
+        setState((prev) => ({ ...prev, focus: evt.target.name }));
+    }
 
     if (!user) return <LoadingComponent />;
     if (isLoading) return <LoadingComponent />;
     if (error) return <p>Error loading cart: {error.message}</p>;
     return (
         <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden md:px-0 px-4">
-            <div className="lg:ml-32 lg:mr-40 mt-14">
+            <div className="lg:ml-40 lg:mr-40 mt-14">
+                <div className="flex items-center justify-between py-5 px-5">
+                    <div className="flex items-center gap-1 opacity-50">
+                        <p className="bg-black p-1 rounded-full"><FaLocationDot size={15} color="white" /></p>
+                        <div>
+                            <p className="text-[10px] font-medium">Step 1</p>
+                            <p className="text-sm font-bold">Address</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-1 opacity-50">
+                        <p className="bg-black p-1 rounded-full"><FaShippingFast size={15} color="white" /></p>
+                        <div>
+                            <p className="text-[10px] font-medium">Step 2</p>
+                            <p className="text-sm font-bold">Shipping</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <p className="bg-black p-1 rounded-full"><PiContactlessPayment size={15} color="white" /></p>
+                        <div>
+                            <p className="text-[10px] font-medium">Step 3</p>
+                            <p className="text-sm font-bold">Payment</p>
+                        </div>
+                    </div>
+
+                </div>
                 <div className="lg:grid lg:grid-cols-2 my-[72px] gap-24">
-                    <div className="col-span-1 md:pl-10 border-2 py-8 px-6 rounded-xl border-[#F6F6F6]">
+                    <div className="col-span-1 px-10 border-2 lg:py-8 lg:px-6 rounded-xl border-[#F6F6F6]">
                         <p className="text-lg font-bold pb-5">Summary</p>
                         {cartData.map((data) => {
                             const matchingDetails = productDetails.find(details => details._id === data.product_id);
@@ -172,25 +220,102 @@ const Checkout = () => {
                             <p className="text-sm font-semibold">${total.toFixed(2)}</p>
                         </div>
                     </div>
-                    <div className="col-span-1 ">
-                        <p className="font-bold">Payment</p>
 
 
-                        <label className="form-control pt-10">
-                            <div className="label">
-                                <span className="label-text-alt">Discount code / Promo code</span>
+
+                    {/* Payment Methods */}
+                    <div className="col-span-1">
+                        <p className="font-extrabold">Payment</p>
+                        {/* Tabs */}
+                        <div role="tablist" className="tabs font-bold gap-10 my-5 justify-start">
+                            <a
+                                role="tab"
+                                className={`tab p-0 border-b-2 ${activeTab === "creditCard" ? "tab-active" : "text-gray-300 border-none"}`}
+                                onClick={() => setActiveTab("creditCard")}
+                            >
+                                Credit Card
+                            </a>
+                            <a
+                                role="tab"
+                                className={`tab p-0 border-b-2 ${activeTab === "paypal" ? "tab-active" : "text-gray-300 border-none"}`}
+                                onClick={() => setActiveTab("paypal")}
+                            >
+                                PayPal
+                            </a>
+                            <a
+                                role="tab"
+                                className={`tab p-0 border-b-2 ${activeTab === "wise" ? "tab-active" : "text-gray-300 border-none"}`}
+                                onClick={() => setActiveTab("wise")}
+                            >
+                                Wise
+                            </a>
+                        </div>
+
+                        {/* Payment Form Display Based on Tab */}
+                        {activeTab === "creditCard" && (
+                            <div>
+                                <Cards
+                                    number={state.number}
+                                    expiry={state.expiry}
+                                    cvc={state.cvc}
+                                    name={state.name}
+                                    focused={state.focus}
+                                />
+                                <form>
+                                    <input
+                                        type="number"
+                                        placeholder="Card Number"
+                                        name="number"
+                                        value={state.number}
+                                        onChange={handleInputChange}
+                                        onFocus={handleInputFocus}
+                                        className="input input-bordered w-full mt-10 uppercase"
+                                    />
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Cardholder Name"
+                                        value={state.name}
+                                        onChange={handleInputChange}
+                                        onFocus={handleInputFocus}
+                                        className="input input-bordered w-full mt-5 uppercase"
+                                    />
+                                    <div className="flex justify-between pt-5 gap-4">
+                                        <input
+                                            type="number"
+                                            placeholder="Exp.Date (eg. mm/yy)"
+                                            name="expiry"
+                                            value={state.expiry}
+                                            onChange={handleInputChange}
+                                            onFocus={handleInputFocus}
+                                            className="input input-bordered w-full uppercase"
+                                        />
+                                        <input
+                                            type="number"
+                                            placeholder="CVC"
+                                            name="cvc"
+                                            value={state.cvc}
+                                            onChange={handleInputChange}
+                                            onFocus={handleInputFocus}
+                                            className="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <p className="btn bg-black text-xs text-white mt-14">Checkout</p>
+                                </form>
                             </div>
-                            <input type="text" placeholder="Code" className="input input-bordered " />
+                        )}
 
-                        </label>
-                        <label className="form-control pt-5">
-                            <div className="label">
-                                <span className="label-text-alt">Your bonus card number</span>
+                        {activeTab === "paypal" && (
+                            <div>
+                                <p className="text-center mt-40">PayPal payment method currently not available</p>
                             </div>
-                            <input type="text" placeholder="Enter Card Number" className="input input-bordered " />
+                        )}
 
-                            <p className="btn bg-black text-xs text-white mt-14">Checkout</p>
-                        </label>
+                        {activeTab === "wise" && (
+                            <div>
+                                <p className="text-center mt-40">Wise payment method currently not available</p>
+                            </div>
+                        )}
                     </div>
 
                 </div>

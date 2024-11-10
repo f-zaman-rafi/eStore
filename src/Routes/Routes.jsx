@@ -17,6 +17,8 @@ import Console from "../Pages/AddProduct/Console/Console";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import Cart from "../Pages/Cart/Cart";
 import Checkout from "../Pages/Cart/Checkout/Checkout";
+import Address from "../Pages/Cart/Address/Address";
+import CartMain from "../Pages/Cart/CartMain";
 
 export const router = createBrowserRouter([
     {
@@ -36,16 +38,26 @@ export const router = createBrowserRouter([
                 element: <Demo />
             },
             {
-                path: '/cart',
-                element: <Cart />
-            },
-            {
-                path: '/checkout',
-                element: <Checkout />
-            },
-            {
                 path: '/:type/:id',
                 element: <ProductDetails />
+            },
+            {
+                path: '/cart',
+                element: <CartMain />,
+                children: [
+                    {
+                        path: '',
+                        element: <Cart />
+                    },
+                    {
+                        path: 'address',
+                        element: <Address />
+                    },
+                    {
+                        path: 'checkout',
+                        element: <Checkout />
+                    },
+                ]
             },
             {
                 path: '/add-product',
