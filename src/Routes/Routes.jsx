@@ -19,6 +19,7 @@ import Cart from "../Pages/Cart/Cart";
 import Checkout from "../Pages/Cart/Checkout/Checkout";
 import Address from "../Pages/Cart/Address/Address";
 import CartMain from "../Pages/Cart/CartMain";
+import Shipping from "../Pages/Cart/Address/Shipping/Shipping";
 
 export const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
                     {
                         path: 'address',
                         element: <Address />
+                    },
+                    {
+                        path: 'shipping',
+                        element: <Shipping />
                     },
                     {
                         path: 'checkout',

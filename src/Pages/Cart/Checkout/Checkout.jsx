@@ -18,13 +18,13 @@ import { PiContactlessPayment } from "react-icons/pi";
 
 
 const Checkout = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const axiosCommon = useAxiosCommon();
 
     const [productDetails, setProductDetails] = useState([]);
     const [quantities, setQuantities] = useState({});
     const [activeTab, setActiveTab] = useState('creditCard');
-
+    const [userData, setUserData] = useState([]);
     // Fetch cart data
     const { data: cartData = [], isLoading, error } = useQuery({
         queryKey: ['cartData', user?.email],
@@ -138,6 +138,28 @@ const Checkout = () => {
     const handleInputFocus = (evt) => {
         setState((prev) => ({ ...prev, focus: evt.target.name }));
     }
+
+    // Fetch user data based on the email
+    const fetchUserData = async () => {
+        if (!user?.email) {
+            alert("User is not logged in");
+            return;
+        }
+        try {
+            const response = await axiosCommon.get(`/users?email=${user.email}`);
+            setUserData(response.data);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            alert("An error occurred while fetching user data.");
+        }
+    };
+
+    useEffect(() => {
+        if (user?.email && !loading) {
+            fetchUserData();
+        }
+    }, [user?.email, loading]);
+    console.log(userData)
 
     if (!user) return <LoadingComponent />;
     if (isLoading) return <LoadingComponent />;

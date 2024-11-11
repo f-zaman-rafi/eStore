@@ -7,12 +7,14 @@ import { useForm } from "react-hook-form";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 import { useEffect, useState } from "react";
 import LoadingComponent from "../../../SharedComponents/Loading/LoadingComponent";
+import { Link } from "react-router-dom";
+
 
 const Address = () => {
     const { user, loading } = useAuth();
     const axiosCommon = useAxiosCommon();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState([]);
 
     // Fetch user data based on the email
     const fetchUserData = async () => {
@@ -57,6 +59,7 @@ const Address = () => {
             }
 
             reset();
+            await fetchUserData();
         } catch (error) {
             console.error("Error submitting form:", error);
             alert("An error occurred while submitting the form.");
@@ -70,7 +73,7 @@ const Address = () => {
     if (!user?.email) {
         return <LoadingComponent />
     }
-    console.log(userData)
+
     return (
         <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden md:px-0 px-4">
             <div className="lg:ml-40 lg:mr-40 mt-14">
@@ -101,8 +104,15 @@ const Address = () => {
 
                 {
                     userData.map((user) => (
-                        <div key={user._id}>
-                            <p>{user.city}</p>
+                        <div className="my-10 bg-gray-100 p-4 rounded-lg " key={user._id}>
+                            <div className="flex gap-2">
+                                <input type="radio" name="radio-1" className="radio" defaultChecked />
+                                <div>
+                                    <p className="font-bold text-sm pb-2">{user.street}</p>
+                                    <p className="text-xs font-semibold pb-1">{user.city}, {user.postal}, {user.state}</p>
+                                    <p className="text-xs font-semibold">{user.phone}</p>
+                                </div>
+                            </div>
                         </div>
                     ))
                 }
@@ -176,6 +186,10 @@ const Address = () => {
                         </div>
                         <button type="submit" className="btn bg-black text-white my-10 w-full">Save Address</button>
                     </form>
+                    <div className="flex gap-5 justify-end mb-10">
+                        <Link to='/cart'><p className="btn btn-outline px-16">Back</p></Link>
+                        <Link to='/cart/shipping'><p className="btn btn-outline px-16 bg-black text-white">Next</p></Link>
+                    </div>
                 </div>
 
 
