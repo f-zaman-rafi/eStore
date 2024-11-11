@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Shipping = () => {
     // Local state to store the selected shipping method
-    const [shipmentMethod, setShipmentMethod] = useState("");
+    const [shipmentMethod, setShipmentMethod] = useState("regular");
 
     // Handle change in shipment method
     const handleShipmentChange = (event) => {
