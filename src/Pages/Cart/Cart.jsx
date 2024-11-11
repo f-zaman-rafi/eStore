@@ -3,13 +3,15 @@
 
 import { Link } from "react-router-dom";
 import { useCart } from "../../Providers/Cart/CartProvider";
+import useAuth from "../../Hooks/useAuth";
+import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
 
 const Cart = () => {
+  const { user } = useAuth();
+  const { cartData, productDetails, quantities, handleAddItem, handleRemoveItem, calculateSubtotal, tax, shippingCost, total, handleDeleteItem, isLoading } = useCart();
 
-  const { cartData, productDetails, quantities, handleAddItem, handleRemoveItem, calculateSubtotal, tax, shippingCost, total, handleDeleteItem } = useCart();
-
-  // if (!user) return <LoadingComponent />;
-  // if (isLoading) return <LoadingComponent />;
+  if (!user) return <LoadingComponent />;
+  if (isLoading) return <LoadingComponent />;
   // if (error) return <p>Error loading cart: {error.message}</p>;
 
   return (

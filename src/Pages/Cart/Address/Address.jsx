@@ -5,37 +5,17 @@ import { PiContactlessPayment } from "react-icons/pi";
 import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
-import { useEffect, useState } from "react";
 import LoadingComponent from "../../../SharedComponents/Loading/LoadingComponent";
 import { Link } from "react-router-dom";
+import { useCart } from "../../../Providers/Cart/CartProvider";
+import { FaRegEdit } from "react-icons/fa";
 
 
 const Address = () => {
     const { user, loading } = useAuth();
     const axiosCommon = useAxiosCommon();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const [userData, setUserData] = useState([]);
-
-    // Fetch user data based on the email
-    const fetchUserData = async () => {
-        if (!user?.email) {
-            alert("User is not logged in");
-            return;
-        }
-        try {
-            const response = await axiosCommon.get(`/users?email=${user.email}`);
-            setUserData(response.data);
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-            alert("An error occurred while fetching user data.");
-        }
-    };
-
-    useEffect(() => {
-        if (user?.email && !loading) {
-            fetchUserData();
-        }
-    }, [user?.email, loading]);
+    const { userData } = useCart();
 
     // Handle form submission
     const onSubmit = async (data) => {
@@ -45,7 +25,7 @@ const Address = () => {
         }
 
         const addressData = {
-            email: user.email,
+            email: user?.email,
             ...data,
         };
 
@@ -57,9 +37,7 @@ const Address = () => {
             } else {
                 alert("Address updated successfully.");
             }
-
             reset();
-            await fetchUserData();
         } catch (error) {
             console.error("Error submitting form:", error);
             alert("An error occurred while submitting the form.");
@@ -104,7 +82,7 @@ const Address = () => {
 
                 {
                     userData.map((user) => (
-                        <div className="my-10 bg-gray-100 p-4 rounded-lg " key={user._id}>
+                        <div className="my-10 bg-gray-100 p-5 rounded-lg flex items-center justify-between" key={user._id}>
                             <div className="flex gap-2">
                                 <input type="radio" name="radio-1" className="radio" defaultChecked />
                                 <div>
@@ -112,6 +90,9 @@ const Address = () => {
                                     <p className="text-xs font-semibold pb-1">{user.city}, {user.postal}, {user.state}</p>
                                     <p className="text-xs font-semibold">{user.phone}</p>
                                 </div>
+                            </div>
+                            <div>
+                                <FaRegEdit className="cursor-pointer" size={20} />
                             </div>
                         </div>
                     ))
@@ -125,6 +106,7 @@ const Address = () => {
                                 id="street"
                                 placeholder="Enter street address"
                                 className="input input-bordered w-full mt-2"
+                                defaultValue={user.street}
                                 {...register("street", { required: "Street address is required" })}
                             />
                             {errors.street && <p className="text-red-500 text-xs mt-1">{errors.street.message}</p>}

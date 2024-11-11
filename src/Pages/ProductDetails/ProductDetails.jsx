@@ -7,12 +7,14 @@ import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Specifications from "./Specifications/Specifications";
 import toast from "react-hot-toast";
+import { useCart } from "../../Providers/Cart/CartProvider";
 
 const ProductDetails = () => {
   const axiosCommon = useAxiosCommon();
   const { id, type } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { refetch } = useCart();
 
   const {
     data: product,
@@ -63,6 +65,7 @@ const ProductDetails = () => {
       });
       console.log(res.data.message);
       toast.success("Added to Cart");
+      refetch();
     } catch (error) {
       console.error("Issue adding/updating the cart:", error);
     }

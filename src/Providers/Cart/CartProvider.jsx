@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
 
@@ -18,28 +17,37 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
     const { user } = useAuth();
     const axiosCommon = useAxiosCommon();
+    const [cartData, setCartData] = useState([]);
     const [productDetails, setProductDetails] = useState([]);
     const [quantities, setQuantities] = useState({});
+    const [userData, setUserData] = useState([]);
+    const [loading, setLoading] = useState(true);  // Track loading state
+    const [error, setError] = useState(null);      // Track error state
 
+    // Fetch cart data manually with useEffect
+    useEffect(() => {
+        if (!user?.email) {
+            setCartData([]);  // If no user email, set cartData to empty
+            setLoading(false);  // Stop loading
+            return;
+        }
 
-
-    // Fetch cart data
-    const { data: cartData = [], isLoading, error } = useQuery({
-        queryKey: ['cartData', user?.email],
-        queryFn: async () => {
-            if (!user?.email) return []; // Return empty array if email is not available
+        const fetchCartData = async () => {
             try {
+                setLoading(true);  // Start loading
                 const res = await axiosCommon.get(`/cart/email/${user.email}`);
-                return res.data;
+                setCartData(res.data);  // Set cart data from the response
             } catch (err) {
                 console.error("Error fetching cart data:", err);
-                return []; // Return empty array if there's an error
+            } finally {
+                setLoading(false);  // Stop loading when done
             }
-        },
-        enabled: !!user?.email, // Only run query if user email exists
-    });
+        };
 
-    // Fetch product details for each item in cartData
+        fetchCartData();
+    }, [user?.email, axiosCommon]);  // Trigger this effect when user.email changes
+
+    // Fetch product details for cart items
     useEffect(() => {
         if (cartData.length > 0) {
             const fetchProductDetails = async () => {
@@ -49,16 +57,25 @@ export const CartProvider = ({ children }) => {
                     );
                     const response = await Promise.all(productPromises);
                     const remap = response.map(res => res.data);
-                    setProductDetails(remap);
+                    setProductDetails(remap);  // Set product details
                 } catch (error) {
                     console.error("Error fetching product details:", error);
                 }
             };
             fetchProductDetails();
         } else {
-            setProductDetails([]); // Clear product details when the cart is empty
+            setProductDetails([]);  // Clear product details if cart is empty
         }
     }, [cartData, axiosCommon]);
+
+    // Initialize quantities based on cart data
+    useEffect(() => {
+        const initialQuantities = cartData.reduce((acc, item) => {
+            acc[item._id] = item.quantity || 1;
+            return acc;
+        }, {});
+        setQuantities(initialQuantities);  // Set initial quantities
+    }, [cartData]);
 
     // handle add item
     const handleAddItem = (itemId) => {
@@ -80,22 +97,12 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Initialize quantities based on cart data
-    useEffect(() => {
-        const initialQuantities = cartData.reduce((acc, item) => {
-            acc[item._id] = item.quantity || 1;
-            return acc;
-        }, {});
-        setQuantities(initialQuantities);
-    }, [cartData]);
-
-
+    // Update quantities in DB
     useEffect(() => {
         const updateQuantitiesInDB = async () => {
-            if (Object.keys(quantities).length > 0) {  // Only run if quantities is not empty
+            if (Object.keys(quantities).length > 0) {
                 try {
                     await axiosCommon.put('/cart/update-quantities', { quantities });
-                    console.log("Quantities updated in DB:", quantities);  // Log to verify
                 } catch (error) {
                     console.error('Failed to update quantities:', error);
                 }
@@ -103,9 +110,7 @@ export const CartProvider = ({ children }) => {
         };
 
         updateQuantitiesInDB();
-    }, [quantities]); // This runs only when 'quantities' change
-
-
+    }, [quantities]);
 
     const calculateSubtotal = () => {
         if (cartData.length === 0) return 0;
@@ -135,33 +140,48 @@ export const CartProvider = ({ children }) => {
         return totalQuantity * 10;
     };
 
-
-
     const total = calculateSubtotal() + tax() + shippingCost();
-    const queryClient = useQueryClient();
 
-
-    // delete cart product
+    // Delete cart product
     const handleDeleteItem = async (itemId) => {
         try {
             // Delete the item from the backend
             await axiosCommon.delete(`/cart/${itemId}`);
 
-            // Invalidate the cartData query to trigger a refetch and update the UI
-            queryClient.invalidateQueries(['cartData', user?.email]);
+            // Refetch the cart data manually
+            const res = await axiosCommon.get(`/cart/email/${user.email}`);
+            setCartData(res.data);  // Update cartData
         } catch (error) {
             console.error("Failed to delete item from cart: ", error);
         }
     };
 
-    if (!user) return <LoadingComponent />;
-    if (isLoading) return <LoadingComponent />;
-    if (error) return <p>Error loading cart: {error.message}</p>;
+    // Fetch user data based on the email
+    const fetchUserData = async () => {
+        if (!user?.email) {
+            alert("User is not logged in");
+            return;
+        }
+        try {
+            const response = await axiosCommon.get(`/users?email=${user.email}`);
+            setUserData(response.data);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            alert("An error occurred while fetching user data.");
+        }
+    };
+
+    useEffect(() => {
+        if (user?.email && userData.length === 0) {
+            fetchUserData();
+        }
+    }, [user?.email, userData]);
+
+    if (loading) return <LoadingComponent />;
+    if (error) return <p>{error}</p>;
 
     const cartInfo = {
         cartData,
-        isLoading,
-        error,
         productDetails,
         quantities,
         handleAddItem,
@@ -170,8 +190,9 @@ export const CartProvider = ({ children }) => {
         tax,
         shippingCost,
         total,
-        handleDeleteItem
-    }
+        handleDeleteItem,
+        userData
+    };
 
     return (
         <CartContext.Provider value={cartInfo}>
