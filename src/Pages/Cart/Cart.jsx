@@ -8,11 +8,10 @@ import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
 
 const Cart = () => {
   const { user } = useAuth();
-  const { cartData, productDetails, quantities, handleAddItem, handleRemoveItem, calculateSubtotal, tax, shippingCost, total, handleDeleteItem, isLoading } = useCart();
+  const { cartData, productDetails, quantities, handleAddItem, handleRemoveItem, calculateSubtotal, tax, shippingCost, total, handleDeleteItem } = useCart();
 
   if (!user) return <LoadingComponent />;
-  if (isLoading) return <LoadingComponent />;
-  // if (error) return <p>Error loading cart: {error.message}</p>;
+  // if (isLoading) return <LoadingComponent />;
 
   return (
     <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden md:px-0 px-4">

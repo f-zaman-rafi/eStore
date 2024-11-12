@@ -22,7 +22,7 @@ export const CartProvider = ({ children }) => {
     const [quantities, setQuantities] = useState({});
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);  // Track loading state
-    const [error, setError] = useState(null);      // Track error state
+    // const [error, setError] = useState(null);      // Track error state
 
     // Fetch cart data manually with useEffect
     useEffect(() => {
@@ -46,6 +46,8 @@ export const CartProvider = ({ children }) => {
 
         fetchCartData();
     }, [user?.email, axiosCommon]);  // Trigger this effect when user.email changes
+
+
 
     // Fetch product details for cart items
     useEffect(() => {
@@ -142,6 +144,17 @@ export const CartProvider = ({ children }) => {
 
     const total = calculateSubtotal() + tax() + shippingCost();
 
+    // refetch cartdata
+    const refetch = async () => {
+        if (!user?.email) return; // Exit if user is not logged in
+        try {
+            const response = await axiosCommon.get(`/cart/email/${user.email}`);
+            setCartData(response.data); // Update cart data with the latest data from the server
+        } catch (error) {
+            console.error("Error refetching cart data:", error);
+        }
+    };
+
     // Delete cart product
     const handleDeleteItem = async (itemId) => {
         try {
@@ -149,8 +162,13 @@ export const CartProvider = ({ children }) => {
             await axiosCommon.delete(`/cart/${itemId}`);
 
             // Refetch the cart data manually
-            const res = await axiosCommon.get(`/cart/email/${user.email}`);
-            setCartData(res.data);  // Update cartData
+            await refetch();
+
+            if (cartData.length === 1) {  // Before deletion, length was 1, so after deletion it should be 0
+                setQuantities({});
+                setProductDetails([]);
+            }
+
         } catch (error) {
             console.error("Failed to delete item from cart: ", error);
         }
@@ -163,13 +181,13 @@ export const CartProvider = ({ children }) => {
             return;
         }
         try {
-            const response = await axiosCommon.get(`/users?email=${user.email}`);
-            setUserData(response.data);
+            const response = await axiosCommon.get(`/users/email/${user.email}`);
+            await setUserData(response.data);  // Accessing the 'user' key from the response
         } catch (error) {
             console.error("Error fetching user data:", error);
-            alert("An error occurred while fetching user data.");
         }
     };
+
 
     useEffect(() => {
         if (user?.email && userData.length === 0) {
@@ -177,8 +195,9 @@ export const CartProvider = ({ children }) => {
         }
     }, [user?.email, userData]);
 
+
     if (loading) return <LoadingComponent />;
-    if (error) return <p>{error}</p>;
+    // if (error) return <p>{error}</p>;
 
     const cartInfo = {
         cartData,
@@ -191,7 +210,9 @@ export const CartProvider = ({ children }) => {
         shippingCost,
         total,
         handleDeleteItem,
-        userData
+        userData,
+        refetch,
+        setUserData
     };
 
     return (
