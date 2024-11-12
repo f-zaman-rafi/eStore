@@ -2,12 +2,7 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from "react";
-// import useAuth from "../../../Hooks/useAuth";
-// import useAxiosCommon from "../../../Hooks/useAxiosCommon";
-// import { useQuery } from "@tanstack/react-query";
-// import LoadingComponent from "../../../SharedComponents/Loading/LoadingComponent";
 import { Link } from "react-router-dom";
-// import creditCard from "../../../assets/props/creditCard.svg"
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
 import { FaLocationDot } from "react-icons/fa6";
@@ -20,7 +15,7 @@ import { useCart } from "../../../Providers/Cart/CartProvider";
 
 const Checkout = () => {
 
-    const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, handleDeleteItem, userData } = useCart();
+    const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, currentAddress } = useCart();
 
     const [activeTab, setActiveTab] = useState('creditCard');
 
@@ -101,9 +96,22 @@ const Checkout = () => {
                             }
                             return null;
                         })}
-                        <span className="label-text-alt text-gray-500 px-2">Address</span>
-                        <input type="text" placeholder="Type here" className="input input-bordered input-sm w-full h-12 my-1 mb-4" />
-                        <span className="label-text-alt text-gray-500 px-2">Shipment method</span> <br />
+                        <span className="label-text-alt text-gray-500 ">Address</span>
+                        <p className="py-3 text-sm font-semibold">{currentAddress.street}, {currentAddress.postal} {currentAddress.city}, {currentAddress.state}</p>
+
+
+                        {/* "_id": "6733bb1339c6b87fd5635b60",
+    "email": "gollarafi@gmail.com",
+    "street": "Deserunt nobis et no",
+    "city": "Est quae ut soluta a",
+    "state": "Qui magnam mollitia ",
+    "postal": "42222",
+    "phone": "+1 (311) 536-5421",
+    "addressTitle": "aaaaaaaaaa",
+    "label": "default" */}
+
+
+                        <span className="label-text-alt text-gray-500">Shipment method</span> <br />
                         <select className="select select-bordered w-full h-12 my-1">
                             <option disabled selected>Choose Shipment Method</option>
                             <option>Free ( 3 - 5 working days )</option>
@@ -206,7 +214,10 @@ const Checkout = () => {
                                             className="input input-bordered w-full"
                                         />
                                     </div>
-                                    <p className="btn bg-black text-xs text-white mt-14">Checkout</p>
+                                    <div className="mt-14 flex justify-between gap-3">
+                                        <div className="flex-1"><Link to='/cart/shipping'><p className="btn btn-wide btn-outline">Back</p></Link></div>
+                                        <p className="btn bg-black text-xs text-white flex-1">Checkout</p>
+                                    </div>
                                 </form>
                             </div>
                         )}
