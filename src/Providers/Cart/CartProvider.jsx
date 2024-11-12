@@ -22,7 +22,22 @@ export const CartProvider = ({ children }) => {
     const [quantities, setQuantities] = useState({});
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);  // Track loading state
-    // const [error, setError] = useState(null);      // Track error state
+    // Initialize the state from localStorage if available
+    const [currentAddress, setCurrentAddress] = useState(() => {
+        const savedAddress = localStorage.getItem('currentAddress');
+        return savedAddress ? JSON.parse(savedAddress) : []; // Default to an empty array if no saved data
+    });
+
+    // Store currentAddress in localStorage whenever it changes
+    useEffect(() => {
+        if (currentAddress.length > 0) {
+            localStorage.setItem('currentAddress', JSON.stringify(currentAddress));
+        } else {
+            // If no addresses are set, ensure to remove from localStorage
+            localStorage.removeItem('currentAddress');
+        }
+    }, [currentAddress]);
+
 
     // Fetch cart data manually with useEffect
     useEffect(() => {
@@ -196,6 +211,31 @@ export const CartProvider = ({ children }) => {
     }, [user?.email, userData]);
 
 
+    // refetch address data
+    const refetchAddress = async () => {
+        if (!user?.email) return; // Exit if user is not logged in
+        try {
+            const response = await axiosCommon.get(`/users/email/${user.email}`);
+            setUserData(response.data); // Update cart data with the latest data from the server
+        } catch (error) {
+            console.error("Error refetching cart data:", error);
+        }
+    }
+
+    // Delete cart product
+    const handleDeleteAddress = async (addressId) => {
+        try {
+            // Delete the item from the backend
+            await axiosCommon.delete(`/users/${addressId}`);
+            if (userData.length === 1) {  // Before deletion, length was 1, so after deletion it should be 0
+                setUserData([]);
+            }
+            await refetchAddress();
+        } catch (error) {
+            console.error("Failed to delete address from users: ", error);
+        }
+    };
+
     if (loading) return <LoadingComponent />;
     // if (error) return <p>{error}</p>;
 
@@ -212,7 +252,11 @@ export const CartProvider = ({ children }) => {
         handleDeleteItem,
         userData,
         refetch,
-        setUserData
+        setUserData,
+        handleDeleteAddress,
+        refetchAddress,
+        setCurrentAddress,
+        currentAddress
     };
 
     return (
