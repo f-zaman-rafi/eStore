@@ -63,7 +63,8 @@ const Address = () => {
             setError("Please select an address before proceeding.");
             return;
         }
-        setCurrentAddress(selectedAddress)
+        setCurrentAddress(selectedAddress);
+        localStorage.setItem('currentAddress', JSON.stringify(selectedAddress));
     };
 
     if (loading) {

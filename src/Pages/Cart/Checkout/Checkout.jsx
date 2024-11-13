@@ -15,7 +15,7 @@ import { useCart } from "../../../Providers/Cart/CartProvider";
 
 const Checkout = () => {
 
-    const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, currentAddress } = useCart();
+    const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, currentAddress, shipmentMethod } = useCart();
 
     const [activeTab, setActiveTab] = useState('creditCard');
 
@@ -41,6 +41,8 @@ const Checkout = () => {
     const handleInputFocus = (evt) => {
         setState((prev) => ({ ...prev, focus: evt.target.name }));
     }
+
+    const ultimateTotal = total + (shipmentMethod === "AFAP" ? 10 : 0)
 
 
     return (
@@ -99,24 +101,9 @@ const Checkout = () => {
                         <span className="label-text-alt text-gray-500 ">Address</span>
                         <p className="py-3 text-sm font-semibold">{currentAddress.street}, {currentAddress.postal} {currentAddress.city}, {currentAddress.state}</p>
 
-
-                        {/* "_id": "6733bb1339c6b87fd5635b60",
-    "email": "gollarafi@gmail.com",
-    "street": "Deserunt nobis et no",
-    "city": "Est quae ut soluta a",
-    "state": "Qui magnam mollitia ",
-    "postal": "42222",
-    "phone": "+1 (311) 536-5421",
-    "addressTitle": "aaaaaaaaaa",
-    "label": "default" */}
-
-
                         <span className="label-text-alt text-gray-500">Shipment method</span> <br />
-                        <select className="select select-bordered w-full h-12 my-1">
-                            <option disabled selected>Choose Shipment Method</option>
-                            <option>Free ( 3 - 5 working days )</option>
-                            <option> $10 - ASAP - As Soon As Possible ( 1 - 2 days maximum )</option>
-                        </select>
+                        <p className="py-3 text-sm font-semibold ">{shipmentMethod === "AFAP" ? "As Fast As Possible" : shipmentMethod}</p>
+
                         <div className="pt-7 flex justify-between">
                             <p className="text-sm font-semibold ">Subtotal</p>
                             <p className="text-sm font-semibold">${calculateSubtotal().toFixed(2)}</p>
@@ -129,9 +116,13 @@ const Checkout = () => {
                             <p className="text-sm text-gray-600 font-medium">Estimated shipping Handling</p>
                             <p className="text-sm">${shippingCost().toFixed(2)}</p>
                         </div>
+                        <div className="pt-4 flex justify-between">
+                            <p className="text-sm text-gray-600 font-medium">Shipping Method - <span className="font-bold">{shipmentMethod}</span></p>
+                            <p className="text-sm">${shipmentMethod === 'AFAP' ? "10.00" : "0.00"}</p>
+                        </div>
                         <div className="pt-5 flex justify-between">
                             <p className="text-sm font-semibold ">Total</p>
-                            <p className="text-sm font-semibold">${total.toFixed(2)}</p>
+                            <p className="text-sm font-semibold">${ultimateTotal.toFixed(2)}</p>
                         </div>
                     </div>
 

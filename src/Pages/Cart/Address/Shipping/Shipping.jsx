@@ -1,16 +1,16 @@
-import { useState } from "react";
 import { FaShippingFast } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { PiContactlessPayment } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { useCart } from "../../../../Providers/Cart/CartProvider";
 
 const Shipping = () => {
-    // Local state to store the selected shipping method
-    const [shipmentMethod, setShipmentMethod] = useState("regular");
 
+    const { shipmentMethod, setShipmentMethod } = useCart();
     // Handle change in shipment method
     const handleShipmentChange = (event) => {
         setShipmentMethod(event.target.value);
+
     };
 
     return (
@@ -41,61 +41,70 @@ const Shipping = () => {
                 </div>
                 <p className="font-bold">Shipment Method</p>
                 <div className="space-y-3 py-5">
-                    <div
-                        className={`flex items-center gap-2 border-[1px] p-4 rounded-lg ${shipmentMethod !== "regular" ? "opacity-50" : ""}`}
-                    >
-                        <input
-                            className="radio text-black checked:bg-black"
-                            type="radio"
-                            id="regular"
-                            value="regular"
-                            checked={shipmentMethod === "regular"}
-                            onChange={handleShipmentChange}
-                        />
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex gap-5 items-center">
-                                <p htmlFor="regular" className="text-sm font-bold pl-2">Free</p>
-                                <p htmlFor="regular" className="text-xs font-semibold">Regular shipment</p>
-                            </div>
-                            <p htmlFor="regular" className="text-sm font-bold">3-5 days</p>
-                        </div>
-                    </div>
 
                     <div
-                        className={`flex items-center gap-2 border-[1px] p-4 rounded-lg ${shipmentMethod !== "afap" ? "opacity-50" : ""}`}
+                        className={`flex items-center gap-2 border-[1px] p-4 rounded-lg ${shipmentMethod !== "Free" ? "opacity-50" : ""}`}
                     >
-                        <input
-                            className="radio text-black checked:bg-black"
-                            type="radio"
-                            id="afap"
-                            value="afap"
-                            checked={shipmentMethod === "afap"}
-                            onChange={handleShipmentChange}
-                        />
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex gap-5 items-center">
-                                <p htmlFor="afap" className="text-sm font-bold pl-2">$10.00</p>
-                                <p htmlFor="afap" className="text-xs font-semibold">AFAP - As Fast As Possible</p>
+                        <label htmlFor="regular" className="flex items-center w-full cursor-pointer">
+                            <input
+                                className="radio text-black checked:bg-black"
+                                type="radio"
+                                id="regular"
+                                value="Free"
+                                checked={shipmentMethod === "Free"}
+                                onChange={handleShipmentChange}
+                            />
+                            <div className="flex items-center justify-between w-full">
+                                <div className="flex gap-5 items-center">
+                                    <p className="text-sm font-bold pl-2">Free</p>
+                                    <p className="text-xs font-semibold">Regular shipment</p>
+                                </div>
+                                <p className="text-sm font-bold">3-5 days</p>
                             </div>
-                            <p htmlFor="afap" className="text-sm font-bold">1-2 days</p>
-                        </div>
+                        </label>
                     </div>
 
+
                     <div
-                        className={`flex items-center gap-2 border-[1px] p-4 rounded-lg ${shipmentMethod !== "schedule" ? "opacity-50" : ""}`}
+                        className={`flex items-center gap-2 border-[1px] p-4 rounded-lg ${shipmentMethod !== "AFAP" ? "opacity-50" : ""}`}
+                    >
+                        <label htmlFor="afap" className="flex items-center w-full cursor-pointer">
+                            <input
+                                className="radio text-black checked:bg-black"
+                                type="radio"
+                                id="afap"
+                                value="AFAP"
+                                checked={shipmentMethod === "AFAP"}
+                                onChange={handleShipmentChange}
+                            />
+                            <div className="flex items-center justify-between w-full">
+                                <div className="flex gap-5 items-center">
+                                    <p className="text-sm font-bold pl-2">$10.00</p>
+                                    <p className="text-xs font-semibold">AFAP - As Fast As Possible</p>
+                                </div>
+                                <p className="text-sm font-bold">1-2 days</p>
+                            </div>
+                        </label>
+                    </div>
+
+
+                    <div
+                        className={`flex items-center gap-2 border-[1px] p-4 rounded-lg ${shipmentMethod !== "Scheduled" ? "opacity-50" : ""}`}
                     >
                         <input
                             className="radio text-black checked:bg-black"
                             type="radio"
                             id="schedule"
-                            value="schedule"
-                            checked={shipmentMethod === "schedule"}
+                            value="Scheduled"
+                            checked={shipmentMethod === "Scheduled"}
                             onChange={handleShipmentChange}
+                            disabled
+
                         />
                         <div className="flex items-center justify-between w-full">
                             <div className="flex gap-5 items-center">
                                 <p htmlFor="schedule" className="text-sm font-bold pl-2">Scheduled</p>
-                                <p htmlFor="schedule" className="text-xs font-semibold">Regular shipment</p>
+                                <p htmlFor="schedule" className="text-xs font-semibold">Regular shipment - - - <span className="text-red-800 font-extrabold">Currently Unavailable</span></p>
                             </div>
                             <p htmlFor="schedule" className="text-sm font-bold">Select Date</p>
                         </div>

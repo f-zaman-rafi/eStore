@@ -56,6 +56,7 @@ const AuthProvider = ({ children }) => {
             await signOut(auth);
             await axiosCommon.post('/logout');
             setUser(null);
+            localStorage.clear();
         } catch (error) {
             console.error("Error during logout:", error);
         } finally {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
@@ -22,22 +23,30 @@ export const CartProvider = ({ children }) => {
     const [quantities, setQuantities] = useState({});
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);  // Track loading state
+
     // Initialize the state from localStorage if available
     const [currentAddress, setCurrentAddress] = useState(() => {
         const savedAddress = localStorage.getItem('currentAddress');
-        return savedAddress ? JSON.parse(savedAddress) : []; // Default to an empty array if no saved data
+        // console.log("Saved address from localStorage:", savedAddress);
+        return savedAddress !== null ? JSON.parse(savedAddress) : [];
     });
 
-    // Store currentAddress in localStorage whenever it changes
+
     useEffect(() => {
-        if (currentAddress.length > 0) {
-            localStorage.setItem('currentAddress', JSON.stringify(currentAddress));
-        } else {
-            // If no addresses are set, ensure to remove from localStorage
-            localStorage.removeItem('currentAddress');
-        }
+        // Log the currentAddress to verify it's updating as expected
+        // console.log("Current address updated:", currentAddress);
     }, [currentAddress]);
 
+
+    const [shipmentMethod, setShipmentMethod] = useState(() => {
+        // Retrieve from localStorage if available
+        return localStorage.getItem("shipmentMethod") || "Free";
+    });
+
+    useEffect(() => {
+        // Save shipmentMethod to localStorage whenever it changes
+        localStorage.setItem("shipmentMethod", shipmentMethod);
+    }, [shipmentMethod]);
 
     // Fetch cart data manually with useEffect
     useEffect(() => {
@@ -189,15 +198,22 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Fetch user data based on the email
-    const fetchUserData = async () => {
-        if (!user?.email) {
-            alert("User is not logged in");
-            return;
+
+    useEffect(() => {
+        if (!user) {
+            setUserData([]);  // Clear user data when user logs out
+        } else {
+            fetchUserData();  // Fetch new user data when a new user logs in
         }
+    }, [user]);  // This hook runs whenever the 'user' state changes
+
+
+    // Fetch user data
+    const fetchUserData = async () => {
+        if (!user?.email) return;
         try {
             const response = await axiosCommon.get(`/users/email/${user.email}`);
-            await setUserData(response.data);  // Accessing the 'user' key from the response
+            setUserData(response.data);  // Update the user data for the logged-in user
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
@@ -256,7 +272,9 @@ export const CartProvider = ({ children }) => {
         handleDeleteAddress,
         refetchAddress,
         setCurrentAddress,
-        currentAddress
+        currentAddress,
+        shipmentMethod,
+        setShipmentMethod
     };
 
     return (
