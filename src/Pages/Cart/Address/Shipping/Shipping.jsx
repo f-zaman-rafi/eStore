@@ -2,7 +2,7 @@ import { FaShippingFast } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { PiContactlessPayment } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { useCart } from "../../../../Providers/Cart/CartProvider";
+import useCart from "../../../../Hooks/useCart";
 
 const Shipping = () => {
 

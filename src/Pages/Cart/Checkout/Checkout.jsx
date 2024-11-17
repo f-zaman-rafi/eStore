@@ -8,7 +8,7 @@ import 'react-credit-cards-2/dist/es/styles-compiled.css';
 import { FaLocationDot } from "react-icons/fa6";
 import { FaShippingFast } from "react-icons/fa";
 import { PiContactlessPayment } from "react-icons/pi";
-import { useCart } from "../../../Providers/Cart/CartProvider";
+import useCart from "../../../Hooks/useCart";
 
 
 
@@ -16,7 +16,6 @@ import { useCart } from "../../../Providers/Cart/CartProvider";
 const Checkout = () => {
 
     const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, currentAddress, shipmentMethod } = useCart();
-
     const [activeTab, setActiveTab] = useState('creditCard');
 
     // credit card
@@ -43,7 +42,6 @@ const Checkout = () => {
     }
 
     const ultimateTotal = total + (shipmentMethod === "AFAP" ? 10 : 0)
-
 
     return (
         <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden md:px-0 px-4">
