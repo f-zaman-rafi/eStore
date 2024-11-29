@@ -2,9 +2,9 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from "react-router-dom";
-import { useCart } from "../../Providers/Cart/CartProvider";
 import useAuth from "../../Hooks/useAuth";
 import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
+import useCart from "../../Hooks/useCart";
 
 const Cart = () => {
   const { user } = useAuth();

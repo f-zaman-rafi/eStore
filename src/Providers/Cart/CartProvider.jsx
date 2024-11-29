@@ -7,15 +7,11 @@ import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import LoadingComponent from "../../SharedComponents/Loading/LoadingComponent";
 
 // Create the Shipment Context
-const CartContext = createContext();
+export const CartContext = createContext(null);
 
-// Create a custom hook to use the Shipment Context
-export const useCart = () => {
-    return useContext(CartContext);
-};
 
 // Create the provider component
-export const CartProvider = ({ children }) => {
+const CartProvider = ({ children }) => {
     const { user } = useAuth();
     const axiosCommon = useAxiosCommon();
     const [cartData, setCartData] = useState([]);
@@ -283,3 +279,5 @@ export const CartProvider = ({ children }) => {
         </CartContext.Provider>
     );
 };
+
+export default CartProvider;

@@ -6,11 +6,11 @@ import { useForm } from "react-hook-form";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 import LoadingComponent from "../../../SharedComponents/Loading/LoadingComponent";
 import { Link } from "react-router-dom";
-import { useCart } from "../../../Providers/Cart/CartProvider";
 import { FaRegEdit } from "react-icons/fa";
 import { useState } from "react"; // import useState to manage state
 import { IoAddCircleSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
+import useCart from "../../../Hooks/useCart";
 
 
 const Address = () => {
