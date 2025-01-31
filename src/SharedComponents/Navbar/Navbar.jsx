@@ -55,6 +55,9 @@ const Navbar = () => {
       <li>
         <Link to="/add-product">Add Product</Link>
       </li>
+      <li>
+        <Link to="/orders">Orders</Link>
+      </li>
       <li onClick={handleLogOut}>
         <Link>Logout</Link>
       </li>

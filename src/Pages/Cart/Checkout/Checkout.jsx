@@ -11,8 +11,12 @@ import { PiContactlessPayment } from "react-icons/pi";
 import useCart from "../../../Hooks/useCart";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 
 const Checkout = () => {
+  const { user } = useAuth();
+  const axiosCommon = useAxiosCommon();
   const {
     cartData,
     productDetails,
@@ -23,6 +27,7 @@ const Checkout = () => {
     total,
     currentAddress,
     shipmentMethod,
+    handleDeleteItem,
   } = useCart();
 
   const [activeTab, setActiveTab] = useState("creditCard");
@@ -32,8 +37,6 @@ const Checkout = () => {
 
   const stripe = useStripe();
   const elements = useElements();
-  // const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, currentAddress, shipmentMethod } = useCart();
-  // const [activeTab, setActiveTab] = useState('creditCard');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,7 +44,6 @@ const Checkout = () => {
     if (!stripe || !elements) return;
 
     const card = elements.getElement(CardElement);
-
     if (!card) return;
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -56,6 +58,20 @@ const Checkout = () => {
       console.log("[PaymentMethod]", paymentMethod);
       toast.success("Payment successful!");
       setIsModalOpen(false);
+
+      // Move cart items to orders
+      const orderResponse = await axiosCommon.post("/orders", {
+        email: user.email,
+        cartItems: cartData,
+      });
+
+      if (orderResponse.data.message === "Order placed successfully") {
+        // Delete all items from the cart after order placement
+        for (const item of cartData) {
+          await handleDeleteItem(item._id);
+        }
+      }
+
       navigate("/");
     }
   };
