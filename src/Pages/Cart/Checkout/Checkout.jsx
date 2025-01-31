@@ -2,21 +2,15 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaShippingFast } from "react-icons/fa";
 import { PiContactlessPayment } from "react-icons/pi";
 import useCart from "../../../Hooks/useCart";
-<<<<<<< HEAD
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
-=======
-
-
-
->>>>>>> 41d2fe1bfee9610f61e03dad9a3e9f2739e0bf7d
 
 const Checkout = () => {
   const {
@@ -31,17 +25,15 @@ const Checkout = () => {
     shipmentMethod,
   } = useCart();
 
-<<<<<<< HEAD
   const [activeTab, setActiveTab] = useState("creditCard");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
-=======
-    const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, currentAddress, shipmentMethod } = useCart();
-    const [activeTab, setActiveTab] = useState('creditCard');
->>>>>>> 41d2fe1bfee9610f61e03dad9a3e9f2739e0bf7d
+  // const { cartData, productDetails, quantities, calculateSubtotal, tax, shippingCost, total, currentAddress, shipmentMethod } = useCart();
+  // const [activeTab, setActiveTab] = useState('creditCard');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,6 +56,7 @@ const Checkout = () => {
       console.log("[PaymentMethod]", paymentMethod);
       toast.success("Payment successful!");
       setIsModalOpen(false);
+      navigate("/");
     }
   };
 
@@ -79,50 +72,22 @@ const Checkout = () => {
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
 
-<<<<<<< HEAD
     if (name === "number" && value.length > 16) return;
     if (name === "expiry" && value.length > 4) return;
     if (name === "cvc" && value.length > 4) return;
 
     setState((prev) => ({ ...prev, [name]: value }));
   };
-=======
-    return (
-        <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden md:px-0 px-4">
-            <div className="lg:ml-40 lg:mr-40 mt-14">
-                <div className="flex items-center justify-between py-5 px-5">
-                    <div className="flex items-center gap-1 opacity-50">
-                        <p className="bg-black p-1 rounded-full"><FaLocationDot size={15} color="white" /></p>
-                        <div>
-                            <p className="text-[10px] font-medium">Step 1</p>
-                            <p className="text-sm font-bold">Address</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-1 opacity-50">
-                        <p className="bg-black p-1 rounded-full"><FaShippingFast size={15} color="white" /></p>
-                        <div>
-                            <p className="text-[10px] font-medium">Step 2</p>
-                            <p className="text-sm font-bold">Shipping</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <p className="bg-black p-1 rounded-full"><PiContactlessPayment size={15} color="white" /></p>
-                        <div>
-                            <p className="text-[10px] font-medium">Step 3</p>
-                            <p className="text-sm font-bold">Payment</p>
-                        </div>
-                    </div>
->>>>>>> 41d2fe1bfee9610f61e03dad9a3e9f2739e0bf7d
 
-  const handleInputFocus = (evt) => {
+  const handleInputFocus = (evt) =>
     setState((prev) => ({ ...prev, focus: evt.target.name }));
-  };
 
   const ultimateTotal = total + (shipmentMethod === "AFAP" ? 10 : 0);
 
   return (
     <div className="max-w-[1440px] mx-auto font-inter overflow-x-hidden md:px-0 px-4">
       <div className="lg:ml-40 lg:mr-40 mt-14">
+        {/* steps bar */}
         <div className="flex items-center justify-between py-5 px-5">
           <div className="flex items-center gap-1 opacity-50">
             <p className="bg-black p-1 rounded-full">
@@ -153,6 +118,7 @@ const Checkout = () => {
           </div>
         </div>
         <div className="lg:grid lg:grid-cols-2 my-[72px] gap-24">
+          {/* Summary */}
           <div className="col-span-1 px-10 border-2 lg:py-8 lg:px-6 rounded-xl border-[#F6F6F6]">
             <p className="text-lg font-bold pb-5">Summary</p>
             {cartData.map((data) => {
@@ -290,7 +256,7 @@ const Checkout = () => {
                 <form>
                   <input
                     type="number"
-                    placeholder="Card Number"
+                    placeholder="Card Number (4242 4242 4242 4242)"
                     name="number"
                     value={state.number}
                     onChange={handleInputChange}
@@ -300,7 +266,7 @@ const Checkout = () => {
                   <input
                     type="text"
                     name="name"
-                    placeholder="Cardholder Name"
+                    placeholder="Cardholder Name (eg. JOHN DOE)"
                     value={state.name}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
@@ -318,7 +284,7 @@ const Checkout = () => {
                     />
                     <input
                       type="number"
-                      placeholder="CVC"
+                      placeholder="CVC (eg. 123)"
                       name="cvc"
                       value={state.cvc}
                       onChange={handleInputChange}

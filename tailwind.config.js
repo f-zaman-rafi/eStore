@@ -3,17 +3,14 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js"
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
-  plugins: [
-    require('daisyui'),
-    require('flowbite/plugin')
-  ],
-}
+  plugins: [require("daisyui"), require("flowbite/plugin")],
+};
